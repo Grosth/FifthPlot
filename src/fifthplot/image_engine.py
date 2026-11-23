@@ -12,7 +12,11 @@ from typing import Callable
 from PIL import Image
 
 from fifthplot.domain import Story
-from fifthplot.prompt_builder import NEGATIVE_PROMPT, bounded_scene_prompt
+from fifthplot.prompt_builder import (
+    bounded_scene_prompt,
+    bounded_cast_reference_prompt,
+    negative_prompt_for_scene,
+)
 
 
 class ImageGenerationError(RuntimeError):
@@ -107,21 +111,18 @@ class DiffusersIllustrator:
                 f"No se pudo cargar el generador local de imágenes: {exc}"
             ) from exc
 
-    def _reference(self, pipe, story, character, folder: Path) -> Path:
+    def _reference(self, pipe, story, scene, folder: Path) -> Path:
         import torch
 
-        ref_path = folder / "character_reference.png"
-        prompt = (
-            f"{character.visual_prompt}. Full-body character design, "
-            "centered on plain warm ivory background, "
-            "watercolor storybook illustration."
-        )
-        generator = torch.Generator(device="cpu").manual_seed(8100)
+        ref_path = folder / f"scene_{scene.number:02d}_cast_reference.png"
+        prompt = bounded_cast_reference_prompt(story, scene, pipe.tokenizer)
+        negative_prompt = negative_prompt_for_scene(story, scene)
+        generator = torch.Generator(device="cpu").manual_seed(8100 + scene.number)
         torch.cuda.reset_peak_memory_stats()
         started = perf_counter()
         image = pipe(
             prompt=prompt,
-            negative_prompt=NEGATIVE_PROMPT,
+            negative_prompt=negative_prompt,
             width=self.size,
             height=self.size,
             num_inference_steps=self.steps,
@@ -132,15 +133,18 @@ class DiffusersIllustrator:
         image.close()
         self.last_run.append(
             {
-                "stage": "character_reference",
+                "stage": "scene_cast_reference",
+                "scene": scene.number,
                 "elapsed_seconds": round(perf_counter() - started, 2),
                 "gpu_peak_allocated_gb": round(
                     torch.cuda.max_memory_allocated() / 1024**3, 3
                 ),
-                "seed": 8100,
+                "seed": 8100 + scene.number,
                 "size": f"{self.size}x{self.size}",
                 "steps": self.steps,
-                "character": character.name,
+                "characters": list(scene.characters_present),
+                "prompt": prompt,
+                "negative_prompt": negative_prompt,
                 "file": str(ref_path),
             }
         )
@@ -153,6 +157,7 @@ class DiffusersIllustrator:
         strategy: str = "ip_adapter",
         progress: Callable[[int, int, str], None] | None = None,
     ) -> list[Path]:
+        self.last_run = []
         folder = Path(folder)
         folder.mkdir(parents=True, exist_ok=True)
         if strategy not in {"ip_adapter", "text_only"}:
@@ -174,18 +179,18 @@ class DiffusersIllustrator:
                 "porque sería demasiado lenta para esta configuración."
             )
         self.gpu_name = torch.cuda.get_device_name(0)
-        self.last_run = []
         paths: list[Path] = []
-        reference = None
+        references: dict[int, Path] = {}
         if strategy == "ip_adapter":
             # La imagen de referencia debe generarse antes de cargar IP-Adapter.
             # Un pipeline con adapter exige image_embeds incluso para la
             # primera imagen, cuando todavía no existe una referencia.
             reference_pipe = self._load(use_ip_adapter=False)
             try:
-                reference = self._reference(
-                    reference_pipe, story, story.characters[0], folder
-                )
+                for scene in story.scenes:
+                    references[scene.number] = self._reference(
+                        reference_pipe, story, scene, folder
+                    )
             finally:
                 del reference_pipe
                 gc.collect()
@@ -195,11 +200,12 @@ class DiffusersIllustrator:
         try:
             for scene in story.scenes:
                 prompt = bounded_scene_prompt(story, scene, pipe.tokenizer)
+                negative_prompt = negative_prompt_for_scene(story, scene)
                 seed = 4200 + scene.number
                 generator = torch.Generator(device="cpu").manual_seed(seed)
                 arguments = {
                     "prompt": prompt,
-                    "negative_prompt": NEGATIVE_PROMPT,
+                    "negative_prompt": negative_prompt,
                     "width": self.size,
                     "height": self.size,
                     "num_inference_steps": self.steps,
@@ -208,6 +214,7 @@ class DiffusersIllustrator:
                 }
                 started = perf_counter()
                 torch.cuda.reset_peak_memory_stats()
+                reference = references.get(scene.number)
                 if reference is not None:
                     with Image.open(reference) as reference_image:
                         arguments["ip_adapter_image"] = reference_image.convert("RGB")
@@ -232,7 +239,7 @@ class DiffusersIllustrator:
                             self.adapter_scale if reference is not None else None
                         ),
                         "prompt": prompt,
-                        "negative_prompt": NEGATIVE_PROMPT,
+                        "negative_prompt": negative_prompt,
                         "elapsed_seconds": round(perf_counter() - started, 2),
                         "gpu_peak_allocated_gb": round(
                             torch.cuda.max_memory_allocated() / 1024**3, 3

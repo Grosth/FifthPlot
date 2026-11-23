@@ -88,7 +88,7 @@ def build_ui() -> gr.Blocks:
                 ("Solo texto (menor uso de RAM)", "text_only"),
             ],
             label="Estrategia de ilustración",
-            value="ip_adapter",
+            value="text_only",
         )
         create = gr.Button("Generar cuento", variant="primary")
         title = gr.Markdown()

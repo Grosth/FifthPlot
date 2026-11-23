@@ -4,7 +4,7 @@ FifthPlot convierte una idea y un género en un cuento local de exactamente cinc
 
 ## Estado
 
-La reconstrucción está en curso. El flujo narrativo, el validador, la persistencia local, el audio ambiental procedural y la síntesis Piper están implementados. Se completó una generación supervisada de cinco escenas con ilustraciones, voz y ambiente usando la estrategia local `text_only`. La interfaz incluye un selector entre `text_only` e IP-Adapter para elegir según los recursos disponibles. Falta validar IP-Adapter desde la interfaz, otras historias y la comparación controlada de estrategias.
+La reconstrucción está en curso. El flujo narrativo, el validador, la persistencia local, el audio ambiental procedural y la síntesis Piper están implementados. La estrategia local `text_only` ha completado varias generaciones manuales de cinco escenas. Se fijó una dirección visual de cuento infantil en acuarela y anclajes compactos de personajes; el estudiante revisó las nuevas salidas en varias historias y considera que cumplen el objetivo visual actual. La continuidad de cada reparto sigue sujeta a revisión de las cinco escenas. La interfaz permite elegir `text_only` o IP-Adapter según los recursos disponibles. Falta validar IP-Adapter desde la interfaz y hacer una comparación controlada de estrategias.
 
 ## Requisitos del equipo
 
@@ -14,7 +14,7 @@ La reconstrucción está en curso. El flujo narrativo, el validador, la persiste
 - DreamShaper 8 e IP-Adapter Plus SD15 en las rutas locales indicadas abajo.
 - GPU NVIDIA con CUDA. En el equipo auditado: RTX 3050 Laptop con 4 GB de VRAM y 16 GB de RAM.
 
-La generación usa una escena a la vez. El tiempo y el uso de memoria se guardarán por ejecución; todavía no hay una medición real completa para este código reconstruido.
+La generación procesa una escena a la vez. El manifiesto registra tiempos por escena, RAM disponible y memoria máxima de GPU. En el equipo de 16 GB, el servidor puede quedar con menos de 4 GB disponibles después de generar un cuento; si la siguiente ejecución falla la comprobación de memoria, reinicia el servidor local antes de reintentar.
 
 ## Instalación en Windows
 
@@ -66,7 +66,7 @@ La aplicación rechaza una dirección de Ollama que no sea loopback. No envía l
 uv run fifthplot
 ~~~
 
-La interfaz solo escucha en 127.0.0.1 y desactiva la opción de compartir públicamente. El formulario pide la idea, el género y la estrategia visual. Cada escena muestra su ilustración y texto, con controles de voz y ambiente separados.
+La interfaz solo escucha en 127.0.0.1 y desactiva la opción de compartir públicamente. El formulario pide la idea y el género; la estrategia visual inicia en `text_only`, de menor uso de RAM, y permite elegir IP-Adapter para una comparación. Todas las escenas comparten una dirección visual fija de cuento infantil en acuarela y anclajes compactos por personaje. IP-Adapter genera una referencia de reparto específica para cada escena. Cada escena muestra su ilustración y texto, con controles de voz y ambiente separados.
 
 ## Salidas
 

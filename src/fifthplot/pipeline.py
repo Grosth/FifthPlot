@@ -13,6 +13,7 @@ from typing import Callable
 from fifthplot.audio_engine import PiperNarrator, ProceduralAmbience
 from fifthplot.domain import StoryRequest
 from fifthplot.image_engine import DiffusersIllustrator
+from fifthplot.prompt_builder import MASTER_VISUAL_STYLE_PROMPT, VISUAL_PROMPT_POLICY
 from fifthplot.storage import StoryStorage
 
 
@@ -72,6 +73,8 @@ class StorybookPipeline:
                 "story_generation_seconds": round(perf_counter() - request_started, 2),
                 "scene_count": 5,
                 "image_strategy": strategy,
+                "visual_prompt_policy": VISUAL_PROMPT_POLICY,
+                "visual_style_prompt": MASTER_VISUAL_STYLE_PROMPT,
                 "image_size": getattr(self.illustrator, "size", None),
                 "image_steps": getattr(self.illustrator, "steps", None),
                 "image_guidance_scale": getattr(self.illustrator, "guidance", None),
