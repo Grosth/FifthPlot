@@ -1,0 +1,99 @@
+{
+  "title": "La Zorra y el Bosque de Estrellas Perdidas",
+  "genre": "Fantasía",
+  "synopsis": "Una zorra llamada Lira viaja por el bosque en busca de las estrellas que desaparecieron de su mundo. En su camino, encuentra criaturas mágicas y enfrenta desafíos que la llevan a descubrir la verdad detrás de la desaparición de las estrellas.",
+  "visual_style": "Un estilo místico y misterioso, con tierras y cielos de tonos azules y dorados, sombras que se mueven sin causa, y luces que brillan sin origen. Los personajes tienen texturas suaves y expresiones profundas.",
+  "characters": [
+    {
+      "name": "Lira",
+      "description": "Una zorra rubia con ojos azules y un pelaje brillante, con una cicatriz en la mejilla que la hace sentirse diferente. Busca las estrellas que desaparecieron de su mundo.",
+      "role": "Protagonista",
+      "visual_prompt": "Auburn fox with blue eyes, golden fur, and a scar on the cheek, standing in a moonlit forest with stars in the sky."
+    },
+    {
+      "name": "Thorn",
+      "description": "Un dragón con escamas de rojo y negro, con ojos brillantes y una voz ronca. Es un guardián del bosque que ayuda a Lira.",
+      "role": "Aliado",
+      "visual_prompt": "Red-and-black dragon with glowing eyes, standing in a dark forest with fire flickering in the background."
+    },
+    {
+      "name": "Mira",
+      "description": "Una hembra de ciervo con antenas en la cabeza y ojos de color violeta. Es una criatura mágica que guía a Lira.",
+      "role": "Guiadora",
+      "visual_prompt": "Deer with antennas on the head, purple eyes, and a glowing horn, standing in a misty forest with stars in the sky."
+    },
+    {
+      "name": "Virel",
+      "description": "Un gato con cuernos y ojos verdes, con una voz suave y un corazón de cristal. Es un espíritu del bosque que se opone a Lira.",
+      "role": "Antagonista",
+      "visual_prompt": "Cat with horns and green eyes, standing in a dark forest with a crystal heart glowing in the background."
+    }
+  ],
+  "scenes": [
+    {
+      "number": 1,
+      "scene_title": "La Zorra y el Bosque",
+      "narrative": "Lira camina por el bosque silencioso, con las estrellas desaparecidas. Siente un vacío en su corazón y siente que algo está mal. Escucha un susurro en el viento que la lleva a seguir la luz.",
+      "image_prompt": "Auburn fox with blue eyes, golden fur, and a scar on the cheek, walking through a dark forest with a faint light in the distance.",
+      "background_prompt": "Dark forest with tall trees, misty atmosphere, and a faint glow in the sky.",
+      "characters_present": [
+        "Lira"
+      ],
+      "ambience_prompt": "Soft wind, distant whisper, faint light in the distance.",
+      "voice_direction": "Left to right"
+    },
+    {
+      "number": 2,
+      "scene_title": "La Guía del Ciervo",
+      "narrative": "Lira encuentra a Mira, una hembra de ciervo con antenas en la cabeza, que la guía por el bosque. Mira le cuenta que las estrellas se fueron porque el bosque se olvidó de ellas.",
+      "image_prompt": "Deer with antennas on the head, purple eyes, and a glowing horn, guiding a fox through a misty forest.",
+      "background_prompt": "Misty forest with glowing lights and shadows, a path leading through the trees.",
+      "characters_present": [
+        "Lira",
+        "Mira"
+      ],
+      "ambience_prompt": "Whispering wind, soft footsteps, distant glow.",
+      "voice_direction": "Right to left"
+    },
+    {
+      "number": 3,
+      "scene_title": "El Dragón y el Confronto",
+      "narrative": "Lira encuentra a Thorn, un dragón con escamas de rojo y negro, que le dice que las estrellas se fueron porque alguien las ocultó. Thorn le ofrece ayuda para encontrar la verdad.",
+      "image_prompt": "Red-and-black dragon with glowing eyes, standing in a dark forest with fire flickering in the background.",
+      "background_prompt": "Dark forest with shadows, flames, and a glowing light in the distance.",
+      "characters_present": [
+        "Lira",
+        "Thorn"
+      ],
+      "ambience_prompt": "Flickering fire, distant growl, soft wind.",
+      "voice_direction": "Back and forth"
+    },
+    {
+      "number": 4,
+      "scene_title": "El Espíritu del Bosque",
+      "narrative": "Lira se enfrenta a Virel, un gato con cuernos y ojos verdes, que le dice que las estrellas se fueron porque el bosque las olvidó. Virel le ofrece una prueba para demostrar su valor.",
+      "image_prompt": "Cat with horns and green eyes, standing in a dark forest with a crystal heart glowing in the background.",
+      "background_prompt": "Dark forest with glowing lights and shadows, a crystal heart in the center.",
+      "characters_present": [
+        "Lira",
+        "Virel"
+      ],
+      "ambience_prompt": "Distant growl, soft wind, faint glow.",
+      "voice_direction": "Forward and backward"
+    },
+    {
+      "number": 5,
+      "scene_title": "La Regeneración del Bosque",
+      "narrative": "Lira logra regenerar las estrellas con la ayuda de Thorn y Mira, y el bosque se recupera. Las estrellas vuelven a brillar, y Lira se siente completa nuevamente.",
+      "image_prompt": "Auburn fox with blue eyes, golden fur, and a scar on the cheek, standing in a forest with stars in the sky.",
+      "background_prompt": "Forest with glowing stars, golden light, and a peaceful atmosphere.",
+      "characters_present": [
+        "Lira",
+        "Thorn",
+        "Mira"
+      ],
+      "ambience_prompt": "Soft wind, gentle light, distant stars.",
+      "voice_direction": "Left to right"
+    }
+  ]
+}

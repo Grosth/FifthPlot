@@ -1,0 +1,21 @@
+{
+    "escena": 3,
+    "titulo": "El Reino de los Espejos",
+    "historia": "La Zorra y las Estrellas Perdidas",
+    "modelo": "Stable Diffusion 1.5",
+    "adaptador": "IP-Adapter Plus SD15",
+    "referencia": "outputs\\images\\luma_prueba_01.png",
+    "adapter_scale": 0.5,
+    "semilla": 4203,
+    "resolucion": "512x512",
+    "pasos": 20,
+    "guidance_scale": 7.0,
+    "precision": "FP16",
+    "tiempo_segundos": 18.92,
+    "memoria_gpu_pico_gb": 1.17,
+    "prompt": "Watercolor storybook art, soft gouache brushstrokes, teal forest, warm colors. Luma, small red-orange fox, golden eyes, tiny nose, fluffy fur, large curled comet tail. Scene: A red fox looks at a mirror showing an old man with blue eyes and shadow snake. Forest of mirrors reflects different scenes. Fox has confused and mysterious expression.",
+    "negative_prompt": "cropped, hidden tail, extra limbs, extra ears, duplicate fox, blurry, low quality, text, watermark, photorealistic, 3d render, plastic texture.",
+    "descripcion_original": "Una pequeña zorra de pelo rojo brillante mira en un espejo que muestra una imagen de un anciano con ojos azules y una serpiente de sombras. El fondo es un bosque de espejos que reflejan diferentes escenas. La zorra tiene una expresión de confusión y misterio en su rostro.",
+    "descripcion_traducida": "A red fox looks at a mirror showing an old man with blue eyes and shadow snake. Forest of mirrors reflects different scenes. Fox has confused and mysterious expression.",
+    "imagen": "outputs\\images\\final\\scene_03.png"
+}

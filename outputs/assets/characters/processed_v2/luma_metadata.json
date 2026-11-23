@@ -1,0 +1,33 @@
+{
+    "personaje": "luma",
+    "origen": "outputs\\assets\\characters\\luma_reference_cropped.png",
+    "metodo": "Transparencia original conservada",
+    "dimensiones_originales": [
+        214,
+        199
+    ],
+    "dimensiones_recortadas": [
+        214,
+        199
+    ],
+    "bbox": [
+        0,
+        0,
+        214,
+        199
+    ],
+    "margen": 16,
+    "porcentaje_transparente": 54.14,
+    "mascara": "outputs\\assets\\characters\\processed_v2\\luma_mask.png",
+    "imagen_transparente": "outputs\\assets\\characters\\processed_v2\\luma_transparent.png",
+    "imagen_recortada": "outputs\\assets\\characters\\processed_v2\\luma_cropped.png",
+    "vista_previa": "outputs\\assets\\characters\\processed_v2\\luma_preview.png",
+    "version": "processed_v2",
+    "limpieza_componentes": [],
+    "bbox_final": [
+        0,
+        0,
+        214,
+        199
+    ]
+}

@@ -1,0 +1,176 @@
+{
+  "story_id": "20261123_014610_11ebec14",
+  "status": "complete",
+  "story_title": "La Brújula de los Sueños Perdidos",
+  "genre": "Aventura",
+  "strategy": "ip_adapter",
+  "models": {
+    "narrative": "qwen3:4b-q4_K_M",
+    "image": "dreamshaper-8",
+    "image_adapter": "IP-Adapter Plus SD15",
+    "voice": "es_ES-carlfm-x_low.onnx",
+    "ambience": "ProceduralAmbience"
+  },
+  "parameters": {
+    "story_generation_seconds": 77.84,
+    "scene_count": 5,
+    "image_strategy": "ip_adapter",
+    "image_size": 512,
+    "image_steps": 20,
+    "image_guidance_scale": 7.0,
+    "ip_adapter_scale": 0.45,
+    "image_runs": [
+      {
+        "stage": "character_reference",
+        "elapsed_seconds": 8.06,
+        "gpu_peak_allocated_gb": 2.309,
+        "seed": 8100,
+        "size": "512x512",
+        "steps": 20,
+        "character": "Lila",
+        "file": "outputs\\storybooks\\la-br-jula-de-los-sue-os-perdidos_20261123_014610_11ebec14\\character_reference.png"
+      },
+      {
+        "stage": "scene",
+        "scene": 1,
+        "seed": 4201,
+        "size": "512x512",
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "adapter_scale": 0.45,
+        "prompt": "Action: A young girl with brown hair and blue eyes, standing on a floating island surrounded by. Characters: A young girl with brown hair and blue eyes, standing on a floating island surrounded by clouds, holding. Setting: A misty sky with. Watercolor storybook, soft brushstrokes. Visual style: Un estilo visual. Complete scene illustration.",
+        "negative_prompt": "cropped, missing character, duplicate character, extra limbs, extra ears, deformed anatomy, text, watermark, photorealistic, 3d render, plastic texture",
+        "elapsed_seconds": 9.74,
+        "gpu_peak_allocated_gb": 2.41,
+        "file": "outputs\\storybooks\\la-br-jula-de-los-sue-os-perdidos_20261123_014610_11ebec14\\scene_01.png"
+      },
+      {
+        "stage": "scene",
+        "scene": 2,
+        "seed": 4202,
+        "size": "512x512",
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "adapter_scale": 0.45,
+        "prompt": "Action: A tunnel of clouds with floating memories, a girl with brown hair and blue eyes walking through. Characters: A young girl with brown hair and blue eyes, standing; An old man with black silk robes and golden. Setting: A tunnel. Watercolor storybook, soft brushstrokes. Visual style: Un estilo visual. Complete scene illustration.",
+        "negative_prompt": "cropped, missing character, duplicate character, extra limbs, extra ears, deformed anatomy, text, watermark, photorealistic, 3d render, plastic texture",
+        "elapsed_seconds": 7.01,
+        "gpu_peak_allocated_gb": 2.408,
+        "file": "outputs\\storybooks\\la-br-jula-de-los-sue-os-perdidos_20261123_014610_11ebec14\\scene_02.png"
+      },
+      {
+        "stage": "scene",
+        "scene": 3,
+        "seed": 4203,
+        "size": "512x512",
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "adapter_scale": 0.45,
+        "prompt": "Action: A dark and misty river of shadows, a girl with brown hair and blue eyes fighting against. Characters: A young girl with brown hair and blue eyes; A creature made of shadows and light, moving through. Setting: A dark river. Watercolor storybook, soft brushstrokes. Visual style: Un estilo visual. Complete scene illustration.",
+        "negative_prompt": "cropped, missing character, duplicate character, extra limbs, extra ears, deformed anatomy, text, watermark, photorealistic, 3d render, plastic texture",
+        "elapsed_seconds": 7.03,
+        "gpu_peak_allocated_gb": 2.408,
+        "file": "outputs\\storybooks\\la-br-jula-de-los-sue-os-perdidos_20261123_014610_11ebec14\\scene_03.png"
+      },
+      {
+        "stage": "scene",
+        "scene": 4,
+        "seed": 4204,
+        "size": "512x512",
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "adapter_scale": 0.45,
+        "prompt": "Action: A girl with brown hair and blue eyes holding a glowing compass, facing a river of. Characters: A young girl with brown hair and blue; A creature made of shadows and; A celestial fire floating in the. Setting: A dark. Watercolor storybook, soft brushstrokes. Visual style: Un estilo visual. Complete scene illustration.",
+        "negative_prompt": "cropped, missing character, duplicate character, extra limbs, extra ears, deformed anatomy, text, watermark, photorealistic, 3d render, plastic texture",
+        "elapsed_seconds": 7.22,
+        "gpu_peak_allocated_gb": 2.408,
+        "file": "outputs\\storybooks\\la-br-jula-de-los-sue-os-perdidos_20261123_014610_11ebec14\\scene_04.png"
+      },
+      {
+        "stage": "scene",
+        "scene": 5,
+        "seed": 4205,
+        "size": "512x512",
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "adapter_scale": 0.45,
+        "prompt": "Action: A young girl with brown hair and blue eyes walking on a floating island, holding a glowing. Characters: A young girl with brown hair and blue eyes, standing; An old man with black silk robes and golden. Setting: A clear. Watercolor storybook, soft brushstrokes. Visual style: Un estilo visual. Complete scene illustration.",
+        "negative_prompt": "cropped, missing character, duplicate character, extra limbs, extra ears, deformed anatomy, text, watermark, photorealistic, 3d render, plastic texture",
+        "elapsed_seconds": 7.09,
+        "gpu_peak_allocated_gb": 2.408,
+        "file": "outputs\\storybooks\\la-br-jula-de-los-sue-os-perdidos_20261123_014610_11ebec14\\scene_05.png"
+      }
+    ],
+    "narration_voice": "models\\voices\\es_ES-carlfm-x_low.onnx",
+    "ambience_sample_rate": 22050,
+    "ambience_duration_seconds": 9.0
+  },
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cpu": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+    "logical_processors": 16,
+    "ram": {
+      "total_gb": 15.82,
+      "available_gb": 4.43
+    },
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "versions": {
+      "fifthplot": "0.2.0",
+      "torch": "2.15.0+cu132",
+      "diffusers": "0.43.0",
+      "transformers": "5.23.0",
+      "gradio": "6.32.0",
+      "piper-tts": "1.8.0"
+    }
+  },
+  "scenes": [
+    {
+      "number": 1,
+      "image": "scene_01.png",
+      "narration": "scene_01\\narration.wav",
+      "ambience": "scene_01\\ambience.wav",
+      "narration_seconds": 1.28,
+      "ambience_seconds": 0.02,
+      "narrative_characters": 202
+    },
+    {
+      "number": 2,
+      "image": "scene_02.png",
+      "narration": "scene_02\\narration.wav",
+      "ambience": "scene_02\\ambience.wav",
+      "narration_seconds": 0.19,
+      "ambience_seconds": 0.01,
+      "narrative_characters": 169
+    },
+    {
+      "number": 3,
+      "image": "scene_03.png",
+      "narration": "scene_03\\narration.wav",
+      "ambience": "scene_03\\ambience.wav",
+      "narration_seconds": 0.16,
+      "ambience_seconds": 0.01,
+      "narrative_characters": 140
+    },
+    {
+      "number": 4,
+      "image": "scene_04.png",
+      "narration": "scene_04\\narration.wav",
+      "ambience": "scene_04\\ambience.wav",
+      "narration_seconds": 0.21,
+      "ambience_seconds": 0.01,
+      "narrative_characters": 173
+    },
+    {
+      "number": 5,
+      "image": "scene_05.png",
+      "narration": "scene_05\\narration.wav",
+      "ambience": "scene_05\\ambience.wav",
+      "narration_seconds": 0.21,
+      "ambience_seconds": 0.01,
+      "narrative_characters": 163
+    }
+  ],
+  "elapsed_seconds": 70.17,
+  "source_story_id": "20261123_013919_a20b0eb1"
+}

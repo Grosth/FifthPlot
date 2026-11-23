@@ -1,0 +1,14 @@
+{
+    "modelo": "Stable Diffusion 1.5",
+    "tipo_pesos": "FP16 Safetensors",
+    "dispositivo": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "precision": "float16",
+    "resolucion": "512x512",
+    "pasos": 15,
+    "guidance_scale": 7.0,
+    "seed": 42,
+    "tiempo_segundos": 17.54,
+    "memoria_gpu_pico_gb": 1.17,
+    "prompt": "full body character portrait of Luma, a small red fox with bright fluffy red fur, golden eyes, tiny nose and a large curled comet tail with white tip. Three-quarter view, standing alone, centered, entire tail visible, plain warm cream background, painterly 2D children's fantasy storybook art.",
+    "negative_prompt": "forest, trees, stars, moon, scenery, other animals, extra foxes, cropped body, hidden tail, blurry, deformed, extra legs, extra ears, text, watermark, photorealistic, 3D"
+}

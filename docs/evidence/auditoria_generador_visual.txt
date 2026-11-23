@@ -1,0 +1,1734 @@
+﻿
+========================================
+ARCHIVO: pyproject.toml
+========================================
+[project]
+name = "fifthplot"
+version = "0.1.0"
+description = "Local AI storybook generator with five illustrated scenes, narration and sound"
+readme = "README.md"
+authors = [
+    { name = "Grosth" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "accelerate>=1.16.0",
+    "diffusers>=0.43.0",
+    "gradio>=6.32.0",
+    "huggingface-hub>=2.4.0",
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.4",
+    "pillow>=13.0.0",
+    "python-dotenv>=1.2.4",
+    "rembg[cpu]>=2.0.69",
+    "safetensors>=0.8.0",
+    "soundfile>=0.14.0",
+    "torch==2.15.0",
+    "torchvision==0.29.2",
+    "tqdm>=4.66.5",
+    "transformers>=5.23.0",
+]
+
+[project.scripts]
+fifthplot = "fifthplot:main"
+
+[build-system]
+requires = ["uv_build>=0.12.18,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu132" }
+torchvision = { index = "pytorch-cu132" }
+
+[[tool.uv.index]]
+name = "pytorch-cu132"
+url = "https://download.pytorch.org/whl/cu132"
+
+
+
+========================================
+ARCHIVO: src/fifthplot/config.py
+========================================
+
+========================================
+ARCHIVO: src/fifthplot/generators/images.py
+========================================
+import json
+import gc
+import time
+from pathlib import Path
+
+import torch
+import diffusers
+from diffusers import StableDiffusionPipeline
+
+MODEL_DIR = Path("models/stable-diffusion-v1-5")
+OUTPUT_DIR = Path("outputs/images")
+
+# Configuracion de la primera prueba.
+SEED = 42
+IMAGE_SIZE = 512
+STEPS = 15
+GUIDANCE = 7.0
+
+PROMPT = """Watercolor storybook art of Luma, a small red orange fox with golden eyes, tiny nose, fluffy messy fur and a large curled comet tail. Full body, all paws visible, standing in a teal enchanted forest. Soft moonlight, painterly gouache, visible brushstrokes, warm fur and cool blue green background."""
+
+NEGATIVE_PROMPT = """cropped, hidden tail, extra limbs, extra ears, duplicate fox, other animals, blurry, text, watermark, photorealistic, 3d, plastic texture."""
+
+
+def cargar_modelo():
+
+    if not MODEL_DIR.exists():
+        raise FileNotFoundError("No se encontro el modelo local.")
+
+    print("\nCargando Stable Diffusion 1.5...")
+
+    pipe = StableDiffusionPipeline.from_pretrained(
+        str(MODEL_DIR),
+        dtype=torch.float16,
+        variant="fp16",
+        use_safetensors=True,
+        local_files_only=True,
+        low_cpu_mem_usage=True
+    )
+
+    # Movemos las capas a GPU solamente cuando se necesitan.
+    pipe.enable_sequential_cpu_offload()
+
+    # Reducimos el consumo de memoria.
+    # Usamos la atencion SDPA de PyTorch.
+    pipe.vae.enable_slicing()
+
+    pipe.set_progress_bar_config(desc="Generando imagen")
+
+    return pipe
+
+
+def generar_luma():
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    print("=" * 50)
+    print("FIFTHPLOT - GENERADOR DE IMAGENES")
+    print("=" * 50)
+
+    print(f"GPU: {torch.cuda.get_device_name(0)}")
+    print("Precision: FP16")
+    print(f"Resolucion: {IMAGE_SIZE}x{IMAGE_SIZE}")
+
+    # Semilla fija para poder repetir el experimento.
+    generador = torch.Generator(device="cpu").manual_seed(SEED)
+
+    if torch.cuda.is_available():
+        torch.cuda.reset_peak_memory_stats()
+
+    pipe = cargar_modelo()
+
+    print("\nModelo cargado.")
+    print("Generando ilustracion de Luma...")
+
+    inicio = time.perf_counter()
+
+    resultado = pipe(
+        prompt=PROMPT,
+        negative_prompt=NEGATIVE_PROMPT,
+        height=IMAGE_SIZE,
+        width=IMAGE_SIZE,
+        num_inference_steps=STEPS,
+        guidance_scale=GUIDANCE,
+        generator=generador
+    )
+
+    tiempo = time.perf_counter() - inicio
+
+    imagen = resultado.images[0]
+
+    ruta_imagen = OUTPUT_DIR / "luma_referencia_v2.png"
+    imagen.save(ruta_imagen)
+
+    # Guardamos los parametros para documentar el experimento.
+    memoria = 0
+
+    if torch.cuda.is_available():
+        memoria = round(
+            torch.cuda.max_memory_allocated() / (1024 ** 3), 2
+        )
+
+    datos = {
+        "modelo": "Stable Diffusion 1.5",
+        "tipo_pesos": "FP16 Safetensors",
+        "dispositivo": torch.cuda.get_device_name(0),
+        "precision": "float16",
+        "resolucion": f"{IMAGE_SIZE}x{IMAGE_SIZE}",
+        "pasos": STEPS,
+        "guidance_scale": GUIDANCE,
+        "seed": SEED,
+        "tiempo_segundos": round(tiempo, 2),
+        "memoria_gpu_pico_gb": memoria,
+        "prompt": PROMPT,
+        "negative_prompt": NEGATIVE_PROMPT
+    }
+
+    ruta_datos = OUTPUT_DIR / "luma_referencia_v2.json"
+
+    with open(ruta_datos, "w", encoding="utf-8") as archivo:
+        json.dump(datos, archivo, ensure_ascii=False, indent=4)
+
+    print("\nGeneracion terminada.")
+    print(f"Imagen guardada: {ruta_imagen}")
+    print(f"Parametros guardados: {ruta_datos}")
+    print(f"Tiempo: {tiempo:.2f} segundos")
+    print(f"Memoria GPU pico: {memoria} GB")
+
+    # Liberamos la memoria para los siguientes modelos.
+    del pipe
+    gc.collect()
+    torch.cuda.empty_cache()
+
+    print("\nMemoria de GPU liberada.")
+
+
+if __name__ == "__main__":
+
+    if not torch.cuda.is_available():
+        raise RuntimeError("No se detecto una GPU compatible con CUDA.")
+
+    generar_luma()
+
+
+========================================
+ARCHIVO: src/fifthplot/generators/generate_story_images.py
+========================================
+import gc
+import json
+import time
+import urllib.request
+import urllib.error
+from pathlib import Path
+
+import torch
+from PIL import Image, ImageDraw, ImageFont
+from transformers import CLIPTokenizer
+
+from fifthplot.generators import ip_adapter_test as ip_test
+
+
+# 1. CONFIGURACION
+
+MODEL = "qwen3:4b-q4_K_M"
+OLLAMA_URL = "http://localhost:11434/api/chat"
+
+STORY_DIR = Path("outputs/stories")
+IMAGE_DIR = Path("outputs/images/final")
+REFERENCE = Path("outputs/images/luma_prueba_01.png")
+TOKENIZER_DIR = Path("models/stable-diffusion-v1-5/tokenizer")
+
+IMAGE_SIZE = 512
+STEPS = 20
+GUIDANCE = 7.0
+IP_SCALE = 0.5
+
+BASE_SEED = 4200
+
+ART_STYLE = "Watercolor storybook art, soft gouache brushstrokes, teal forest, warm colors."
+
+LUMA_IDENTITY = "Luma, small red-orange fox, golden eyes, tiny nose, fluffy fur, large curled comet tail."
+
+NEGATIVE_PROMPT = (
+    "cropped, hidden tail, extra limbs, extra ears, "
+    "duplicate fox, blurry, low quality, text, watermark, "
+    "photorealistic, 3d render, plastic texture."
+)
+
+PROMPT_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "prompts": {
+            "type": "array",
+            "minItems": 5,
+            "maxItems": 5,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "number": {"type": "integer"},
+                    "description_en": {"type": "string"}
+                },
+                "required": ["number", "description_en"]
+            }
+        }
+    },
+    "required": ["prompts"]
+}
+
+
+# 2. BUSCAR LA HISTORIA
+
+def cargar_historia():
+
+    historias = list(STORY_DIR.glob("*.json"))
+
+    if not historias:
+        raise FileNotFoundError(
+            "No se encontraron historias en outputs/stories."
+        )
+
+    # Utilizamos la historia mas reciente.
+    archivo = max(
+        historias,
+        key=lambda ruta: ruta.stat().st_mtime
+    )
+
+    with open(archivo, "r", encoding="utf-8") as f:
+        historia = json.load(f)
+
+    escenas = historia.get("scenes", [])
+
+    if len(escenas) != 5:
+        raise ValueError("La historia debe tener cinco escenas.")
+
+    numeros = [escena["number"] for escena in escenas]
+
+    if sorted(numeros) != [1, 2, 3, 4, 5]:
+        raise ValueError("La numeracion de las escenas no es valida.")
+
+    print(f"\nHistoria seleccionada: {historia['title']}")
+    print(f"Archivo: {archivo}")
+
+    return historia, archivo
+
+
+# 3. TRADUCIR LOS PROMPTS CON QWEN3
+
+def traducir_prompts(escenas):
+
+    print("\nPreparando las descripciones visuales...")
+
+    entradas = []
+
+    for escena in escenas:
+        entradas.append({
+            "number": escena["number"],
+            "title": escena["scene_title"],
+            "description": escena["image_prompt"],
+            "context": escena["narrative"]
+        })
+
+    mensaje = """
+    Traduce al ingles las cinco descripciones visuales de un cuento.
+
+    Devuelve exactamente cinco descripciones, numeradas del 1 al 5.
+
+    Reglas:
+    - Utiliza ingles sencillo para Stable Diffusion 1.5.
+    - Cada descripcion debe tener como maximo 10 palabras.
+    - Conserva la accion y el escenario de cada escena.
+    - Incluye otros personajes cuando sean importantes.
+    - No inventes acontecimientos.
+    - No repitas la descripcion fisica de Luma.
+    - No incluyas explicaciones ni texto adicional.
+
+    DESCRIPCIONES:
+    """ + json.dumps(entradas, ensure_ascii=False)
+
+    datos = {
+        "model": MODEL,
+        "messages": [
+            {
+                "role": "system",
+                "content": "You translate concise visual prompts for image generation."
+            },
+            {
+                "role": "user",
+                "content": mensaje
+            }
+        ],
+        "format": PROMPT_SCHEMA,
+        "think": False,
+        "stream": False,
+        "keep_alive": 0,
+        "options": {
+            "temperature": 0.2,
+            "num_ctx": 4096,
+            "num_predict": 1200
+        }
+    }
+
+    solicitud = urllib.request.Request(
+        OLLAMA_URL,
+        data=json.dumps(datos).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST"
+    )
+
+    try:
+        with urllib.request.urlopen(solicitud, timeout=600) as respuesta:
+            resultado = json.loads(respuesta.read().decode("utf-8"))
+
+        contenido = resultado["message"]["content"]
+        traducciones = json.loads(contenido)["prompts"]
+
+    except urllib.error.URLError as error:
+        raise RuntimeError(
+            "No se pudo conectar con Ollama. "
+            "Comprueba que Ollama este iniciado."
+        ) from error
+
+    numeros = [item["number"] for item in traducciones]
+
+    if sorted(numeros) != [1, 2, 3, 4, 5]:
+        raise ValueError("Qwen3 no devolvio las cinco traducciones.")
+
+    traducciones.sort(key=lambda item: item["number"])
+
+    print("Cinco descripciones traducidas correctamente.")
+
+    return traducciones
+
+
+# 4. PREPARAR LOS PROMPTS
+
+
+def preparar_prompts(traducciones):
+
+    tokenizer = CLIPTokenizer.from_pretrained(
+        str(TOKENIZER_DIR),
+        local_files_only=True
+    )
+
+    prompts = []
+
+    for item in traducciones:
+
+        descripcion = item["description_en"].strip()
+
+        prefijo = f"{ART_STYLE} {LUMA_IDENTITY} Scene:"
+        prompt = f"{prefijo} {descripcion}"
+
+        tokens = tokenizer(
+            prompt,
+            truncation=False
+        )["input_ids"]
+
+        reducciones = 0
+
+        # Reducimos solamente la descripcion de la escena.
+        # Nunca eliminamos la identidad de Luma ni el estilo.
+        while len(tokens) > 77:
+
+            tokens_escena = tokenizer(
+                descripcion,
+                add_special_tokens=False
+            )["input_ids"]
+
+            if len(tokens_escena) <= 4:
+                raise ValueError(
+                    f"No se pudo ajustar el prompt de la escena "
+                    f"{item['number']}."
+                )
+
+            descripcion = tokenizer.decode(
+                tokens_escena[:-2],
+                skip_special_tokens=True
+            ).strip()
+
+            prompt = f"{prefijo} {descripcion}"
+
+            tokens = tokenizer(
+                prompt,
+                truncation=False
+            )["input_ids"]
+
+            reducciones += 1
+
+        item["description_en"] = descripcion
+
+        print(
+            f"Escena {item['number']}: "
+            f"{len(tokens)}/77 tokens"
+        )
+
+        if reducciones:
+            print(
+                f"Descripcion ajustada: "
+                f"{reducciones} reducciones."
+            )
+
+        prompts.append(prompt)
+
+    cantidad_negativo = len(
+        tokenizer(
+            NEGATIVE_PROMPT,
+            truncation=False
+        )["input_ids"]
+    )
+
+    print(f"Prompt negativo: {cantidad_negativo}/77 tokens")
+
+    if cantidad_negativo > 77:
+        raise ValueError(
+            "El prompt negativo supera el limite de CLIP."
+        )
+
+    return prompts
+
+
+
+# 5. GENERAR LAS CINCO ILUSTRACIONES
+
+def generar_ilustraciones(historia, archivo_historia, traducciones, prompts):
+
+    if not torch.cuda.is_available():
+        raise RuntimeError("No se detecto una GPU CUDA.")
+
+    if not REFERENCE.exists():
+        raise FileNotFoundError("No se encontro la referencia de Luma 01.")
+
+    IMAGE_DIR.mkdir(parents=True, exist_ok=True)
+
+    print("\n" + "=" * 55)
+    print("FIFTHPLOT - ILUSTRACIONES DEL CUENTO")
+    print("=" * 55)
+
+    print(f"GPU: {torch.cuda.get_device_name(0)}")
+    print(f"Resolucion: {IMAGE_SIZE}x{IMAGE_SIZE}")
+    print(f"Pasos: {STEPS}")
+    print(f"IP-Adapter Scale: {IP_SCALE}")
+    print("Referencia: Luma 01")
+
+    # Utilizamos el mismo metodo de carga que ya validamos.
+    ip_test.REFERENCE = REFERENCE
+    ip_test.ADAPTER_SCALE = IP_SCALE
+
+    print("\nCargando Stable Diffusion e IP-Adapter...")
+
+    pipe = ip_test.cargar_pipeline(usando_referencia=True)
+
+    referencia = Image.open(REFERENCE).convert("RGB")
+
+    resultados = []
+
+    for escena, traduccion, prompt in zip(
+        historia["scenes"],
+        traducciones,
+        prompts
+    ):
+
+        numero = escena["number"]
+        semilla = BASE_SEED + numero
+
+        print("\n" + "-" * 45)
+        print(f"GENERANDO ESCENA {numero}/5")
+        print(escena["scene_title"])
+
+        generador = torch.Generator(
+            device="cpu"
+        ).manual_seed(semilla)
+
+        torch.cuda.reset_peak_memory_stats()
+
+        inicio = time.perf_counter()
+
+        resultado = pipe(
+            prompt=prompt,
+            negative_prompt=NEGATIVE_PROMPT,
+            ip_adapter_image=referencia,
+            height=IMAGE_SIZE,
+            width=IMAGE_SIZE,
+            num_inference_steps=STEPS,
+            guidance_scale=GUIDANCE,
+            generator=generador
+        )
+
+        tiempo = time.perf_counter() - inicio
+
+        imagen = resultado.images[0]
+
+        ruta = IMAGE_DIR / f"scene_{numero:02d}.png"
+        imagen.save(ruta)
+
+        memoria = round(
+            torch.cuda.max_memory_allocated() / (1024 ** 3),
+            2
+        )
+
+        datos = {
+            "escena": numero,
+            "titulo": escena["scene_title"],
+            "historia": historia["title"],
+            "modelo": "Stable Diffusion 1.5",
+            "adaptador": "IP-Adapter Plus SD15",
+            "referencia": str(REFERENCE),
+            "adapter_scale": IP_SCALE,
+            "semilla": semilla,
+            "resolucion": f"{IMAGE_SIZE}x{IMAGE_SIZE}",
+            "pasos": STEPS,
+            "guidance_scale": GUIDANCE,
+            "precision": "FP16",
+            "tiempo_segundos": round(tiempo, 2),
+            "memoria_gpu_pico_gb": memoria,
+            "prompt": prompt,
+            "negative_prompt": NEGATIVE_PROMPT,
+            "descripcion_original": escena["image_prompt"],
+            "descripcion_traducida": traduccion["description_en"],
+            "imagen": str(ruta)
+        }
+
+        ruta_json = IMAGE_DIR / f"scene_{numero:02d}.json"
+
+        with open(ruta_json, "w", encoding="utf-8") as f:
+            json.dump(datos, f, ensure_ascii=False, indent=4)
+
+        resultados.append(datos)
+
+        print(f"Imagen guardada: {ruta}")
+        print(f"Tiempo: {tiempo:.2f} segundos")
+        print(f"Memoria GPU pico: {memoria} GB")
+
+        del resultado
+        del imagen
+
+        gc.collect()
+        torch.cuda.empty_cache()
+
+    referencia.close()
+
+    del pipe
+    gc.collect()
+    torch.cuda.empty_cache()
+
+    # Guardamos el registro general.
+    resumen = {
+        "historia": historia["title"],
+        "archivo_historia": str(archivo_historia),
+        "modelo": "Stable Diffusion 1.5",
+        "estrategia": "Prompt + IP-Adapter Plus",
+        "referencia": str(REFERENCE),
+        "adapter_scale": IP_SCALE,
+        "resolucion": f"{IMAGE_SIZE}x{IMAGE_SIZE}",
+        "pasos": STEPS,
+        "resultados": resultados
+    }
+
+    with open(IMAGE_DIR / "manifest.json", "w", encoding="utf-8") as f:
+        json.dump(resumen, f, ensure_ascii=False, indent=4)
+
+    return resultados
+
+
+# 6. CREAR HOJA DE CONTACTO
+
+def crear_hoja_contacto(historia):
+
+    nombres = [
+        IMAGE_DIR / f"scene_{i:02d}.png"
+        for i in range(1, 6)
+    ]
+
+    ancho = 360
+    alto = 360
+    margen = 20
+    espacio = 20
+    cabecera = 45
+
+    lienzo = Image.new(
+        "RGB",
+        (margen * 2 + ancho * 2 + espacio,
+         margen * 2 + (alto + cabecera) * 3),
+        "white"
+    )
+
+    dibujo = ImageDraw.Draw(lienzo)
+
+    for indice, ruta in enumerate(nombres):
+
+        if not ruta.exists():
+            continue
+
+        imagen = Image.open(ruta).convert("RGB")
+        imagen = imagen.resize((ancho, alto))
+
+        columna = indice % 2
+        fila = indice // 2
+
+        x = margen + columna * (ancho + espacio)
+        y = margen + fila * (alto + cabecera)
+
+        dibujo.text(
+            (x, y),
+            f"Escena {indice + 1}",
+            fill="black"
+        )
+
+        lienzo.paste(imagen, (x, y + cabecera))
+
+        imagen.close()
+
+    ruta_contacto = IMAGE_DIR / "hoja_contacto.png"
+
+    lienzo.save(ruta_contacto)
+    lienzo.close()
+
+    print(f"\nHoja de contacto guardada: {ruta_contacto}")
+
+
+# 7. EJECUCION PRINCIPAL
+
+def main():
+
+    historia, archivo_historia = cargar_historia()
+
+    traducciones = traducir_prompts(historia["scenes"])
+
+    prompts = preparar_prompts(traducciones)
+
+    # Guardamos las traducciones antes de generar.
+    IMAGE_DIR.mkdir(parents=True, exist_ok=True)
+
+    with open(IMAGE_DIR / "prompts_traducidos.json", "w", encoding="utf-8") as f:
+        json.dump(traducciones, f, ensure_ascii=False, indent=4)
+
+    resultados = generar_ilustraciones(
+        historia,
+        archivo_historia,
+        traducciones,
+        prompts
+    )
+
+    crear_hoja_contacto(historia)
+
+    tiempo_total = sum(
+        item["tiempo_segundos"] for item in resultados
+    )
+
+    print("\n" + "=" * 55)
+    print("ILUSTRACIONES GENERADAS CORRECTAMENTE")
+    print("Escenas: 5 de 5")
+    print(f"Tiempo total de generacion: {tiempo_total:.2f} segundos")
+    print(f"Resultados: {IMAGE_DIR}")
+    print("=" * 55)
+
+
+if __name__ == "__main__":
+    main()
+
+
+========================================
+ARCHIVO: src/fifthplot/generators/revise_story_images.py
+========================================
+import gc
+import json
+import time
+from pathlib import Path
+
+import torch
+from PIL import Image, ImageDraw
+from transformers import CLIPTokenizer
+
+from fifthplot.generators import ip_adapter_test as ip_test
+
+
+# Configuracion general
+MODEL_DIR = Path("models/stable-diffusion-v1-5")
+TOKENIZER_DIR = MODEL_DIR / "tokenizer"
+
+REFERENCE = Path("outputs/images/luma_prueba_01.png")
+ORIGINAL_DIR = Path("outputs/images/final")
+OUTPUT_DIR = Path("outputs/images/revised_v2")
+
+SIZE = 512
+STEPS = 20
+GUIDANCE = 7.0
+IP_SCALE = 0.35
+
+NEGATIVE = (
+    "two foxes, multiple foxes, duplicate fox, second fox, "
+    "extra fox, cropped, hidden tail, extra limbs, extra ears, "
+    "blurry, text, watermark, photorealistic, 3d render."
+)
+
+# Estilo y apariencia que deben conservarse.
+STYLE = (
+    "Watercolor children's storybook, soft gouache "
+    "brushstrokes, teal forest, warm colors."
+)
+
+LUMA = (
+    "Luma, small red-orange fox, golden eyes, "
+    "tiny nose, fluffy fur, curled comet tail."
+)
+
+# Descripciones especificas para cada escena.
+ESCENAS = {
+    3: (
+        "Tall mirrors reflect a white-haired guardian "
+        "and a red-eyed shadow serpent."
+    ),
+    4: (
+        "Luma faces a coiled black serpent with glowing "
+        "red eyes and a sword-shaped tail."
+    ),
+    5: (
+        "Stars return as the defeated shadow serpent "
+        "dissolves into glowing light."
+    )
+}
+
+
+def comprobar_archivos():
+
+    if not REFERENCE.exists():
+        raise FileNotFoundError(
+            "No se encontro la referencia de Luma."
+        )
+
+    for numero in ESCENAS:
+        original = ORIGINAL_DIR / f"scene_{numero:02d}.png"
+
+        if not original.exists():
+            raise FileNotFoundError(
+                f"No se encontro la imagen original: {original}"
+            )
+
+    tokenizer = CLIPTokenizer.from_pretrained(
+        str(TOKENIZER_DIR),
+        local_files_only=True
+    )
+
+    print("\nComprobacion de prompts:")
+
+    for numero, descripcion in ESCENAS.items():
+
+        prompt = f"{STYLE} {LUMA} Scene: {descripcion}"
+
+        tokens = len(
+            tokenizer(prompt, truncation=False)["input_ids"]
+        )
+
+        print(f"Escena {numero}: {tokens}/77 tokens")
+
+        if tokens > 70:
+            raise ValueError(
+                f"El prompt de la escena {numero} "
+                "necesita reducirse."
+            )
+
+    tokens_negativos = len(
+        tokenizer(NEGATIVE, truncation=False)["input_ids"]
+    )
+
+    print(f"Prompt negativo: {tokens_negativos}/77 tokens")
+
+    if tokens_negativos > 77:
+        raise ValueError("El prompt negativo supera el limite.")
+
+    return tokenizer
+
+
+def generar_escenas():
+
+    if not torch.cuda.is_available():
+        raise RuntimeError("No se detecto la GPU.")
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    tokenizer = comprobar_archivos()
+
+    print("\nFIFTHPLOT - CORRECCION DE ILUSTRACIONES")
+    print("Escenas: 3, 4 y 5")
+    print("Modelo: Stable Diffusion 1.5")
+    print("Adaptador: IP-Adapter Plus SD15")
+    print(f"GPU: {torch.cuda.get_device_name(0)}")
+
+    # Utilizamos la misma referencia del experimento B2.
+    ip_test.REFERENCE = REFERENCE
+    ip_test.ADAPTER_SCALE = IP_SCALE
+
+    print("\nCargando modelos...")
+
+    pipe = ip_test.cargar_pipeline(usando_referencia=True)
+
+    referencia = Image.open(REFERENCE).convert("RGB")
+
+    resultados = []
+
+    for numero, descripcion in ESCENAS.items():
+
+        print("\n" + "-" * 45)
+        print(f"GENERANDO ESCENA {numero}/5")
+
+        prompt = f"{STYLE} {LUMA} Scene: {descripcion}"
+
+        semilla = 4200 + numero
+
+        generador = torch.Generator(
+            device="cpu"
+        ).manual_seed(semilla)
+
+        torch.cuda.reset_peak_memory_stats()
+
+        inicio = time.perf_counter()
+
+        resultado = pipe(
+            prompt=prompt,
+            negative_prompt=NEGATIVE,
+            ip_adapter_image=referencia,
+            height=SIZE,
+            width=SIZE,
+            num_inference_steps=STEPS,
+            guidance_scale=GUIDANCE,
+            generator=generador
+        )
+
+        tiempo = time.perf_counter() - inicio
+
+        imagen = resultado.images[0]
+
+        ruta_imagen = OUTPUT_DIR / f"scene_{numero:02d}_revised.png"
+
+        imagen.save(ruta_imagen)
+
+        memoria = round(
+            torch.cuda.max_memory_allocated() / (1024 ** 3),
+            2
+        )
+
+        datos = {
+            "escena": numero,
+            "modelo": "Stable Diffusion 1.5",
+            "adaptador": "IP-Adapter Plus SD15",
+            "referencia": str(REFERENCE),
+            "adapter_scale": IP_SCALE,
+            "semilla": semilla,
+            "resolucion": f"{SIZE}x{SIZE}",
+            "pasos": STEPS,
+            "guidance_scale": GUIDANCE,
+            "precision": "FP16",
+            "tiempo_segundos": round(tiempo, 2),
+            "memoria_gpu_pico_gb": memoria,
+            "prompt": prompt,
+            "negative_prompt": NEGATIVE,
+            "descripcion": descripcion,
+            "imagen": str(ruta_imagen)
+        }
+
+        ruta_json = OUTPUT_DIR / f"scene_{numero:02d}_revised.json"
+
+        with open(ruta_json, "w", encoding="utf-8") as archivo:
+            json.dump(datos, archivo, ensure_ascii=False, indent=4)
+
+        resultados.append(datos)
+
+        print(f"Imagen guardada: {ruta_imagen}")
+        print(f"Tiempo: {tiempo:.2f} segundos")
+        print(f"VRAM pico: {memoria} GB")
+
+        del resultado
+        del imagen
+
+        gc.collect()
+        torch.cuda.empty_cache()
+
+    referencia.close()
+
+    del pipe
+    gc.collect()
+    torch.cuda.empty_cache()
+
+    # Guardamos los resultados de esta revision.
+    resumen = {
+        "experimento": "Revision narrativa de escenas",
+        "modelo": "Stable Diffusion 1.5",
+        "referencia": str(REFERENCE),
+        "estrategia": "Prompt + IP-Adapter",
+        "adapter_scale": IP_SCALE,
+        "escenas_corregidas": resultados
+    }
+
+    with open(
+        OUTPUT_DIR / "manifest_revised.json",
+        "w",
+        encoding="utf-8"
+    ) as archivo:
+        json.dump(resumen, archivo, ensure_ascii=False, indent=4)
+
+    print("\nTres escenas corregidas correctamente.")
+
+
+def crear_comparacion():
+
+    lienzo = Image.new("RGB", (1040, 1100), "white")
+    dibujo = ImageDraw.Draw(lienzo)
+
+    for indice, numero in enumerate([3, 4, 5]):
+
+        original = Image.open(
+            ORIGINAL_DIR / f"scene_{numero:02d}.png"
+        ).convert("RGB")
+
+        revisada = Image.open(
+            OUTPUT_DIR / f"scene_{numero:02d}_revised.png"
+        ).convert("RGB")
+
+        y = 35 + indice * 350
+
+        dibujo.text((20, y), f"ESCENA {numero} - ORIGINAL", fill="black")
+        dibujo.text((540, y), f"ESCENA {numero} - REVISADA", fill="black")
+
+        lienzo.paste(
+            original.resize((480, 320)),
+            (20, y + 25)
+        )
+
+        lienzo.paste(
+            revisada.resize((480, 320)),
+            (540, y + 25)
+        )
+
+        original.close()
+        revisada.close()
+
+    ruta = OUTPUT_DIR / "comparacion_original_revisada.png"
+
+    lienzo.save(ruta)
+    lienzo.close()
+
+    print(f"\nComparacion guardada: {ruta}")
+
+
+def main():
+
+    generar_escenas()
+    crear_comparacion()
+
+    print("\nPROCESO FINALIZADO")
+    print("Escenas corregidas: 3 de 5")
+    print(f"Resultados: {OUTPUT_DIR}")
+
+
+if __name__ == "__main__":
+    main()
+
+
+========================================
+ARCHIVO: src/fifthplot/generators/ip_adapter_test.py
+========================================
+import gc
+import json
+import time
+from pathlib import Path
+
+import torch
+from PIL import Image
+from diffusers import StableDiffusionPipeline
+from transformers import CLIPTokenizer
+
+# Rutas de los modelos y las imagenes.
+BASE_DIR = Path("models/stable-diffusion-v1-5")
+ADAPTER_DIR = Path("models/ip-adapter")
+REFERENCE = Path("outputs/images/luma_referencia_v2.png")
+
+OUTPUT_A = Path("experiments/configuration_a")
+OUTPUT_B = Path("experiments/configuration_b")
+
+# Parametros iguales para las dos pruebas.
+SEED = 42
+SIZE = 512
+STEPS = 15
+GUIDANCE = 7.0
+ADAPTER_SCALE = 0.5
+
+PROMPT = """Watercolor children's storybook illustration of Luma, the same small red-orange fox with golden eyes, tiny nose and fluffy fur, walking along a winding path in an enchanted teal forest at dusk. Full body, paws visible, large curled tail, soft gouache brushstrokes, warm fox against cool blue-green trees."""
+
+NEGATIVE = """cropped, hidden tail, extra legs, extra ears, duplicate fox, blurry, text, watermark, photorealistic, 3d, plastic texture, multiple animals."""
+
+
+def comprobar_archivos():
+
+    archivos = [
+        BASE_DIR / "model_index.json",
+        ADAPTER_DIR / "models/ip-adapter-plus_sd15.safetensors",
+        ADAPTER_DIR / "models/image_encoder/config.json",
+        REFERENCE
+    ]
+
+    for archivo in archivos:
+        if not archivo.exists():
+            raise FileNotFoundError(f"No se encontro: {archivo}")
+
+    # Revisamos que los prompts no superen el limite de CLIP.
+    tokenizer = CLIPTokenizer.from_pretrained(
+        str(BASE_DIR / "tokenizer"),
+        local_files_only=True
+    )
+
+    for nombre, texto in [
+        ("Positivo", PROMPT),
+        ("Negativo", NEGATIVE)
+    ]:
+        cantidad = len(tokenizer(
+            texto, truncation=False
+        )["input_ids"])
+
+        print(f"Prompt {nombre}: {cantidad}/77 tokens")
+
+        if cantidad > 77:
+            raise ValueError(f"El prompt {nombre} supera el limite.")
+
+
+def cargar_pipeline(usando_referencia=False):
+
+    print("\nCargando Stable Diffusion 1.5...")
+
+    pipe = StableDiffusionPipeline.from_pretrained(
+        str(BASE_DIR),
+        dtype=torch.float16,
+        variant="fp16",
+        use_safetensors=True,
+        local_files_only=True,
+        low_cpu_mem_usage=True
+    )
+
+    pipe.vae.enable_slicing()
+
+    if usando_referencia:
+
+        print("Cargando IP-Adapter Plus...")
+
+        pipe.load_ip_adapter(
+            str(ADAPTER_DIR),
+            subfolder="models",
+            weight_name="ip-adapter-plus_sd15.safetensors",
+            image_encoder_folder="image_encoder",
+            local_files_only=True,
+            low_cpu_mem_usage=True
+        )
+
+        pipe.set_ip_adapter_scale(ADAPTER_SCALE)
+
+    # Movemos las capas a la GPU solo cuando se necesitan.
+    pipe.enable_sequential_cpu_offload()
+
+    return pipe
+
+
+def generar_prueba(nombre, carpeta, usar_adapter=False):
+
+    carpeta.mkdir(parents=True, exist_ok=True)
+
+    pipe = cargar_pipeline(usar_adapter)
+
+    referencia = None
+
+    if usar_adapter:
+        referencia = Image.open(REFERENCE).convert("RGB")
+
+    generador = torch.Generator(device="cpu").manual_seed(SEED)
+
+    torch.cuda.reset_peak_memory_stats()
+
+    print(f"\nGenerando configuracion {nombre}...")
+    inicio = time.perf_counter()
+
+    parametros = {
+        "prompt": PROMPT,
+        "negative_prompt": NEGATIVE,
+        "height": SIZE,
+        "width": SIZE,
+        "num_inference_steps": STEPS,
+        "guidance_scale": GUIDANCE,
+        "generator": generador
+    }
+
+    if usar_adapter:
+        parametros["ip_adapter_image"] = referencia
+
+    resultado = pipe(**parametros)
+
+    tiempo = time.perf_counter() - inicio
+
+    imagen = resultado.images[0]
+
+    ruta = carpeta / f"luma_configuracion_{nombre}.png"
+    imagen.save(ruta)
+
+    memoria = round(
+        torch.cuda.max_memory_allocated() / (1024 ** 3), 2
+    )
+
+    datos = {
+        "configuracion": nombre,
+        "modelo": "Stable Diffusion 1.5",
+        "ip_adapter": usar_adapter,
+        "referencia": str(REFERENCE) if usar_adapter else None,
+        "adaptador": "IP-Adapter Plus SD15" if usar_adapter else None,
+        "adapter_scale": ADAPTER_SCALE if usar_adapter else None,
+        "seed": SEED,
+        "resolucion": f"{SIZE}x{SIZE}",
+        "pasos": STEPS,
+        "guidance_scale": GUIDANCE,
+        "tiempo_segundos": round(tiempo, 2),
+        "memoria_gpu_pico_gb": memoria,
+        "prompt": PROMPT,
+        "negative_prompt": NEGATIVE
+    }
+
+    with open(carpeta / f"resultados_{nombre}.json", "w", encoding="utf-8") as archivo:
+        json.dump(datos, archivo, ensure_ascii=False, indent=4)
+
+    print(f"\nImagen guardada: {ruta}")
+    print(f"Tiempo: {tiempo:.2f} segundos")
+    print(f"Memoria GPU pico: {memoria} GB")
+
+    del resultado
+    del pipe
+
+    gc.collect()
+    torch.cuda.empty_cache()
+
+    if torch.cuda.is_available():
+        torch.cuda.ipc_collect()
+
+    if referencia is not None:
+        referencia.close()
+
+
+def main():
+
+    if not torch.cuda.is_available():
+        raise RuntimeError("No se detecto la GPU.")
+
+    comprobar_archivos()
+
+    print("=" * 55)
+    print("FIFTHPLOT - EXPERIMENTO DE CONSISTENCIA")
+    print("=" * 55)
+
+    # A: generacion solamente con texto.
+    generar_prueba("A", OUTPUT_A, usar_adapter=False)
+
+    # B: generacion con texto e imagen de referencia.
+    generar_prueba("B", OUTPUT_B, usar_adapter=True)
+
+    print("\nExperimento A/B finalizado.")
+    print("Revisa las carpetas configuration_a y configuration_b.")
+
+
+if __name__ == "__main__":
+    main()
+
+
+========================================
+ARCHIVO: src/fifthplot/generators/characters.py
+========================================
+import gc
+import json
+import time
+from pathlib import Path
+
+import torch
+from transformers import CLIPTokenizer
+
+from fifthplot.generators import ip_adapter_test
+
+
+CARPETA = Path("outputs/assets/characters")
+TOKENIZER_DIR = Path("models/stable-diffusion-v1-5/tokenizer")
+
+TAMANO = 512
+PASOS = 20
+GUIDANCE = 7.0
+
+ESTILO = (
+    "Watercolor gouache children's storybook illustration, "
+    "soft painterly brushstrokes, textured paper, "
+    "teal shadows and warm colors."
+)
+
+NEGATIVE = (
+    "back view, facing away, hidden face, blonde hair, hood, "
+    "turquoise robe, red scales, blue scales, dragon, hydra, "
+    "multiple heads, tentacles, cropped, cut off, extra limbs, "
+    "text, watermark, signature, photorealistic, 3d render."
+)
+
+PERSONAJES = {
+    "guardian": {
+        "seed": 5101,
+        "prompt": (
+            "Front-facing elderly slender man, long white hair, "
+            "visible bright blue eyes, kind serious face, full body, "
+            "flowing black cloak, standing alone on plain ivory background."
+        )
+    },
+
+    "shadow_serpent": {
+        "seed": 5102,
+        "prompt": (
+            "One black shadow serpent, single visible head, "
+            "glowing red eyes, long coiled black body, "
+            "entire creature visible, pointed sword-shaped tail, "
+            "smoky dark edges, alone on plain ivory background."
+        )
+    }
+}
+
+
+def main():
+
+    if not torch.cuda.is_available():
+        raise RuntimeError("No se detecto CUDA.")
+
+    CARPETA.mkdir(parents=True, exist_ok=True)
+
+    tokenizer = CLIPTokenizer.from_pretrained(
+        str(TOKENIZER_DIR),
+        local_files_only=True
+    )
+
+    print("FIFTHPLOT - GENERADOR DE PERSONAJES")
+    print("GPU:", torch.cuda.get_device_name(0))
+
+    # Comprobamos los prompts.
+    for nombre, datos in PERSONAJES.items():
+
+        prompt = f"{ESTILO} {datos['prompt']}"
+
+        tokens = len(
+            tokenizer(prompt, truncation=False)["input_ids"]
+        )
+
+        print(f"{nombre}: {tokens}/77 tokens")
+
+        if tokens > 70:
+            raise ValueError(
+                f"El prompt de {nombre} supera el limite."
+            )
+
+    # No usamos IP-Adapter porque son personajes nuevos.
+    print("\nCargando Stable Diffusion...")
+
+    pipe = ip_adapter_test.cargar_pipeline(
+        usando_referencia=False
+    )
+
+    resultados = []
+
+    for nombre, datos in PERSONAJES.items():
+
+        print("\nGenerando:", nombre)
+
+        prompt = f"{ESTILO} {datos['prompt']}"
+
+        generador = torch.Generator(
+            device="cpu"
+        ).manual_seed(datos["seed"])
+
+        torch.cuda.reset_peak_memory_stats()
+
+        inicio = time.perf_counter()
+
+        resultado = pipe(
+            prompt=prompt,
+            negative_prompt=NEGATIVE,
+            height=TAMANO,
+            width=TAMANO,
+            num_inference_steps=PASOS,
+            guidance_scale=GUIDANCE,
+            generator=generador
+        )
+
+        tiempo = time.perf_counter() - inicio
+
+        imagen = resultado.images[0]
+
+        ruta = CARPETA / f"{nombre}_v2.png"
+        imagen.save(ruta)
+
+        memoria = round(
+            torch.cuda.max_memory_allocated() / (1024 ** 3),
+            2
+        )
+
+        metadatos = {
+            "personaje": nombre,
+            "modelo": "Stable Diffusion 1.5",
+            "estilo": "Watercolor y gouache",
+            "precision": "FP16",
+            "resolucion": f"{TAMANO}x{TAMANO}",
+            "semilla": datos["seed"],
+            "pasos": PASOS,
+            "guidance_scale": GUIDANCE,
+            "tiempo_segundos": round(tiempo, 2),
+            "memoria_gpu_pico_gb": memoria,
+            "prompt": prompt,
+            "negative_prompt": NEGATIVE,
+            "imagen": str(ruta)
+        }
+
+        with open(
+            CARPETA / f"{nombre}_v2.json",
+            "w",
+            encoding="utf-8"
+        ) as archivo:
+            json.dump(
+                metadatos,
+                archivo,
+                ensure_ascii=False,
+                indent=4
+            )
+
+        resultados.append({
+            "personaje": nombre,
+            "tiempo": round(tiempo, 2)
+        })
+
+        print("Imagen guardada:", ruta)
+        print(f"Tiempo: {tiempo:.2f} segundos")
+        print(f"VRAM pico: {memoria} GB")
+
+        del resultado
+        del imagen
+
+        gc.collect()
+        torch.cuda.empty_cache()
+
+    del pipe
+    gc.collect()
+    torch.cuda.empty_cache()
+
+    print("\nPERSONAJES GENERADOS")
+
+    for item in resultados:
+        print(item["personaje"], "-", item["tiempo"], "segundos")
+
+    print("\nProceso terminado.")
+
+
+if __name__ == "__main__":
+    main()
+
+
+========================================
+ARCHIVO: src/fifthplot/generators/characters_v3.py
+========================================
+import gc
+import json
+import time
+from pathlib import Path
+
+import torch
+from transformers import CLIPTokenizer
+
+from fifthplot.generators import ip_adapter_test
+
+
+# Carpeta independiente para las nuevas pruebas.
+OUTPUT = Path("outputs/assets/characters/v3")
+
+TOKENIZER_DIR = Path("models/stable-diffusion-v1-5/tokenizer")
+
+SIZE = 512
+STEPS = 20
+GUIDANCE = 7.0
+
+STYLE = (
+    "Watercolor gouache storybook character illustration, "
+    "soft brushstrokes, textured paper, plain warm ivory "
+    "background, isolated subject, centered."
+)
+
+
+# Cada personaje tiene su propio prompt y negative prompt.
+CHARACTERS = {
+
+    "guardian": {
+
+        "seed": 5201,
+
+        "prompt": (
+            "Front-facing elderly human man, clearly visible "
+            "wrinkled face, long white hair, bright blue eyes, "
+            "gentle serious expression, wearing a flowing black "
+            "cloak. Three-quarter body portrait, standing upright."
+        ),
+
+        "negative": (
+            "back view, facing away, hidden face, white robe, "
+            "angel, ghost, bird, owl, wings, blonde hair, "
+            "hood covering face, multiple people, trees, "
+            "forest, cropped, extra limbs, text, watermark, "
+            "3d render, photorealistic."
+        )
+    },
+
+    "shadow_serpent": {
+
+        "seed": 5202,
+
+        "prompt": ("One black shadow serpent, one head, red glowing eyes, coiled black body, full creature visible, pointed sword-like tail."),
+
+        "negative": (
+            "red scales, blue scales, red body, multiple snakes, "
+            "multiple heads, hydra, dragon, bird, wings, "
+            "tentacles, flowers, plants, cropped, extra limbs, "
+            "text, watermark, signature, 3d render, photorealistic."
+        )
+    }
+}
+
+
+def main():
+
+    if not torch.cuda.is_available():
+        raise RuntimeError("No se detecto CUDA.")
+
+    OUTPUT.mkdir(parents=True, exist_ok=True)
+
+    tokenizer = CLIPTokenizer.from_pretrained(
+        str(TOKENIZER_DIR),
+        local_files_only=True
+    )
+
+    print("=" * 50)
+    print("FIFTHPLOT - PERSONAJES V3")
+    print("=" * 50)
+
+    # Validamos todos los prompts antes de cargar el modelo.
+    for nombre, datos in CHARACTERS.items():
+
+        prompt = f"{STYLE} {datos['prompt']}"
+
+        tokens_prompt = len(
+            tokenizer(prompt, truncation=False)["input_ids"]
+        )
+
+        tokens_negative = len(
+            tokenizer(
+                datos["negative"],
+                truncation=False
+            )["input_ids"]
+        )
+
+        print(f"\n{nombre}")
+        print(f"Positivo: {tokens_prompt}/77")
+        print(f"Negativo: {tokens_negative}/77")
+
+        if tokens_prompt > 70 or tokens_negative > 70:
+            raise ValueError(
+                f"El prompt de {nombre} necesita reducirse."
+            )
+
+    print("\nCargando Stable Diffusion...")
+
+    pipe = ip_adapter_test.cargar_pipeline(
+        usando_referencia=False
+    )
+
+    resultados = []
+
+    for nombre, datos in CHARACTERS.items():
+
+        print("\n" + "-" * 40)
+        print("GENERANDO:", nombre)
+
+        prompt = f"{STYLE} {datos['prompt']}"
+
+        generador = torch.Generator(
+            device="cpu"
+        ).manual_seed(datos["seed"])
+
+        torch.cuda.reset_peak_memory_stats()
+
+        inicio = time.perf_counter()
+
+        resultado = pipe(
+            prompt=prompt,
+            negative_prompt=datos["negative"],
+            height=SIZE,
+            width=SIZE,
+            num_inference_steps=STEPS,
+            guidance_scale=GUIDANCE,
+            generator=generador
+        )
+
+        tiempo = time.perf_counter() - inicio
+
+        imagen = resultado.images[0]
+
+        ruta = OUTPUT / f"{nombre}_v3.png"
+        imagen.save(ruta)
+
+        memoria = round(
+            torch.cuda.max_memory_allocated() / (1024 ** 3),
+            2
+        )
+
+        metadatos = {
+            "personaje": nombre,
+            "modelo": "Stable Diffusion 1.5",
+            "estilo": "Watercolor y gouache",
+            "resolucion": f"{SIZE}x{SIZE}",
+            "precision": "FP16",
+            "semilla": datos["seed"],
+            "pasos": STEPS,
+            "guidance_scale": GUIDANCE,
+            "tiempo_segundos": round(tiempo, 2),
+            "memoria_gpu_pico_gb": memoria,
+            "prompt": prompt,
+            "negative_prompt": datos["negative"],
+            "imagen": str(ruta)
+        }
+
+        with open(
+            OUTPUT / f"{nombre}_v3.json",
+            "w",
+            encoding="utf-8"
+        ) as archivo:
+            json.dump(
+                metadatos,
+                archivo,
+                ensure_ascii=False,
+                indent=4
+            )
+
+        resultados.append({
+            "personaje": nombre,
+            "tiempo": round(tiempo, 2)
+        })
+
+        print("Imagen:", ruta)
+        print(f"Tiempo: {tiempo:.2f} segundos")
+        print(f"VRAM pico: {memoria} GB")
+
+        del resultado
+        del imagen
+
+        gc.collect()
+        torch.cuda.empty_cache()
+
+    del pipe
+    gc.collect()
+    torch.cuda.empty_cache()
+
+    print("\nPERSONAJES V3 GENERADOS")
+
+    for item in resultados:
+        print(item["personaje"], item["tiempo"], "segundos")
+
+    print("\nCarpeta de resultados:", OUTPUT)
+
+
+if __name__ == "__main__":
+    main()
+
+
+========================================
+ARCHIVO: src/fifthplot/services/background_removal.py
+========================================
+from pathlib import Path
+from PIL import Image, ImageDraw
+from rembg import new_session, remove
+
+SOURCE = Path("outputs/images/luma_prueba_01.png")
+
+OUTPUT_DIR = Path("outputs/assets/characters")
+
+OUTPUT_IMAGE = OUTPUT_DIR / "luma_reference_rgba.png"
+OUTPUT_PREVIEW = OUTPUT_DIR / "luma_reference_preview.png"
+OUTPUT_MASK = OUTPUT_DIR / "luma_reference_mask.png"
+
+
+def crear_fondo_cuadriculado(tamano):
+
+    fondo = Image.new("RGB", tamano, "white")
+    dibujo = ImageDraw.Draw(fondo)
+
+    bloque = 32
+
+    for y in range(0, tamano[1], bloque):
+        for x in range(0, tamano[0], bloque):
+
+            if (x // bloque + y // bloque) % 2 == 0:
+                dibujo.rectangle(
+                    (x, y, x + bloque, y + bloque),
+                    fill=(215, 215, 215)
+                )
+
+    return fondo
+
+
+def main():
+
+    if not SOURCE.exists():
+        raise FileNotFoundError(
+            f"No se encontro la imagen original: {SOURCE}"
+        )
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    print("FIFTHPLOT - SEPARACION DE PERSONAJES")
+    print("Imagen original:", SOURCE)
+
+    # Utilizamos U2Net ejecutado en CPU.
+    print("\nCargando modelo U2Net...")
+    sesion = new_session(
+        "u2net",
+        providers=["CPUExecutionProvider"]
+    )
+
+    imagen = Image.open(SOURCE).convert("RGB")
+
+    print("Eliminando el fondo...")
+    resultado = remove(
+        imagen,
+        session=sesion,
+        alpha_matting=False,
+        post_process_mask=True
+    )
+
+    resultado = resultado.convert("RGBA")
+
+    # Guardamos la imagen con transparencia real.
+    resultado.save(OUTPUT_IMAGE)
+
+    # Guardamos la mascara para revisar la segmentacion.
+    mascara = resultado.getchannel("A")
+    mascara.save(OUTPUT_MASK)
+
+    # Creamos una vista previa con fondo cuadriculado.
+    fondo = crear_fondo_cuadriculado(resultado.size).convert("RGBA")
+
+    preview = Image.alpha_composite(
+        fondo,
+        resultado
+    ).convert("RGB")
+
+    preview.save(OUTPUT_PREVIEW)
+
+    # Calculamos cuanto fondo quedo transparente.
+    pixeles = list(mascara.getdata())
+
+    transparentes = sum(
+        1 for valor in pixeles if valor < 128
+    )
+
+    porcentaje = transparentes / len(pixeles) * 100
+
+    print("\nProceso terminado.")
+    print("PNG transparente:", OUTPUT_IMAGE)
+    print("Vista previa:", OUTPUT_PREVIEW)
+    print("Mascara:", OUTPUT_MASK)
+    print(f"Area transparente: {porcentaje:.2f}%")
+
+    imagen.close()
+    resultado.close()
+    mascara.close()
+    fondo.close()
+    preview.close()
+
+    print("\nPersonaje procesado correctamente.")
+
+
+if __name__ == "__main__":
+    main()
+

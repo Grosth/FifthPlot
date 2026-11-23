@@ -1,0 +1,16 @@
+{
+    "modelo": "DreamShaper 8",
+    "base": "Stable Diffusion 1.5",
+    "precision": "FP16",
+    "dispositivo": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "resolucion": "512x512",
+    "semilla": 42,
+    "pasos": 15,
+    "guidance_scale": 7.0,
+    "prompt": "storybook illustration of luma , a small fox with bright vivid red fur , beautiful golden eyes , a small nose and a distinctive comet - shaped tail , slightly messy fluffy fur , standing on wet ground in an ancient forest at night , looking at a dark sky where the stars have disappeared , old trees casting long shadows , soft moonlight , magical mysterious atmosphere , warm and cool contrasting",
+    "negative_prompt": "\nblurry, low quality, low resolution, deformed body,\nextra legs, extra ears, multiple foxes, duplicate character,\nbad anatomy, cropped character, text, watermark, logo,\nphotorealistic, 3d render\n",
+    "tiempo_carga_segundos": 2.22,
+    "tiempo_generacion_segundos": 17.64,
+    "memoria_gpu_pico_gb": 1.16,
+    "imagen": "outputs\\images\\model_test\\dreamshaper_luma_test.png"
+}

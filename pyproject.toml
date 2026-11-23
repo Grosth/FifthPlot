@@ -1,0 +1,45 @@
+[project]
+name = "fifthplot"
+version = "0.2.0"
+description = "Local AI storybook generator with five illustrated scenes, narration and sound"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+authors = [
+    { name = "Grosth" }
+]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "accelerate>=1.16.0",
+    "diffusers>=0.43.0",
+    "gradio>=6.32.0",
+    "huggingface-hub>=2.4.0",
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.4",
+    "pillow>=13.0.0",
+    "piper-tts==1.8.0",
+    "pydantic==2.14.4",
+    "python-dotenv>=1.2.4",
+    "rembg[cpu]>=2.0.69",
+    "safetensors>=0.8.0",
+    "soundfile>=0.14.0",
+    "torch==2.15.0",
+    "torchvision==0.29.2",
+    "tqdm>=4.66.5",
+    "transformers>=5.23.0",
+]
+
+[project.scripts]
+fifthplot = "fifthplot:main"
+
+[build-system]
+requires = ["uv_build>=0.12.18,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu132" }
+torchvision = { index = "pytorch-cu132" }
+
+[[tool.uv.index]]
+name = "pytorch-cu132"
+url = "https://download.pytorch.org/whl/cu132"
+

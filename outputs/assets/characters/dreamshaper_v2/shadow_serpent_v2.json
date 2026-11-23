@@ -1,0 +1,13 @@
+{
+    "personaje": "Serpiente de Sombras",
+    "modelo": "DreamShaper 8",
+    "precision": "FP16",
+    "resolucion": "512x512",
+    "semilla": 6202,
+    "pasos": 25,
+    "guidance_scale": 7.0,
+    "tiempo_segundos": 27.51,
+    "memoria_gpu_pico_gb": 1.16,
+    "prompt": "Watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes. One black serpent with a narrow reptile head and glowing red eyes. Its long body coils in an S shape and ends in a sharp sword-like tail. Show the entire creature, centered with clear space around it.",
+    "negative_prompt": "wolf, fox, dog, canine, dragon, wings, legs, extra heads, multiple snakes, cropped, close-up, fur, ears, long muzzle, red scales, blue scales, text, watermark, 3d render, photorealistic."
+}

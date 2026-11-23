@@ -1,0 +1,27 @@
+{
+    "personaje": "Luma",
+    "version": "Referencia maestra V3",
+    "modelo_visual": "DreamShaper 8",
+    "adaptador": "IP-Adapter Plus SD15",
+    "origen": "outputs\\images\\ip_adapter_test\\dreamshaper_with_ip_adapter.png",
+    "segmentacion": "U2Net",
+    "dimensiones_originales": [
+        512,
+        512
+    ],
+    "dimensiones_recortadas": [
+        480,
+        487
+    ],
+    "bbox": [
+        18,
+        13,
+        498,
+        500
+    ],
+    "porcentaje_transparente": 35.58,
+    "imagen_transparente": "outputs\\assets\\characters\\processed_v3\\luma_transparent.png",
+    "mascara": "outputs\\assets\\characters\\processed_v3\\luma_mask.png",
+    "recorte": "outputs\\assets\\characters\\processed_v3\\luma_cropped.png",
+    "vista_previa": "outputs\\assets\\characters\\processed_v3\\luma_preview.png"
+}

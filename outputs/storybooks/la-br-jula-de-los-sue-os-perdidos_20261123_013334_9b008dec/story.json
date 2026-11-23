@@ -1,0 +1,109 @@
+{
+  "title": "La Brújula de los Sueños Perdidos",
+  "genre": "Aventura",
+  "synopsis": "Una niña descubre una brújula mágica que la lleva a un archipiélago de nubes donde debe encontrar los sueños perdidos de los ancianos del mundo. En su viaje, enfrentará desafíos, descubrirá secretos y recuperará lo que fue perdido.",
+  "visual_style": "Un estilo visual mágico y etéreo, con tonos pastel y luces tenues. El mundo de nubes está lleno de formas abstractas y elementos surrealistas. La brújula se muestra como un objeto antiguo con marcas brillantes.",
+  "characters": [
+    {
+      "name": "Lila",
+      "description": "Una niña de ocho años con cabello oscuro y ojos azules, curiosa y aventurera. Lleva un abrigo de lana marrón y una mochila llena de objetos de la tierra real.",
+      "role": "Protagonista",
+      "visual_prompt": "A girl with dark hair and blue eyes, wearing a brown wool coat and a backpack, standing in a field with a glowing compass in her hand."
+    },
+    {
+      "name": "El Viento",
+      "description": "Un ser efímero hecho de aire y sombras, con forma de una figura flotante, con ojos brillantes y voz suave. Es el guardián de los sueños perdidos.",
+      "role": "Guía mágico",
+      "visual_prompt": "A floating figure made of wind and shadows, with bright eyes and a soft voice, holding a compass in its hand."
+    },
+    {
+      "name": "El Silencio",
+      "description": "Un ser oscuro que vive en la oscuridad de los sueños, con forma de una sombra, con ojos vacíos y voz ronca. Es el enemigo que bloquea los sueños perdidos.",
+      "role": "Antagonista",
+      "visual_prompt": "A dark shadowy figure with empty eyes and a deep voice, standing in a dark and silent place."
+    },
+    {
+      "name": "El Sol",
+      "description": "Un ser de luz que vive en el cielo, con forma de un disco brillante, con ojos brillantes y voz suave. Es el protector de los sueños perdidos.",
+      "role": "Aliado mágico",
+      "visual_prompt": "A bright circular figure with glowing eyes and a soft voice, standing in the sky with rays of light around it."
+    }
+  ],
+  "scenes": [
+    {
+      "number": 1,
+      "scene_title": "La Brújula en el Campo",
+      "narrative": "Lila camina por un campo de flores en la noche, llevando un abrigo de lana marrón y una mochila llena de objetos de la tierra real. De repente, encuentra una brújula brillante en el suelo. Al tocarla, siente un zumbido en su mente y la brújula comienza a girar, señalando hacia el cielo.",
+      "image_prompt": "A girl with dark hair and blue eyes, wearing a brown wool coat and a backpack, standing in a field with a glowing compass in her hand. The sky is dark with clouds, and the moon is visible.",
+      "background_prompt": "A dark and quiet night sky with clouds, and a field with flowers and grass.",
+      "characters_present": [
+        "Lila",
+        "El Viento",
+        "El Sol",
+        "El Silencio"
+      ],
+      "ambience_prompt": "Soft wind, distant crickets, and the sound of a faint breeze through the trees.",
+      "voice_direction": "No voice, only ambient sounds."
+    },
+    {
+      "number": 2,
+      "scene_title": "El Viaje hacia el Archipiélago",
+      "narrative": "Lila se siente jalada por la brújula hacia el cielo. La brújula la guía a través de nubes que flotan como cintas. Lila ve a El Viento, quien le dice que el archipiélago de nubes está lejos, pero que puede llegar si sigue la brújula.",
+      "image_prompt": "A girl with dark hair and blue eyes, wearing a brown wool coat and a backpack, floating in the clouds with a glowing compass in her hand. The sky is filled with clouds and the shape of islands.",
+      "background_prompt": "A sky filled with clouds and the shape of islands, with a soft and ethereal light.",
+      "characters_present": [
+        "Lila",
+        "El Viento",
+        "El Sol",
+        "El Silencio"
+      ],
+      "ambience_prompt": "Whispering winds, the sound of floating clouds, and the distant echo of a bell.",
+      "voice_direction": "No voice, only ambient sounds."
+    },
+    {
+      "number": 3,
+      "scene_title": "El Archipiélago de Nubes",
+      "narrative": "Lila llega al archipiélago de nubes, donde las islas flotan en el aire. Ve a El Sol, quien le dice que el archipiélago está lleno de sueños perdidos, pero también de peligros. El Silencio aparece detrás de ella, con ojos vacíos y una voz ronca que le dice que no podrá recuperar los sueños.",
+      "image_prompt": "A girl with dark hair and blue eyes, wearing a brown wool coat and a backpack, standing on a floating island with a glowing compass in her hand. In the background, there are dark clouds and a shadowy figure.",
+      "background_prompt": "A floating island in a sky filled with clouds and dark shadows, with a soft and ethereal light.",
+      "characters_present": [
+        "Lila",
+        "El Viento",
+        "El Sol",
+        "El Silencio"
+      ],
+      "ambience_prompt": "Whispering winds, the sound of floating clouds, and the distant echo of a bell.",
+      "voice_direction": "No voice, only ambient sounds."
+    },
+    {
+      "number": 4,
+      "scene_title": "El Momento Decisivo",
+      "narrative": "Lila enfrenta a El Silencio en el centro del archipiélago. El Silencio le dice que los sueños perdidos no pueden ser recuperados, pero Lila, con la brújula en su mano, decide luchar contra él. El Sol le da una luz brillante que ilumina el camino, y Lila lucha contra El Silencio con la brújula en su mano.",
+      "image_prompt": "A girl with dark hair and blue eyes, wearing a brown wool coat and a backpack, fighting a shadowy figure with empty eyes. The sky is filled with clouds and the shape of islands.",
+      "background_prompt": "A sky filled with clouds and the shape of islands, with a soft and ethereal light.",
+      "characters_present": [
+        "Lila",
+        "El Viento",
+        "El Sol",
+        "El Silencio"
+      ],
+      "ambience_prompt": "Whispering winds, the sound of floating clouds, and the distant echo of a bell.",
+      "voice_direction": "No voice, only ambient sounds."
+    },
+    {
+      "number": 5,
+      "scene_title": "La Lluvia de Sueños",
+      "narrative": "Lila logra vencer a El Silencio con la brújula. La brújula comienza a brillar, y una lluvia de sueños cae del cielo. Los sueños de los ancianos se recuperan, y el archipiélago se ilumina con la luz del Sol. Lila se vuelve a la tierra, llevando con ella los sueños recuperados.",
+      "image_prompt": "A girl with dark hair and blue eyes, wearing a brown wool coat and a backpack, standing in a field with a glowing compass in her hand. The sky is filled with clouds and the shape of islands.",
+      "background_prompt": "A field with flowers and grass, with a sky filled with clouds and the shape of islands, with a soft and ethereal light.",
+      "characters_present": [
+        "Lila",
+        "El Viento",
+        "El Sol",
+        "El Silencio"
+      ],
+      "ambience_prompt": "Soft wind, distant crickets, and the sound of a faint breeze through the trees.",
+      "voice_direction": "No voice, only ambient sounds."
+    }
+  ]
+}

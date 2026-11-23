@@ -1,0 +1,65 @@
+{
+    "title": "La Zorra y las Estrellas Perdidas",
+    "genre": "Fantasia",
+    "synopsis": "Una pequeña zorra llamada Luma descubre que las estrellas se están desvaneciendo del cielo. Con curiosidad y miedo, comienza un viaje misterioso para encontrar quién las está robando. En su camino, descubre secretos antiguos y enfrenta serpientes de sombra, un reino de espejos y una verdad que cambiará el destino de los animales de la tierra.",
+    "visual_style": "Un estilo mágico y misterioso con tonos cálidos y fríos contrastantes. Los fondos son realistas pero con elementos oníricos, como cielos estrellados, bosques antiguos y reinos que desafían la lógica. Los personajes tienen texturas suaves y expresiones detalladas.",
+    "characters": [
+        {
+            "name": "Luma",
+            "description": "Una pequeña zorra de pelo rojo brillante y ojos dorados, con una nariz pequeña y una cola en forma de cometa. Su pelo está siempre algo desordenado, como si hubiera estado corriendo por el bosque toda la noche. Luma es curiosa, valiente y tiene un corazón lleno de sueños. Aunque es pequeña, su espíritu es grande y su voz suave pero firme, como si llevara la voz de las estrellas en su interior.",
+            "role": "Protagonista"
+        },
+        {
+            "name": "El Guardián",
+            "description": "Un anciano con pelo blanco y ojos azules brillantes, vestido con una capa negra que se mueve como si fuera de noche. Su figura es alta y delgada, con una mirada profunda que parece ver más allá del tiempo. Es el guardián de las estrellas, pero se ve sombrío y triste, como si llevara el peso del mundo en sus hombros.",
+            "role": "Antagonista/Guión"
+        },
+        {
+            "name": "La Serpiente de Sombras",
+            "description": "Una serpiente de cuerpo negro y ojos rojos brillantes, con una cola que parece tener forma de espada. Su piel se mueve como si estuviera hecha de sombra, y sus ojos brillan con una luz que parece destruir la luz. Es una entidad oscura que se alimenta de la oscuridad y de las estrellas que se pierden.",
+            "role": "Enemigo"
+        }
+    ],
+    "scenes": [
+        {
+            "number": 1,
+            "scene_title": "La Zorra que Ve las Estrellas",
+            "narrative": "Luma se levantó del suelo mojado del bosque, con los ojos brillantes de curiosidad. La noche era silenciosa, pero no era la misma que siempre. Las estrellas no brillaban. En lugar de eso, el cielo era oscuro, como si hubiera sido tapado con una venda oscura. Luma se acercó a la ventana de su pequeño refugio, mirando hacia el cielo. El cielo no tenía estrellas. ¡Era como si algo hubiera robado la luz! Luma se sintió triste, pero también curiosa. ¿Quién habría podido hacer algo así? Decidió salir del bosque y buscar la verdad.",
+            "image_prompt": "Una pequeña zorra de pelo rojo brillante con ojos dorados se levanta del suelo húmedo de un bosque nocturno. El cielo detrás de ella es oscuro, sin estrellas. Las ramas de los árboles dan sombra sobre el suelo. La luz de la luna es tenue y difusa. La zorra tiene una expresión de curiosidad y tristeza en su rostro.",
+            "ambience_prompt": "El sonido de los árboles que susurran en la brisa nocturna, mezclado con el ruido lejano de una corriente de agua. El viento suena leve, como si estuviera hablando en secreto.",
+            "voice_direction": "Una voz suave y preocupada, con un tono de curiosidad y miedo."
+        },
+        {
+            "number": 2,
+            "scene_title": "El Viaje hacia el Monte de las Sombras",
+            "narrative": "Luma caminó por el bosque, con los ojos fijos en el cielo que no brillaba. Caminó durante horas, sin descanso, hasta que llegó al pie de un monte cubierto de niebla. El aire era frío, y las sombras parecían moverse por sí mismas. Luma sintió un miedo que no había sentido antes. Pero no se detuvo. Sabía que algo estaba ahí, algo que había robado las estrellas. Siguio el sendero de piedras que se extendía hacia el monte, con la esperanza de encontrar la verdad.",
+            "image_prompt": "Una pequeña zorra de pelo rojo brillante camina por un sendero de piedras en el pie de un monte cubierto de niebla. El cielo es oscuro, sin estrellas, y las sombras de los árboles se mueven de forma extraña. La zorra tiene un pelo húmedo y una expresión de determinación en su rostro.",
+            "ambience_prompt": "El sonido de la niebla que se mueve con el viento, mezclado con el sonido de los árboles que se balancean con el viento. Un ruido lejano de un viento que parece no tener origen.",
+            "voice_direction": "Una voz firme y determinada, con un tono de nerviosismo y resolución."
+        },
+        {
+            "number": 3,
+            "scene_title": "El Reino de los Espejos",
+            "narrative": "Luma llegó a un bosque donde los árboles eran altos y los senderos se volvían imposibles de seguir. En el centro de este bosque, una puerta de cristal brillante se abría en el suelo. Luma se acercó, y al tocar la puerta, se encontró en un reino de espejos que reflejaban no solo su imagen, sino también los recuerdos de los que pasaban por allí. En uno de los espejos, vio a un anciano con ojos azules que parecían ver más allá del tiempo. En otro, vio a una serpiente de sombras que se movía con elegancia. Luma se sintió dividida. ¿Era ella quien estaba buscando la verdad, o era la verdad quien la estaba buscando?",
+            "image_prompt": "Una pequeña zorra de pelo rojo brillante mira en un espejo que muestra una imagen de un anciano con ojos azules y una serpiente de sombras. El fondo es un bosque de espejos que reflejan diferentes escenas. La zorra tiene una expresión de confusión y misterio en su rostro.",
+            "ambience_prompt": "El sonido de los espejos que brillan, mezclado con el eco de sus propias imágenes. Un ruido de pasos que se repiten y de reflejos que se mueven en el aire.",
+            "voice_direction": "Una voz lenta y profunda, con un tono de misterio y duda."
+        },
+        {
+            "number": 4,
+            "scene_title": "La Confrontación con la Serpiente",
+            "narrative": "Luma siguió el camino de los espejos hasta encontrar una sala donde la Serpiente de Sombras se encontraba sentada en el centro. El cielo de la sala era oscuro, y las estrellas que había visto en el cielo se habían convertido en puntos brillantes que la Serpiente robaba. La Serpiente miró a Luma con sus ojos rojos brillantes y dijo: 'Las estrellas no son tuyas. Ellos pertenecen al oscuro. Yo las guardo, porque el mundo necesita su oscuridad'. Luma respondió con firmeza: 'No. Las estrellas son la luz del mundo. No pueden estar en el oscuro'. La Serpiente sonrió, y las sombras se movieron. La batalla comenzó.",
+            "image_prompt": "Una pequeña zorra de pelo rojo brillante se enfrenta a una serpiente de cuerpo negro y ojos rojos brillantes en una sala de cielo oscuro. La serpiente tiene una cola que parece tener forma de espada. Las sombras de la sala se mueven con una luz brillante. La zorra tiene una expresión de determinación y miedo en su rostro.",
+            "ambience_prompt": "El sonido de una batalla entre sombras y luz. Un ruido de crujidos, de sombras que se mueven y de un viento que siente el poder de la lucha.",
+            "voice_direction": "Una voz fuerte y clara, con un tono de determinación y miedo."
+        },
+        {
+            "number": 5,
+            "scene_title": "La Luz de las Estrellas",
+            "narrative": "La batalla fue larga, pero Luma no se rendía. Con la fuerza de su corazón, Luma gritó: 'Las estrellas son la luz del mundo. No pueden estar en el oscuro'. La Serpiente, con su cuerpo negro, se dobló y se derrumbó. Las sombras se dispersaron, y el cielo se iluminó nuevamente. Las estrellas volvieron a brillar. Luma miró hacia el cielo, y sintió una paz que nunca había sentido antes. Sabía que había salvado el mundo, pero también había encontrado su lugar en el mundo. La luz de las estrellas era su guía, y ella sería su guardián.",
+            "image_prompt": "Una pequeña zorra de pelo rojo brillante mira hacia el cielo, donde las estrellas brillan de nuevo. El cielo es oscuro, pero con estrellas brillantes. La zorra tiene una expresión de paz y determinación en su rostro. En el fondo, la serpiente de sombras se derrumbó en el suelo, con las sombras que se dispersaron.",
+            "ambience_prompt": "El sonido de las estrellas que brillan, mezclado con el sonido de un viento suave que siente la paz del mundo. Un ruido de sombras que se dispersan en el aire.",
+            "voice_direction": "Una voz suave y tranquila, con un tono de paz y victoria."
+        }
+    ]
+}

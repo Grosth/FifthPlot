@@ -1,0 +1,37 @@
+{
+    "personaje": "shadow_serpent",
+    "origen": "outputs\\assets\\characters\\dreamshaper_v2\\shadow_serpent_v2.png",
+    "metodo": "U2Net CPU",
+    "dimensiones_originales": [
+        512,
+        512
+    ],
+    "dimensiones_recortadas": [
+        451,
+        467
+    ],
+    "bbox": [
+        14,
+        33,
+        465,
+        500
+    ],
+    "margen": 16,
+    "porcentaje_transparente": 59.69,
+    "mascara": "outputs\\assets\\characters\\processed_v2\\shadow_serpent_mask.png",
+    "imagen_transparente": "outputs\\assets\\characters\\processed_v2\\shadow_serpent_transparent.png",
+    "imagen_recortada": "outputs\\assets\\characters\\processed_v2\\shadow_serpent_cropped.png",
+    "vista_previa": "outputs\\assets\\characters\\processed_v2\\shadow_serpent_preview.png",
+    "version": "processed_v2",
+    "limpieza_componentes": [
+        2354,
+        29,
+        6
+    ],
+    "bbox_final": [
+        14,
+        33,
+        431,
+        500
+    ]
+}

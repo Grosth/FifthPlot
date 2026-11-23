@@ -1,0 +1,16 @@
+{
+    "configuracion": "B_luma01",
+    "modelo": "Stable Diffusion 1.5",
+    "ip_adapter": true,
+    "referencia": "outputs\\images\\luma_prueba_01.png",
+    "adaptador": "IP-Adapter Plus SD15",
+    "adapter_scale": 0.5,
+    "seed": 42,
+    "resolucion": "512x512",
+    "pasos": 15,
+    "guidance_scale": 7.0,
+    "tiempo_segundos": 18.35,
+    "memoria_gpu_pico_gb": 1.17,
+    "prompt": "Watercolor children's storybook illustration of Luma, the same small red-orange fox with golden eyes, tiny nose and fluffy fur, walking along a winding path in an enchanted teal forest at dusk. Full body, paws visible, large curled tail, soft gouache brushstrokes, warm fox against cool blue-green trees.",
+    "negative_prompt": "cropped, hidden tail, extra legs, extra ears, duplicate fox, blurry, text, watermark, photorealistic, 3d, plastic texture, multiple animals."
+}

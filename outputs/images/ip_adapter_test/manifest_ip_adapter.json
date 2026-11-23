@@ -1,0 +1,26 @@
+{
+    "experimento": "Comparacion DreamShaper 8 con IP-Adapter",
+    "modelo": "DreamShaper 8",
+    "adaptador": "IP-Adapter Plus SD15",
+    "ip_adapter_scale": 0.45,
+    "semilla": 42,
+    "pasos": 15,
+    "guidance_scale": 7.0,
+    "resolucion": "512x512",
+    "precision": "FP16",
+    "prompt": "Luma, a small red-orange fox with golden eyes and a white muzzle, fluffy fur and a curled tail, standing beside an old tree in a teal enchanted forest at night, beneath a starless sky. Watercolor children's storybook illustration, gouache, textured paper, soft brushstrokes, warm amber light.",
+    "negative_prompt": "blurry, low quality, deformed anatomy, extra legs, extra ears, duplicate fox, cropped body, text, watermark, photorealistic, 3d render.",
+    "referencia": "outputs\\images\\ip_adapter_test\\luma_ip_reference.png",
+    "resultados": {
+        "sin_ip_adapter": {
+            "imagen": "outputs\\images\\ip_adapter_test\\dreamshaper_text_only.png",
+            "tiempo_segundos": 14.4,
+            "memoria_gpu_pico_gb": 1.16
+        },
+        "con_ip_adapter": {
+            "imagen": "outputs\\images\\ip_adapter_test\\dreamshaper_with_ip_adapter.png",
+            "tiempo_segundos": 17.65,
+            "memoria_gpu_pico_gb": 1.17
+        }
+    }
+}

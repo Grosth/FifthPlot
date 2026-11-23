@@ -1,0 +1,99 @@
+{
+  "title": "La Brújula de los Sueños Perdidos",
+  "genre": "Aventura",
+  "synopsis": "Una niña llamada Lila descubre una brújula mágica en el archipiélago de nubes, que la guía a través de sueños olvidados para encontrar la verdad sobre su padre desaparecido.",
+  "visual_style": "Un estilo visual mágico y misterioso, con tonos azules y blancos, escenas etéreas y luces tenues, con elementos de sueños y nubes flotantes.",
+  "characters": [
+    {
+      "name": "Lila",
+      "description": "Una niña de 11 años con pelo castaño y ojos azules, curiosa y valiente, buscando el significado de la ausencia de su padre.",
+      "role": "protagonista",
+      "visual_prompt": "A young girl with brown hair and blue eyes, standing on a floating island surrounded by clouds, holding a compass with a glowing blue center."
+    },
+    {
+      "name": "El Guardián",
+      "description": "Un anciano con vestimenta de seda negra y ojos dorados, protege los sueños perdidos y guía a los buscadores.",
+      "role": "mentor",
+      "visual_prompt": "An old man with black silk robes and golden eyes, standing in a misty forest of floating islands, holding a glowing compass."
+    },
+    {
+      "name": "El Río de las Sombras",
+      "description": "Una criatura de sombras y destellos, que representa los sueños que se pierden en el camino.",
+      "role": "enemigo o obstáculo",
+      "visual_prompt": "A creature made of shadows and light, moving through a dark and misty landscape, with a glowing compass in its hand."
+    },
+    {
+      "name": "La Llama de la Verdad",
+      "description": "Un fuego celestial que muestra la verdad oculta sobre el padre de Lila, ubicado en el centro del archipiélago.",
+      "role": "revelación",
+      "visual_prompt": "A celestial fire floating in the sky, showing a vision of a man with brown hair and blue eyes, holding a compass."
+    }
+  ],
+  "scenes": [
+    {
+      "number": 1,
+      "scene_title": "La Brújula en el Archipiélago",
+      "narrative": "Lila encuentra una brújula mágica en el archipiélago de nubes, que brilla con un color azul y emite un sonido suave como un susurro de viento. La brújula le dice que la guía a través de sueños perdidos.",
+      "image_prompt": "A young girl with brown hair and blue eyes, standing on a floating island surrounded by clouds, holding a compass with a glowing blue center.",
+      "background_prompt": "A misty sky with floating islands and clouds, with a soft blue light emanating from the compass.",
+      "characters_present": [
+        "Lila"
+      ],
+      "ambience_prompt": "Soft wind sound, faint humming, and distant waves of clouds.",
+      "voice_direction": "None"
+    },
+    {
+      "number": 2,
+      "scene_title": "El Paso de los Sueños",
+      "narrative": "Lila sigue la brújula a través de un túnel de nubes, donde ve sueños que desaparecen al tocarlos. El Guardián aparece y le explica que cada sueño es una memoria perdida.",
+      "image_prompt": "A tunnel of clouds with floating memories, a girl with brown hair and blue eyes walking through it, and an old man with black robes and golden eyes watching from the edge.",
+      "background_prompt": "A tunnel of floating clouds and memories, with a soft blue light and a faint golden glow.",
+      "characters_present": [
+        "Lila",
+        "El Guardián"
+      ],
+      "ambience_prompt": "Whispers of forgotten dreams, distant echoes, and the sound of wind through clouds.",
+      "voice_direction": "None"
+    },
+    {
+      "number": 3,
+      "scene_title": "El Río de las Sombras",
+      "narrative": "Lila llega a un río de sombras que le impide avanzar. El Río de las Sombras la ataca con destellos de luz, intentando borrarse de su camino.",
+      "image_prompt": "A dark and misty river of shadows, a girl with brown hair and blue eyes fighting against it, and a glowing compass in the water.",
+      "background_prompt": "A dark river with floating shadows and glowing light, surrounded by misty clouds.",
+      "characters_present": [
+        "Lila",
+        "El Río de las Sombras"
+      ],
+      "ambience_prompt": "Distant echoes, the sound of water, and the flickering of light.",
+      "voice_direction": "None"
+    },
+    {
+      "number": 4,
+      "scene_title": "El Momento de la Verdad",
+      "narrative": "Lila enfrenta al Río de las Sombras y logra detenerlo con la brújula. La brújula emite un destello de luz que revela la verdad sobre su padre, que fue un buscador de sueños.",
+      "image_prompt": "A girl with brown hair and blue eyes holding a glowing compass, facing a river of shadows, with a celestial fire in the sky showing a vision of a man with brown hair and blue eyes.",
+      "background_prompt": "A dark river with floating shadows, a celestial fire in the sky, and a glowing compass in the girl’s hand.",
+      "characters_present": [
+        "Lila",
+        "El Río de las Sombras",
+        "La Llama de la Verdad"
+      ],
+      "ambience_prompt": "Flickering light, distant echoes, and the sound of wind.",
+      "voice_direction": "None"
+    },
+    {
+      "number": 5,
+      "scene_title": "El Regreso a la Luz",
+      "narrative": "Lila se aleja del archipiélago, llevando la brújula y la verdad sobre su padre. El Guardián la despede, y el cielo se ilumina con la luz de los sueños encontrados.",
+      "image_prompt": "A young girl with brown hair and blue eyes walking on a floating island, holding a glowing compass, with a celestial fire in the sky.",
+      "background_prompt": "A clear sky with floating islands and clouds, with a glowing compass and a celestial fire in the distance.",
+      "characters_present": [
+        "Lila",
+        "El Guardián"
+      ],
+      "ambience_prompt": "Soft wind, distant echoes, and the sound of light.",
+      "voice_direction": "None"
+    }
+  ]
+}

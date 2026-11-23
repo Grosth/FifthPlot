@@ -1,0 +1,96 @@
+{
+    "title": "La Zorra y las Estrellas Perdidas",
+    "genre": "Fantasia",
+    "synopsis": "Una pequeña zorra descubre que las estrellas están desapareciendo del cielo y emprende un viaje por el mundo mágico para encontrar quién las está llevando. Con la ayuda de un anciano y un joven dragón, descubre una terrible verdad sobre el poder de las estrellas y el peligro que acecha el cielo.",
+    "visual_style": "Un estilo mágico con tonos celestes, dorados y sombras misteriosas. Los personajes tienen un aspecto de fantasía, con detalles que sugieren un mundo entre lo real y lo imaginario. La iluminación es suave y mágica, con luces que se desvanecen en el aire.",
+    "characters": [
+        {
+            "name": "Luna",
+            "description": "Una pequeña zorra de pelaje blanco con manchas negras en las patas, ojos azules y una cola suave que canta con el viento. Su pelo es suave y suave, y su rostro es expresivo, con una sonrisa constante, como si siempre estuviera contenta, aunque a veces su mirada se ve triste cuando mira el cielo vacío.",
+            "role": "Protagonista, buscadora de verdad y valiente viajera.",
+            "visual_prompt": "A white fox with black paw marks, blue eyes, and a soft tail that dances in the wind. A neutral background with a soft, magical light and faint celestial patterns in the sky."
+        },
+        {
+            "name": "Tío",
+            "description": "Un anciano con pelo blanco y barba blanca, ojos grises y una figura delgada con una capa marrón que ondea con el viento. Su rostro está arrugado, pero su expresión es calmada y sabia, como si llevase toda la historia en su mente.",
+            "role": "Guía y sabiduría, quien conoce los secretos del mundo mágico.",
+            "visual_prompt": "An old man with white hair and beard, gray eyes, and a brown cloak that flutters in the wind. A neutral background with a soft, magical light and faint celestial patterns in the sky."
+        },
+        {
+            "name": "Fuego",
+            "description": "Un joven dragón de escamas doradas y rojas, ojos azules brillantes y una cola que arde con una luz cálida. Su cuerpo está cubierto de escamas brillantes, y su forma es elegante y poderosa, aunque su voz suena más suave que su poder.",
+            "role": "Compañero y aliado, quien ayuda a Luna en su búsqueda y aporta su fuerza y sabiduría.",
+            "visual_prompt": "A young dragon with golden and red scales, blue eyes, and a tail that glows with warm light. A neutral background with a soft, magical light and faint celestial patterns in the sky."
+        }
+    ],
+    "scenes": [
+        {
+            "number": 1,
+            "scene_title": "El Cielo Vacío",
+            "narrative": "Luna, la pequeña zorra, observa el cielo por la noche. Las estrellas, que solían brillar con fuerza, ahora están ausentes. Su corazón se siente pesado, y decide que algo está pasando. Decide hablar con Tío, quien le cuenta que las estrellas se están escondiendo, y que necesita ayudarla a encontrar la verdad.",
+            "image_prompt": "A young fox standing on a hill at night, looking up at a sky without stars. Her eyes are filled with worry, and her tail is slightly curled.",
+            "background_prompt": "A dark, starless sky with a gentle breeze and soft moonlight. A hill in the distance with a small village in the background.",
+            "characters_present": [
+                "Luna",
+                "Tío"
+            ],
+            "ambience_prompt": "Soft wind, faint rustling of leaves, and the distant sound of a small bell.",
+            "voice_direction": "Soft and concerned, with a tone that shows curiosity and worry."
+        },
+        {
+            "number": 2,
+            "scene_title": "La Llamada del Cielo",
+            "narrative": "Luna y Tío salen de la casa hacia el bosque, donde el cielo parece más oscuro. Tío le cuenta sobre las estrellas y cómo están siendo robadas. Luna siente una conexión con el cielo, y decide que debe seguir el camino de las estrellas, aunque no sabe adónde.",
+            "image_prompt": "A young fox and an old man walking through a dark forest at night, with a soft glow in the distance. The fox is looking up, while the old man is looking at the sky.",
+            "background_prompt": "A dark forest with tall trees and a moonlit sky. The air is still and heavy with mystery.",
+            "characters_present": [
+                "Luna",
+                "Tío"
+            ],
+            "ambience_prompt": "Whispering wind, distant rustling of leaves, and the faint sound of a distant stream.",
+            "voice_direction": "Calm and mysterious, with a tone that shows wisdom and caution."
+        },
+        {
+            "number": 3,
+            "scene_title": "El Dragón del Cielo",
+            "narrative": "Luna y Tío encuentran a Fuego, un dragón que habla con una voz suave, aunque su poder es poderoso. Fuego les dice que las estrellas están siendo robadas por una fuerza oscura que quiere destruir el cielo. Luna, con su coraje, decide ayudar a Fuego a detenerla.",
+            "image_prompt": "A young fox and an old man standing beside a dragon with golden and red scales, looking at the sky. The dragon's eyes are glowing with blue light, and his tail is flickering.",
+            "background_prompt": "A dark sky with faint, glowing shapes in the distance. A rocky terrain with a small stream running through it.",
+            "characters_present": [
+                "Luna",
+                "Tío",
+                "Fuego"
+            ],
+            "ambience_prompt": "A low, distant rumble, the sound of wind, and the faint sound of a dragon's voice.",
+            "voice_direction": "Deep and calm, with a tone that shows both power and gentleness."
+        },
+        {
+            "number": 4,
+            "scene_title": "La Batalla de las Estrellas",
+            "narrative": "La fuerza oscura se revela como una sombra que ataca el cielo. Luna, Tío y Fuego luchan contra ella, usando su poder y su coraje. Luna se une a la lucha, y con la ayuda de Fuego, logra hacer que las estrellas vuelvan a brillar, aunque el cielo sigue siendo misterioso.",
+            "image_prompt": "A young fox, an old man, and a dragon standing in a dark sky, fighting against a shadowy figure. The fox is holding a glowing star, the old man is holding a glowing orb, and the dragon is glowing with blue light.",
+            "background_prompt": "A dark sky with a shadowy figure in the distance. A stormy sky with lightning flashes and dark clouds.",
+            "characters_present": [
+                "Luna",
+                "Tío",
+                "Fuego"
+            ],
+            "ambience_prompt": "A thunderous roar, the sound of wind, and the faint sound of a dragon's voice.",
+            "voice_direction": "Dramatic and intense, with a tone that shows bravery and determination."
+        },
+        {
+            "number": 5,
+            "scene_title": "El Cielo Iluminado",
+            "narrative": "Las estrellas vuelven a brillar en el cielo, y el cielo se siente más lleno. Luna, Tío y Fuego se reúnen en el cielo, donde la luz de las estrellas ilumina el camino. Luna siente que el mundo es más brillante, y que la verdad ha sido encontrada, aunque el cielo sigue siendo misterioso.",
+            "image_prompt": "A young fox, an old man, and a dragon standing in a glowing sky, looking at the stars. The fox is smiling, the old man is looking at the stars, and the dragon is glowing with blue light.",
+            "background_prompt": "A glowing sky with stars shining brightly. A peaceful landscape with a small village in the distance.",
+            "characters_present": [
+                "Luna",
+                "Tío",
+                "Fuego"
+            ],
+            "ambience_prompt": "Soft wind, gentle rustling of leaves, and the sound of a small bell.",
+            "voice_direction": "Soft and hopeful, with a tone that shows peace and wonder."
+        }
+    ]
+}

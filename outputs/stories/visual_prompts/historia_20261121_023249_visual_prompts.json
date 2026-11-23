@@ -1,0 +1,77 @@
+{
+    "project": "FifthPlot",
+    "source_story": "historia_20261121_023249.json",
+    "story_title": "La Zorra de las Estrellas Perdidas",
+    "model_text": "qwen3:4b-q4_K_M",
+    "model_image": "DreamShaper 8",
+    "tokenizer": "models\\dreamshaper-8\\tokenizer",
+    "max_positive_tokens": 70,
+    "visual_style": "Ilustracion de cuento infantil en acuarela y gouache, papel texturizado, pinceladas suaves, tonos azul, violeta y plata con acentos dorados, iluminacion magica, continuidad artistica entre las cinco escenas.",
+    "scenes": [
+        {
+            "number": 1,
+            "scene_title": "La Zorra y el Cielo Perdido",
+            "narrative": "Luna, la pequeña zorra, observa el cielo nocturno y nota que las estrellas se han ido. Se siente curiosa y decide investigar. Camina por el bosque, con sus ojos dorados brillando en la oscuridad, y escucha los susurros de los árboles que parecen hablarle.",
+            "characters_present": [
+                "Luna"
+            ],
+            "image_prompt": "Luna, a small white-and-blue fox with golden eyes and a shimmering silver-blue cloak, stands on a forest path under a starless violet-blue sky. Her tail flows softly as she stares upward, surrounded by tall trees and moonlight. A wide cinematic composition captures the mysterious, quiet atmosphere of the enchanted forest.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 69,
+            "negative_tokens": 32
+        },
+        {
+            "number": 2,
+            "scene_title": "El Primer Encuentro en el Bosque",
+            "narrative": "Luna llega a un bosque donde los árboles se mueven y sus hojas susurran. Se acerca a un árbol antiguo y lo toca. El árbol le dice que las estrellas han sido robadas por algo más poderoso que ella, y le muestra una sombra que se acerca lentamente.",
+            "characters_present": [
+                "Luna"
+            ],
+            "image_prompt": "Luna approaches an ancient tree with textured bark, its roots twisting around a misty path. The forest glows with cold blue-violet light, shadows stretching across the ground. Her golden eyes meet the tree's glowing amber eyes as she reaches out, surrounded by dense foliage and the faint hum of whispers in the wind.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 65,
+            "negative_tokens": 32
+        },
+        {
+            "number": 3,
+            "scene_title": "La Llamada del Titán",
+            "narrative": "Luna llega a un lugar donde el cielo se ve muy oscuro y el suelo se siente frío. Se acerca a un titán de piedra con ojos de fuego, quien le dice que las estrellas se están perdiendo porque alguien las está robando. El titán le pide que encuentre a la entidad que está haciendo esto.",
+            "characters_present": [
+                "Luna",
+                "El Titán del Amanecer"
+            ],
+            "image_prompt": "Luna faces a colossal stone Titan on a rocky plateau, its weathered face glowing with amber eyes and a flowing dawn-light veil. Distant mountains loom against a dark violet sky, while broken stone pillars dot the landscape. Luna's silver-blue cloak contrasts with the muted tones of the crumbling terrain.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 64,
+            "negative_tokens": 32
+        },
+        {
+            "number": 4,
+            "scene_title": "La Sombra del Anochecer",
+            "narrative": "Luna se enfrenta a la Sombra del Anochecer, una entidad de oscuridad que se acerca a ella. La Sombra le dice que las estrellas son su alimento, y que no pueden existir sin ella. Luna, con su voz melódica, le pide que deje las estrellas, y la Sombra se siente confundida. La luz de las estrellas comienza a regresar.",
+            "characters_present": [
+                "Luna",
+                "La Sombra del Anochecer"
+            ],
+            "image_prompt": "Luna stands in a dark forest clearing, her golden eyes locked on a shadowy figure formed of swirling black mist. The entity has crimson glowing eyes and curling darkness, while scattered silver stars flicker in the distance. Twisted trees and glowing flowers surround them, creating a tense, luminous atmosphere.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 61,
+            "negative_tokens": 32
+        },
+        {
+            "number": 5,
+            "scene_title": "El Regreso de las Estrellas",
+            "narrative": "Luna, con la ayuda del Jardinero de Estrellas, logra que las estrellas regresen al cielo. El titán y la sombra se alejan, y el cielo se vuelve brillante. Luna, satisfecha, regresa a su bosque, sabiendo que las estrellas ahora están seguras.",
+            "characters_present": [
+                "Luna",
+                "El Jardinero de Estrellas",
+                "El Titán del Amanecer",
+                "La Sombra del Anochecer"
+            ],
+            "image_prompt": "Luna and a star-lit gardener restore stars above a forest clearing, their hands weaving light into the sky. A distant Titan watches as the shadow entity dissolves into returning light. The brilliant blue-violet sky glows with countless silver stars, glowing flowers, and golden dawn light spreading across the landscape.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 62,
+            "negative_tokens": 32
+        }
+    ]
+}

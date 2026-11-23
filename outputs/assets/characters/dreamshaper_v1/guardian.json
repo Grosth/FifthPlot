@@ -1,0 +1,14 @@
+{
+    "personaje": "guardian",
+    "modelo": "DreamShaper 8",
+    "precision": "FP16",
+    "resolucion": "512x512",
+    "semilla": 6101,
+    "pasos": 20,
+    "guidance_scale": 7.0,
+    "tiempo_segundos": 18.59,
+    "memoria_gpu_pico_gb": 1.16,
+    "prompt": "Watercolor gouache children's storybook illustration, soft hand-painted brushstrokes, textured paper, beautiful warm colors, isolated full body character, centered on a plain warm ivory background. Front-facing elderly human man with white hair, blue eyes, a wise wrinkled face and a long black cloak, standing alone, full body.",
+    "negative_prompt": "back view, hidden face, blonde hair, white robe, angel, ghost, owl, bird, wings, extra people, cropped, watermark, text, 3d render.",
+    "imagen": "outputs\\assets\\characters\\dreamshaper_v1\\guardian.png"
+}

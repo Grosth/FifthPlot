@@ -1,0 +1,46 @@
+{
+  "story_id": "20261123_020830_31f53bdd",
+  "status": "failed",
+  "story_title": "La Zorra y el Bosque de las Estrellas Perdidas",
+  "genre": "Fantasía",
+  "strategy": "ip_adapter",
+  "models": {
+    "narrative": "qwen3:4b-q4_K_M",
+    "image": "dreamshaper-8",
+    "image_adapter": "IP-Adapter Plus SD15",
+    "voice": "es_ES-carlfm-x_low.onnx",
+    "ambience": "ProceduralAmbience"
+  },
+  "parameters": {
+    "story_generation_seconds": 109.78,
+    "scene_count": 5,
+    "image_strategy": "ip_adapter",
+    "image_size": 512,
+    "image_steps": 20,
+    "image_guidance_scale": 7.0,
+    "ip_adapter_scale": 0.45,
+    "image_runs": []
+  },
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cpu": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+    "logical_processors": 16,
+    "ram": {
+      "total_gb": 15.82,
+      "available_gb": 5.27
+    },
+    "gpu": null,
+    "versions": {
+      "fifthplot": "0.2.0",
+      "torch": "2.15.0+cu132",
+      "diffusers": "0.43.0",
+      "transformers": "5.23.0",
+      "gradio": "6.32.0",
+      "piper-tts": "1.8.0"
+    }
+  },
+  "scenes": [],
+  "error": "ImageGenerationError: Hay 5.3 GB de RAM disponible; la estrategia ip_adapter requiere al menos 6 GB disponibles para cargar el modelo con CPU offload. Cierra aplicaciones y vuelve a intentarlo.",
+  "elapsed_seconds": 0.01
+}

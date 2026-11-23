@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "test_type": "real local TTS and procedural audio smoke test",
+  "tts": {
+    "engine": "piper-tts",
+    "version": "1.8.0",
+    "model": "es_ES-carlfm-x_low.onnx",
+    "model_card": "models/voices/es_ES-carlfm-x_low.MODEL_CARD",
+    "license_record": "public domain; trained from scratch per local MODEL_CARD",
+    "sample_text": "Luma encontr? una llave brillante bajo las estrellas.",
+    "file": "narration_sample.wav",
+    "file_bytes": 100908,
+    "sample_rate_hz": 16000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "frames": 50432,
+    "duration_seconds": 3.152,
+    "synthesis_wall_seconds": 1.152,
+    "model_sha256": "d69677323a907cd4963f42b29c20a98b5d6bfa7f3e64df339915e4650c00d125"
+  },
+  "ambience": {
+    "engine": "FifthPlot ProceduralAmbience",
+    "prompt": "Viento y hojas en un bosque nocturno.",
+    "file": "ambience_sample.wav",
+    "file_bytes": 396944,
+    "sample_rate_hz": 22050,
+    "duration_seconds": 9.0
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "inference_network": "not used"
+  }
+}

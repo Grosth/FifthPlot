@@ -1,0 +1,18 @@
+{
+    "escena": 5,
+    "modelo": "Stable Diffusion 1.5",
+    "adaptador": "IP-Adapter Plus SD15",
+    "referencia": "outputs\\images\\luma_prueba_01.png",
+    "adapter_scale": 0.5,
+    "semilla": 4205,
+    "resolucion": "512x512",
+    "pasos": 20,
+    "guidance_scale": 7.0,
+    "precision": "FP16",
+    "tiempo_segundos": 20.82,
+    "memoria_gpu_pico_gb": 1.17,
+    "prompt": "Watercolor children's storybook, soft gouache brushstrokes, teal forest, warm colors. Luma, small red-orange fox, golden eyes, tiny nose, fluffy fur, curled comet tail. Scene: Stars return as Luma watches the defeated shadow serpent dissolve into glowing light.",
+    "negative_prompt": "blurry, cropped, extra limbs, extra ears, duplicate fox, deformed, text, watermark, photorealistic, 3d render.",
+    "descripcion": "Stars return as Luma watches the defeated shadow serpent dissolve into glowing light.",
+    "imagen": "outputs\\images\\revised\\scene_05_revised.png"
+}

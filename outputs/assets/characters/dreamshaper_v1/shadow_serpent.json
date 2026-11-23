@@ -1,0 +1,14 @@
+{
+    "personaje": "shadow_serpent",
+    "modelo": "DreamShaper 8",
+    "precision": "FP16",
+    "resolucion": "512x512",
+    "semilla": 6102,
+    "pasos": 20,
+    "guidance_scale": 7.0,
+    "tiempo_segundos": 17.44,
+    "memoria_gpu_pico_gb": 1.16,
+    "prompt": "Watercolor gouache children's storybook illustration, soft hand-painted brushstrokes, textured paper, beautiful warm colors, isolated full body character, centered on a plain warm ivory background. One black shadow serpent, single head, glowing red eyes, continuous coiled body, full creature visible, sharp sword-shaped tail.",
+    "negative_prompt": "multiple snakes, hydra, multiple heads, dragon, octopus, tentacles, red body, blue scales, wings, legs, plants, cropped, watermark, text, 3d render.",
+    "imagen": "outputs\\assets\\characters\\dreamshaper_v1\\shadow_serpent.png"
+}

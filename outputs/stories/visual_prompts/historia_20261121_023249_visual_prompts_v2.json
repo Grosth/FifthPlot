@@ -1,0 +1,84 @@
+{
+    "project": "FifthPlot",
+    "version": "2.0",
+    "source_story": "historia_20261121_023249.json",
+    "story_title": "La Zorra de las Estrellas Perdidas",
+    "model_text": "qwen3:4b-q4_K_M",
+    "model_image": "DreamShaper 8",
+    "tokenizer": "models\\dreamshaper-8\\tokenizer",
+    "max_positive_tokens": 70,
+    "visual_style_suffix": "watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.",
+    "character_signatures": {
+        "Luna": "Small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak",
+        "El Titán del Amanecer": "Colossal humanoid with weathered stone face, glowing amber eyes, long stone arms, and magical runes",
+        "La Sombra del Anochecer": "Mysterious shadow entity of black mist with two crimson eyes and curling darkness",
+        "El Jardinero de Estrellas": "Elderly with luminous face, midnight blue cloak embroidered with silver stars, and sparkling diamond collar"
+    },
+    "scenes": [
+        {
+            "number": 1,
+            "scene_title": "La Zorra y el Cielo Perdido",
+            "characters_present": [
+                "Luna"
+            ],
+            "visual_core": "Luna, small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak, stands under a starless sky, surrounded by whispering trees with glowing bark and moving branches",
+            "image_prompt": "Luna, small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak, stands under a starless sky, surrounded by whispering trees with glowing bark and moving branches watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 67,
+            "negative_tokens": 32
+        },
+        {
+            "number": 2,
+            "scene_title": "El Primer Encuentro en el Bosque",
+            "characters_present": [
+                "Luna"
+            ],
+            "visual_core": "Luna faces ancient tree with glowing bark, as shadowy mist entity approaches",
+            "image_prompt": "Luna faces ancient tree with glowing bark, as shadowy mist entity approaches watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 41,
+            "negative_tokens": 32
+        },
+        {
+            "number": 3,
+            "scene_title": "La Llamada del Titán",
+            "characters_present": [
+                "Luna",
+                "El Titán del Amanecer"
+            ],
+            "visual_core": "Luna stands before stone guardian in dark, cold landscape with faint dawn light",
+            "image_prompt": "Luna stands before stone guardian in dark, cold landscape with faint dawn light watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 41,
+            "negative_tokens": 32
+        },
+        {
+            "number": 4,
+            "scene_title": "La Sombra del Anochecer",
+            "characters_present": [
+                "Luna",
+                "La Sombra del Anochecer"
+            ],
+            "visual_core": "Luna confronts shadowy mist entity as stars glow back into sky",
+            "image_prompt": "Luna confronts shadowy mist entity as stars glow back into sky watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 40,
+            "negative_tokens": 32
+        },
+        {
+            "number": 5,
+            "scene_title": "El Regreso de las Estrellas",
+            "characters_present": [
+                "Luna",
+                "El Jardinero de Estrellas",
+                "El Titán del Amanecer",
+                "La Sombra del Anochecer"
+            ],
+            "visual_core": "Luna stands with stone guardian, mist entity, and gardener under starlit sky",
+            "image_prompt": "Luna stands with stone guardian, mist entity, and gardener under starlit sky watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 42,
+            "negative_tokens": 32
+        }
+    ]
+}

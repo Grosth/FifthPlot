@@ -1,0 +1,66 @@
+FIFTHPLOT - INFORME DE PROMPTS VISUALES
+============================================================
+Historia: La Zorra de las Estrellas Perdidas
+Modelo: qwen3:4b-q4_K_M
+Modelo visual previsto: DreamShaper 8
+Limite CLIP: 70 tokens
+
+============================================================
+ESCENA 1: La Zorra y el Cielo Perdido
+Personajes: Luna
+Tokens positivos: 69/77
+Tokens negativos: 32/77
+
+PROMPT VISUAL:
+Luna, a small white-and-blue fox with golden eyes and a shimmering silver-blue cloak, stands on a forest path under a starless violet-blue sky. Her tail flows softly as she stares upward, surrounded by tall trees and moonlight. A wide cinematic composition captures the mysterious, quiet atmosphere of the enchanted forest.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+============================================================
+ESCENA 2: El Primer Encuentro en el Bosque
+Personajes: Luna
+Tokens positivos: 65/77
+Tokens negativos: 32/77
+
+PROMPT VISUAL:
+Luna approaches an ancient tree with textured bark, its roots twisting around a misty path. The forest glows with cold blue-violet light, shadows stretching across the ground. Her golden eyes meet the tree's glowing amber eyes as she reaches out, surrounded by dense foliage and the faint hum of whispers in the wind.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+============================================================
+ESCENA 3: La Llamada del Titán
+Personajes: Luna, El Titán del Amanecer
+Tokens positivos: 64/77
+Tokens negativos: 32/77
+
+PROMPT VISUAL:
+Luna faces a colossal stone Titan on a rocky plateau, its weathered face glowing with amber eyes and a flowing dawn-light veil. Distant mountains loom against a dark violet sky, while broken stone pillars dot the landscape. Luna's silver-blue cloak contrasts with the muted tones of the crumbling terrain.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+============================================================
+ESCENA 4: La Sombra del Anochecer
+Personajes: Luna, La Sombra del Anochecer
+Tokens positivos: 61/77
+Tokens negativos: 32/77
+
+PROMPT VISUAL:
+Luna stands in a dark forest clearing, her golden eyes locked on a shadowy figure formed of swirling black mist. The entity has crimson glowing eyes and curling darkness, while scattered silver stars flicker in the distance. Twisted trees and glowing flowers surround them, creating a tense, luminous atmosphere.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+============================================================
+ESCENA 5: El Regreso de las Estrellas
+Personajes: Luna, El Jardinero de Estrellas, El Titán del Amanecer, La Sombra del Anochecer
+Tokens positivos: 62/77
+Tokens negativos: 32/77
+
+PROMPT VISUAL:
+Luna and a star-lit gardener restore stars above a forest clearing, their hands weaving light into the sky. A distant Titan watches as the shadow entity dissolves into returning light. The brilliant blue-violet sky glows with countless silver stars, glowing flowers, and golden dawn light spreading across the landscape.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.

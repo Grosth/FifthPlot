@@ -1,0 +1,63 @@
+{
+    "experimento": "Revision narrativa de escenas",
+    "modelo": "Stable Diffusion 1.5",
+    "referencia": "outputs\\images\\luma_prueba_01.png",
+    "estrategia": "Prompt + IP-Adapter",
+    "adapter_scale": 0.35,
+    "escenas_corregidas": [
+        {
+            "escena": 3,
+            "modelo": "Stable Diffusion 1.5",
+            "adaptador": "IP-Adapter Plus SD15",
+            "referencia": "outputs\\images\\luma_prueba_01.png",
+            "adapter_scale": 0.35,
+            "semilla": 4203,
+            "resolucion": "512x512",
+            "pasos": 20,
+            "guidance_scale": 7.0,
+            "precision": "FP16",
+            "tiempo_segundos": 23.0,
+            "memoria_gpu_pico_gb": 1.17,
+            "prompt": "Watercolor children's storybook, soft gouache brushstrokes, teal forest, warm colors. Luma, small red-orange fox, golden eyes, tiny nose, fluffy fur, curled comet tail. Scene: Tall mirrors reflect a white-haired guardian and a red-eyed shadow serpent.",
+            "negative_prompt": "two foxes, multiple foxes, duplicate fox, second fox, extra fox, cropped, hidden tail, extra limbs, extra ears, blurry, text, watermark, photorealistic, 3d render.",
+            "descripcion": "Tall mirrors reflect a white-haired guardian and a red-eyed shadow serpent.",
+            "imagen": "outputs\\images\\revised_v2\\scene_03_revised.png"
+        },
+        {
+            "escena": 4,
+            "modelo": "Stable Diffusion 1.5",
+            "adaptador": "IP-Adapter Plus SD15",
+            "referencia": "outputs\\images\\luma_prueba_01.png",
+            "adapter_scale": 0.35,
+            "semilla": 4204,
+            "resolucion": "512x512",
+            "pasos": 20,
+            "guidance_scale": 7.0,
+            "precision": "FP16",
+            "tiempo_segundos": 19.11,
+            "memoria_gpu_pico_gb": 1.17,
+            "prompt": "Watercolor children's storybook, soft gouache brushstrokes, teal forest, warm colors. Luma, small red-orange fox, golden eyes, tiny nose, fluffy fur, curled comet tail. Scene: Luma faces a coiled black serpent with glowing red eyes and a sword-shaped tail.",
+            "negative_prompt": "two foxes, multiple foxes, duplicate fox, second fox, extra fox, cropped, hidden tail, extra limbs, extra ears, blurry, text, watermark, photorealistic, 3d render.",
+            "descripcion": "Luma faces a coiled black serpent with glowing red eyes and a sword-shaped tail.",
+            "imagen": "outputs\\images\\revised_v2\\scene_04_revised.png"
+        },
+        {
+            "escena": 5,
+            "modelo": "Stable Diffusion 1.5",
+            "adaptador": "IP-Adapter Plus SD15",
+            "referencia": "outputs\\images\\luma_prueba_01.png",
+            "adapter_scale": 0.35,
+            "semilla": 4205,
+            "resolucion": "512x512",
+            "pasos": 20,
+            "guidance_scale": 7.0,
+            "precision": "FP16",
+            "tiempo_segundos": 19.61,
+            "memoria_gpu_pico_gb": 1.17,
+            "prompt": "Watercolor children's storybook, soft gouache brushstrokes, teal forest, warm colors. Luma, small red-orange fox, golden eyes, tiny nose, fluffy fur, curled comet tail. Scene: Stars return as the defeated shadow serpent dissolves into glowing light.",
+            "negative_prompt": "two foxes, multiple foxes, duplicate fox, second fox, extra fox, cropped, hidden tail, extra limbs, extra ears, blurry, text, watermark, photorealistic, 3d render.",
+            "descripcion": "Stars return as the defeated shadow serpent dissolves into glowing light.",
+            "imagen": "outputs\\images\\revised_v2\\scene_05_revised.png"
+        }
+    ]
+}

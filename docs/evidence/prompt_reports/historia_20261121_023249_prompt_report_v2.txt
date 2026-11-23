@@ -1,0 +1,73 @@
+FIFTHPLOT - INFORME DE PROMPTS VISUALES V2
+=================================================================
+Historia: La Zorra de las Estrellas Perdidas
+Modelo textual: qwen3:4b-q4_K_M
+Modelo visual: DreamShaper 8
+Estilo comun: watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.
+
+PERSONAJE: Luna
+Firma: Small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak
+
+PERSONAJE: El Titán del Amanecer
+Firma: Colossal humanoid with weathered stone face, glowing amber eyes, long stone arms, and magical runes
+
+PERSONAJE: La Sombra del Anochecer
+Firma: Mysterious shadow entity of black mist with two crimson eyes and curling darkness
+
+PERSONAJE: El Jardinero de Estrellas
+Firma: Elderly with luminous face, midnight blue cloak embroidered with silver stars, and sparkling diamond collar
+
+=================================================================
+ESCENA 1: La Zorra y el Cielo Perdido
+Personajes: Luna
+Tokens positivos: 67/77
+
+PROMPT COMPLETO:
+Luna, small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak, stands under a starless sky, surrounded by whispering trees with glowing bark and moving branches watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+=================================================================
+ESCENA 2: El Primer Encuentro en el Bosque
+Personajes: Luna
+Tokens positivos: 41/77
+
+PROMPT COMPLETO:
+Luna faces ancient tree with glowing bark, as shadowy mist entity approaches watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+=================================================================
+ESCENA 3: La Llamada del Titán
+Personajes: Luna, El Titán del Amanecer
+Tokens positivos: 41/77
+
+PROMPT COMPLETO:
+Luna stands before stone guardian in dark, cold landscape with faint dawn light watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+=================================================================
+ESCENA 4: La Sombra del Anochecer
+Personajes: Luna, La Sombra del Anochecer
+Tokens positivos: 40/77
+
+PROMPT COMPLETO:
+Luna confronts shadowy mist entity as stars glow back into sky watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+=================================================================
+ESCENA 5: El Regreso de las Estrellas
+Personajes: Luna, El Jardinero de Estrellas, El Titán del Amanecer, La Sombra del Anochecer
+Tokens positivos: 42/77
+
+PROMPT COMPLETO:
+Luna stands with stone guardian, mist entity, and gardener under starlit sky watercolor gouache storybook illustration, textured paper, soft painterly brushstrokes, blue violet silver palette, warm golden light.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.

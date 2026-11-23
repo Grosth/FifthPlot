@@ -1,0 +1,14 @@
+{
+    "modelo": "Stable Diffusion 1.5",
+    "tipo_pesos": "FP16 Safetensors",
+    "dispositivo": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "precision": "float16",
+    "resolucion": "512x512",
+    "pasos": 15,
+    "guidance_scale": 7.0,
+    "seed": 42,
+    "tiempo_segundos": 17.69,
+    "memoria_gpu_pico_gb": 1.17,
+    "prompt": "\nstorybook illustration of Luma, a small fox with bright vivid red fur,\nbeautiful golden eyes, a small nose and a distinctive comet-shaped tail,\nslightly messy fluffy fur, standing on wet ground in an ancient forest at night,\nlooking at a dark sky where the stars have disappeared,\nold trees casting long shadows, soft moonlight,\nmagical mysterious atmosphere, warm and cool contrasting colors,\nsoft textures, detailed expressive character,\nbeautiful children's fantasy storybook art,\nhigh quality digital painting\n",
+    "negative_prompt": "\nblurry, low quality, low resolution, deformed body,\nextra legs, extra ears, multiple foxes, duplicate character,\nbad anatomy, cropped character, text, watermark, logo,\nphotorealistic, 3d render\n"
+}

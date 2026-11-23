@@ -1,0 +1,108 @@
+{
+  "title": "La zorra y las estrellas desaparecidas",
+  "genre": "Fantasía",
+  "synopsis": "Una zorra llamada Liria viaja por el bosque en busca de las estrellas que desaparecieron de su mundo. Con la ayuda de un anciano, un gato, un pájaro y un huevo mágico, intenta encontrar la causa del desaparecimiento y restaurar el cielo estrellado.",
+  "visual_style": "Un mundo mágico y oscuro con bosques antiguos, cielos sin estrellas, luces tenues y sombras largas. El estilo es realista con toques de fantasía, en tonos grises, azules y blancos.",
+  "characters": [
+    {
+      "name": "Liria",
+      "description": "Una zorra joven con pelaje áspero de marrón oscuro, ojos dorados, y una cola que brilla tenue cuando se mueve. Busca las estrellas que desaparecieron de su mundo.",
+      "role": "Héroe principal, busca la verdad y la luz en un mundo oscuro.",
+      "visual_prompt": "A wild, young fox with dark brown fur, golden eyes, and a faintly glowing tail, walking through a dark forest at night."
+    },
+    {
+      "name": "Orin",
+      "description": "Un anciano con pelo blanco y ojos grises, vestido con ropa de color oscuro. Conoce el secreto del mundo y ayuda a Liria.",
+      "role": "Guía y sabio, proporciona conocimiento y consejos.",
+      "visual_prompt": "An old man with white hair and gray eyes, dressed in dark clothing, standing in a moonlit forest."
+    },
+    {
+      "name": "Kael",
+      "description": "Un gato negro con ojos azules, silencioso y astuto. Sirve como aliado de Liria en su búsqueda.",
+      "role": "Aliado, observador y ayudante en la búsqueda de las estrellas.",
+      "visual_prompt": "A black cat with blue eyes, silent and watchful, following a fox through a dark forest."
+    },
+    {
+      "name": "Nia",
+      "description": "Un pájaro con plumas blancas y ojos rojos, capaz de volar y comunicarse con los animales. Es un mensajero del mundo mágico.",
+      "role": "Mensajero, ayuda a Liria a comunicarse con el mundo mágico.",
+      "visual_prompt": "A white bird with red eyes, flying through the dark forest, calling to other animals."
+    }
+  ],
+  "scenes": [
+    {
+      "number": 1,
+      "scene_title": "La zorra en busca de las estrellas",
+      "narrative": "Liria camina por el bosque oscuro, con la mente llena de preguntas. Las estrellas desaparecieron hace días, y el cielo ahora es oscuro. Ella busca el origen de la oscuridad.",
+      "image_prompt": "A young fox walking through a dark forest at night, with a mysterious aura around her, and a distant dark sky without stars.",
+      "background_prompt": "Dark forest at night, with a dark sky and faint moonlight.",
+      "characters_present": [
+        "Liria",
+        "Kael",
+        "Nia"
+      ],
+      "ambience_prompt": "Soft wind, distant rustling, and the sound of a distant owl hooting.",
+      "voice_direction": "Silence, with a faint whisper in the wind."
+    },
+    {
+      "number": 2,
+      "scene_title": "El anciano y las sombras",
+      "narrative": "Liria encuentra a Orin en la entrada del bosque. Él habla de la oscuridad que crece en el mundo y le dice que debe buscar el núcleo de la oscuridad.",
+      "image_prompt": "An old man with white hair and gray eyes standing in the entrance of a dark forest, surrounded by shadows.",
+      "background_prompt": "A dark forest entrance with shadows surrounding the old man.",
+      "characters_present": [
+        "Liria",
+        "Orin",
+        "Kael",
+        "Nia"
+      ],
+      "ambience_prompt": "Whispers in the wind, distant footsteps, and a low growl.",
+      "voice_direction": "Orin speaks in a low, solemn voice."
+    },
+    {
+      "number": 3,
+      "scene_title": "El corazón del bosque",
+      "narrative": "Liria y su grupo llegan al corazón del bosque, donde se siente una presión oscura. La oscuridad parece tener forma y movimientos.",
+      "image_prompt": "A dark forest heart with a glowing black core, surrounded by twisted trees and shadowy creatures.",
+      "background_prompt": "A dark forest with a glowing black core and twisted trees.",
+      "characters_present": [
+        "Liria",
+        "Orin",
+        "Kael",
+        "Nia"
+      ],
+      "ambience_prompt": "A low hum, distant growls, and the sound of rustling leaves.",
+      "voice_direction": "A low, ominous voice in the distance."
+    },
+    {
+      "number": 4,
+      "scene_title": "El momento decisivo",
+      "narrative": "Liria se enfrenta al núcleo de la oscuridad, que le revela que las estrellas se perdieron por un error de un anciano que buscaba controlar el cielo.",
+      "image_prompt": "A young fox facing a glowing black core in the center of a dark forest, with shadows and light around her.",
+      "background_prompt": "A dark forest with a glowing black core and shadows surrounding the fox.",
+      "characters_present": [
+        "Liria",
+        "Orin",
+        "Kael",
+        "Nia"
+      ],
+      "ambience_prompt": "A low hum, distant growls, and the sound of a glowing core.",
+      "voice_direction": "A low, ominous voice from the core."
+    },
+    {
+      "number": 5,
+      "scene_title": "La luz de las estrellas",
+      "narrative": "Liria, con la ayuda de Orin, restaura las estrellas en el cielo, y el bosque se ilumina con la luz de las estrellas nuevamente.",
+      "image_prompt": "A young fox with a glowing tail, standing in a dark forest with a starry sky above, and other animals looking up in wonder.",
+      "background_prompt": "A dark forest with a starry sky and glowing stars above.",
+      "characters_present": [
+        "Liria",
+        "Orin",
+        "Kael",
+        "Nia"
+      ],
+      "ambience_prompt": "A soft wind, distant rustling, and the sound of stars twinkling.",
+      "voice_direction": "A soft, hopeful voice in the wind."
+    }
+  ]
+}

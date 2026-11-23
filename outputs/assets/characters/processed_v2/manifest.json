@@ -1,0 +1,10 @@
+{
+    "proyecto": "FifthPlot",
+    "version": "processed_v2",
+    "personajes": [
+        "luma",
+        "guardian",
+        "shadow_serpent"
+    ],
+    "metodo": "Limpieza de componentes desconectados"
+}

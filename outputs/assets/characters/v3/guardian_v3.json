@@ -1,0 +1,15 @@
+{
+    "personaje": "guardian",
+    "modelo": "Stable Diffusion 1.5",
+    "estilo": "Watercolor y gouache",
+    "resolucion": "512x512",
+    "precision": "FP16",
+    "semilla": 5201,
+    "pasos": 20,
+    "guidance_scale": 7.0,
+    "tiempo_segundos": 19.08,
+    "memoria_gpu_pico_gb": 1.17,
+    "prompt": "Watercolor gouache storybook character illustration, soft brushstrokes, textured paper, plain warm ivory background, isolated subject, centered. Front-facing elderly human man, clearly visible wrinkled face, long white hair, bright blue eyes, gentle serious expression, wearing a flowing black cloak. Three-quarter body portrait, standing upright.",
+    "negative_prompt": "back view, facing away, hidden face, white robe, angel, ghost, bird, owl, wings, blonde hair, hood covering face, multiple people, trees, forest, cropped, extra limbs, text, watermark, 3d render, photorealistic.",
+    "imagen": "outputs\\assets\\characters\\v3\\guardian_v3.png"
+}

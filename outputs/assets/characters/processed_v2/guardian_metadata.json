@@ -1,0 +1,33 @@
+{
+    "personaje": "guardian",
+    "origen": "outputs\\assets\\characters\\dreamshaper_v1\\guardian.png",
+    "metodo": "U2Net CPU",
+    "dimensiones_originales": [
+        512,
+        512
+    ],
+    "dimensiones_recortadas": [
+        210,
+        431
+    ],
+    "bbox": [
+        145,
+        59,
+        355,
+        490
+    ],
+    "margen": 16,
+    "porcentaje_transparente": 84.35,
+    "mascara": "outputs\\assets\\characters\\processed_v2\\guardian_mask.png",
+    "imagen_transparente": "outputs\\assets\\characters\\processed_v2\\guardian_transparent.png",
+    "imagen_recortada": "outputs\\assets\\characters\\processed_v2\\guardian_cropped.png",
+    "vista_previa": "outputs\\assets\\characters\\processed_v2\\guardian_preview.png",
+    "version": "processed_v2",
+    "limpieza_componentes": [],
+    "bbox_final": [
+        145,
+        59,
+        355,
+        490
+    ]
+}

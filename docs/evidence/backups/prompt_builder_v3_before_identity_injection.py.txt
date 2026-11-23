@@ -1,0 +1,725 @@
+import json
+import urllib.request
+import urllib.error
+
+from pathlib import Path
+from transformers import CLIPTokenizer
+
+
+MODEL = "qwen3:4b-q4_K_M"
+OLLAMA_URL = "http://localhost:11434"
+
+TOKENIZER_PATH = Path("models/dreamshaper-8/tokenizer")
+PLAN_DIR = Path("outputs/stories/visual_prompts")
+STORY_DIR = Path("outputs/stories")
+
+OUTPUT_DIR = PLAN_DIR
+REPORT_DIR = Path("docs/evidence/prompt_reports")
+
+MAX_TOKENS = 70
+MAX_CUE_TOKENS = 8
+
+STYLE_SUFFIX = (
+    "watercolor gouache storybook, textured paper, "
+    "soft brushstrokes, blue-violet palette, "
+    "warm golden light."
+)
+
+NEGATIVE_PROMPT = (
+    "text, watermark, logo, blurry, low quality, "
+    "duplicate characters, extra limbs, distorted anatomy, "
+    "photorealistic, 3d render."
+)
+
+
+def llamar_qwen(prompt, max_predict=1800):
+
+    ultimo_error = None
+
+    for intento in range(1, 3):
+
+        payload = {
+            "model": MODEL,
+            "prompt": prompt,
+            "stream": False,
+            "format": "json",
+            "options": {
+                "temperature": 0.15 if intento == 1 else 0.0,
+                "num_predict": max_predict if intento == 1 else max_predict + 400,
+                "num_ctx": 4096
+            }
+        }
+
+        request = urllib.request.Request(
+            f"{OLLAMA_URL}/api/generate",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"}
+        )
+
+        try:
+            with urllib.request.urlopen(
+                request, timeout=900
+            ) as response:
+
+                data = json.loads(
+                    response.read().decode("utf-8")
+                )
+
+        except urllib.error.URLError as error:
+            ultimo_error = f"Error de conexion: {error}"
+            print(ultimo_error)
+            continue
+
+        if data.get("error"):
+            ultimo_error = data["error"]
+            print("Error de Ollama:", ultimo_error)
+            continue
+
+        texto = data.get("response", "")
+
+        if not isinstance(texto, str) or not texto.strip():
+
+            motivo = data.get("done_reason", "no informado")
+
+            ultimo_error = (
+                f"Respuesta vacia de Qwen3. "
+                f"Motivo: {motivo}. "
+                f"Intento: {intento}/2."
+            )
+
+            print(ultimo_error)
+            continue
+
+        try:
+            resultado = json.loads(texto)
+
+        except json.JSONDecodeError as error:
+
+            ultimo_error = (
+                f"JSON incorrecto: {error}. "
+                f"Respuesta recibida: {texto[:250]}"
+            )
+
+            print(ultimo_error)
+            continue
+
+        if not isinstance(resultado, dict):
+            ultimo_error = "Qwen3 no devolvio un objeto JSON."
+            print(ultimo_error)
+            continue
+
+        return resultado
+
+    raise RuntimeError(
+        "Qwen3 no produjo una respuesta JSON valida "
+        f"despues de dos intentos. Detalle: {ultimo_error}"
+    )
+
+
+def contar_tokens(tokenizer, texto):
+
+    return len(
+        tokenizer(
+            texto,
+            truncation=False
+        )["input_ids"]
+    )
+
+
+def cargar_datos():
+
+    archivos = sorted(
+        PLAN_DIR.glob("*_visual_prompts_v2.json"),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True
+    )
+
+    if not archivos:
+        raise FileNotFoundError(
+            "No se encontro el plan visual V2."
+        )
+
+    plan_path = archivos[0]
+
+    plan = json.loads(
+        plan_path.read_text(encoding="utf-8-sig")
+    )
+
+    story_path = STORY_DIR / plan["source_story"]
+
+    historia = json.loads(
+        story_path.read_text(encoding="utf-8-sig")
+    )
+
+    return plan, historia
+
+
+def preparar_contexto(plan, historia):
+
+    personajes = []
+
+    for personaje in historia["characters"]:
+
+        personajes.append({
+            "name": personaje["name"],
+            "description": personaje["description"],
+            "visual_prompt": personaje.get("visual_prompt", ""),
+            "previous_signature": plan[
+                "character_signatures"
+            ].get(personaje["name"], "")
+        })
+
+    escenas = []
+
+    for escena in plan["scenes"]:
+
+        fuente = historia["scenes"][int(escena["number"]) - 1]
+
+        escenas.append({
+            "number": escena["number"],
+            "title": escena["scene_title"],
+            "narrative": fuente["narrative"],
+            "characters_present": escena["characters_present"]
+        })
+
+    return {
+        "title": historia["title"],
+        "genre": historia["genre"],
+        "synopsis": historia.get("synopsis", ""),
+        "characters": personajes,
+        "scenes": escenas
+    }
+
+
+def generar_plan(contexto):
+
+    instrucciones = f"""
+You are the professional visual director of FifthPlot.
+
+Create a visual plan for exactly five complete
+children's storybook illustrations.
+
+STORY DATA:
+{json.dumps(contexto, ensure_ascii=False, indent=2)}
+
+Return this JSON structure:
+
+{{
+  "character_cues": [
+    {{
+      "name": "Exact character name",
+      "cue": "Compact visual identity"
+    }}
+  ],
+  "scenes": [
+    {{
+      "number": 1,
+      "visual_action": "Detailed scene action"
+    }}
+  ]
+}}
+
+CHARACTER CUES:
+
+- Include every character in the original cast.
+- Preserve species, physical material, distinctive colors
+  and identifying features.
+- Character cues are detailed reference metadata.
+- They are not appended to the final CLIP prompt.
+- Preserve species, distinctive colors and identity.
+- Be specific, not generic.
+- A fox must remain a quadruped animal.
+- A stone titan must look like a stone humanoid.
+- A shadow entity must retain its black mist and red eyes.
+- The star gardener must remain visually recognizable.
+- Do not change character identities.
+
+SCENE ACTIONS:
+
+- Return exactly five scenes, numbered 1 to 5.
+- Write in English.
+- Aim for 25 to 40 CLIP tokens per action when possible.
+- Include compact physical identity cues for every visible character directly in visual_action.
+- The final prompt, including artistic style, must fit within 70 CLIP tokens.
+- Describe the actual event of that scene.
+- Specify the environment, composition and character actions.
+- Each participant must have a clear role or position.
+- Do not omit characters in characters_present.
+- Do not introduce additional characters.
+
+SPECIAL RULES:
+
+- An unlisted approaching shadow may only be an
+  environmental shadow with no recognizable face or body.
+- A speaking tree should have glowing bark and moving
+  branches, not a humanoid face.
+- Animal characters use paws, not human hands.
+- Do not invent events or change the story.
+- Scene five must show the actual resolution of the story,
+  with all participants correctly staged.
+
+Return valid JSON only.
+"""
+
+    return llamar_qwen(instrucciones)
+
+
+
+def comprimir_firmas(tokenizer, cues):
+
+    for nombre, cue in cues.items():
+
+        if not isinstance(cue, str) or not cue.strip():
+            raise ValueError(
+                f"La referencia visual de {nombre} esta vacia."
+            )
+
+        print(
+            f"Referencia {nombre}: "
+            f"{contar_tokens(tokenizer, cue)} tokens "
+            "(metadato, no enviado a CLIP)"
+        )
+
+    return cues
+
+
+def construir_prompt(action, participantes, cues):
+
+    faltantes = [
+        nombre for nombre in participantes
+        if not cues.get(nombre)
+    ]
+
+    if faltantes:
+        raise ValueError(
+            f"Faltan referencias visuales: {faltantes}"
+        )
+
+    return action.strip() + " " + STYLE_SUFFIX
+
+def comprimir_acciones(tokenizer, escenas, cues, participantes):
+
+    style_tokens = contar_tokens(tokenizer, STYLE_SUFFIX)
+
+    presupuesto = MAX_TOKENS - style_tokens - 5
+
+    print(f"Tokens del estilo comun: {style_tokens}")
+    print(f"Presupuesto recomendado para acciones: {presupuesto}")
+
+    # Hasta tres rondas de optimizacion.
+    for ronda in range(1, 4):
+
+        excesos = []
+
+        for escena in escenas:
+
+            numero = int(escena["number"])
+
+            prompt = construir_prompt(
+                escena["visual_action"],
+                participantes[numero],
+                cues
+            )
+
+            cantidad = contar_tokens(tokenizer, prompt)
+
+            if cantidad > MAX_TOKENS:
+
+                detalles = []
+
+                for nombre in participantes[numero]:
+
+                    detalles.append({
+                        "name": nombre,
+                        "identity": cues[nombre]
+                    })
+
+                excesos.append({
+                    "number": numero,
+                    "current_tokens": cantidad,
+                    "visual_action": escena["visual_action"],
+                    "required_characters": detalles
+                })
+
+        if not excesos:
+
+            print(
+                f"Todas las escenas cumplen el limite "
+                f"despues de {ronda - 1} rondas."
+            )
+
+            return escenas
+
+        print(
+            f"\nRONDA DE COMPRESION {ronda}/3"
+        )
+
+        for escena in excesos:
+
+            print(
+                f"Escena {escena['number']}: "
+                f"{escena['current_tokens']}/70 tokens"
+            )
+
+        instrucciones = f"""
+You are editing visual prompts for DreamShaper 8,
+a Stable Diffusion 1.5 image model.
+
+Your task is to shorten ONLY the visual actions below.
+
+SCENES TO OPTIMIZE:
+{json.dumps(excesos, ensure_ascii=False, indent=2)}
+
+COMMON ART STYLE:
+{STYLE_SUFFIX}
+
+HARD REQUIREMENTS:
+
+1. Keep the original event and meaning.
+2. Preserve every required character.
+3. Preserve the essential physical identity of each character.
+4. Keep the action and environment visually understandable.
+5. Do not invent events, characters or objects.
+6. Do not include artistic style in visual_action.
+7. Use concise English visual descriptions.
+8. Target approximately {presupuesto - 5} CLIP tokens
+   for each visual_action.
+9. Prefer concrete nouns and verbs over decorative adjectives.
+10. Every character must have a clear visible role.
+
+IMPORTANT:
+The actual final prompt will append this common style:
+{STYLE_SUFFIX}
+
+The complete prompt, including that suffix, must fit
+within 70 CLIP tokens.
+
+RETURN ONLY THIS JSON FORMAT:
+
+{{
+  "scenes": [
+    {{
+      "number": 1,
+      "visual_action": "Short complete visual action"
+    }}
+  ]
+}}
+
+Return every requested scene exactly once.
+"""
+
+        resultado = llamar_qwen(
+            instrucciones,
+            max_predict=1200
+        )
+
+        nuevas = resultado.get("scenes", [])
+
+        if not isinstance(nuevas, list):
+            raise ValueError(
+                "Qwen3 no devolvio una lista de escenas."
+            )
+
+        numeros_esperados = {
+            int(e["number"]) for e in excesos
+        }
+
+        mapa = {}
+
+        for item in nuevas:
+
+            numero = int(item["number"])
+
+            if numero not in numeros_esperados:
+                raise ValueError(
+                    f"Qwen3 devolvio una escena no solicitada: {numero}"
+                )
+
+            if numero in mapa:
+                raise ValueError(
+                    f"Escena duplicada en la compresion: {numero}"
+                )
+
+            accion = item.get("visual_action", "").strip()
+
+            if not accion:
+                raise ValueError(
+                    f"La accion de la escena {numero} esta vacia."
+                )
+
+            mapa[numero] = accion
+
+        if set(mapa) != numeros_esperados:
+            raise ValueError(
+                "Qwen3 no devolvio todas las escenas solicitadas."
+            )
+
+        for escena in escenas:
+
+            numero = int(escena["number"])
+
+            if numero in mapa:
+                escena["visual_action"] = mapa[numero]
+
+                prompt = construir_prompt(
+                    escena["visual_action"],
+                    participantes[numero],
+                    cues
+                )
+
+                cantidad = contar_tokens(tokenizer, prompt)
+
+                print(
+                    f"Escena {numero} despues de compresion: "
+                    f"{cantidad}/70 tokens"
+                )
+
+    # Validacion final estricta.
+    pendientes = []
+
+    for escena in escenas:
+
+        numero = int(escena["number"])
+
+        prompt = construir_prompt(
+            escena["visual_action"],
+            participantes[numero],
+            cues
+        )
+
+        cantidad = contar_tokens(tokenizer, prompt)
+
+        if cantidad > MAX_TOKENS:
+            pendientes.append({
+                "escena": numero,
+                "tokens": cantidad
+            })
+
+    if pendientes:
+
+        raise RuntimeError(
+            "No se pudieron ajustar todos los prompts "
+            f"en tres rondas: {pendientes}"
+        )
+
+    print("\nCompresion completada y validada.")
+    return escenas
+
+
+def main():
+
+    print("=" * 60)
+    print("FIFTHPLOT - PROMPT BUILDER V3")
+    print("=" * 60)
+
+    if not TOKENIZER_PATH.exists():
+        raise FileNotFoundError(
+            "No se encontro el tokenizer local."
+        )
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    REPORT_DIR.mkdir(parents=True, exist_ok=True)
+
+    tokenizer = CLIPTokenizer.from_pretrained(
+        str(TOKENIZER_PATH),
+        local_files_only=True
+    )
+
+    plan, historia = cargar_datos()
+
+    contexto = preparar_contexto(plan, historia)
+
+    print("Historia:", historia["title"])
+    print("Modelo textual:", MODEL)
+    print("Modelo visual previsto: DreamShaper 8")
+
+    print("\nGenerando identidades y acciones visuales...")
+
+    resultado = generar_plan(contexto)
+
+    personajes_reales = {
+        p["name"] for p in historia["characters"]
+    }
+
+    cues = {
+        item["name"]: item["cue"].strip()
+        for item in resultado["character_cues"]
+    }
+
+    if set(cues) != personajes_reales:
+        raise ValueError(
+            "Las identidades visuales no coinciden con el reparto."
+        )
+
+    cues = comprimir_firmas(tokenizer, cues)
+
+    participantes = {
+        int(e["number"]): e["characters_present"]
+        for e in plan["scenes"]
+    }
+
+    escenas = resultado.get("scenes", [])
+
+    if len(escenas) != 5:
+        raise ValueError("Se necesitan exactamente cinco escenas.")
+
+    if sorted(int(e["number"]) for e in escenas) != [1, 2, 3, 4, 5]:
+        raise ValueError("Numeracion incorrecta de las escenas.")
+
+    escenas.sort(key=lambda e: int(e["number"]))
+
+    # Las firmas son metadatos de referencia.
+    # No se aplica un limite CLIP a estas descripciones.
+    cues = comprimir_firmas(tokenizer, cues)
+
+    # Verificar acciones narrativas.
+    for escena in escenas:
+
+        numero = int(escena["number"])
+        action = escena["visual_action"].strip()
+
+        if not action:
+            raise ValueError(f"Accion vacia en escena {numero}.")
+
+        for nombre in participantes[numero]:
+            if nombre not in cues:
+                raise ValueError(
+                    f"Falta la identidad de {nombre}."
+                )
+
+        print(
+            f"Accion escena {numero}: "
+            f"{contar_tokens(tokenizer, action)} tokens"
+        )
+
+    escenas = comprimir_acciones(
+        tokenizer,
+        escenas,
+        cues,
+        participantes
+    )
+
+    resultados = []
+
+    print("\nVALIDACION DE PROMPTS COMPLETOS")
+
+    for escena in escenas:
+
+        numero = int(escena["number"])
+
+        prompt = construir_prompt(
+            escena["visual_action"],
+            participantes[numero],
+            cues
+        )
+
+        positivos = contar_tokens(tokenizer, prompt)
+        negativos = contar_tokens(tokenizer, NEGATIVE_PROMPT)
+
+        print(
+            f"Escena {numero}: "
+            f"{positivos}/70 positivos | "
+            f"{negativos}/77 negativos"
+        )
+
+        if positivos > MAX_TOKENS:
+            raise RuntimeError(
+                f"Escena {numero} supera el limite CLIP."
+            )
+
+        resultados.append({
+            "number": numero,
+            "scene_title": plan["scenes"][numero - 1]["scene_title"],
+            "characters_present": participantes[numero],
+            "visual_action": escena["visual_action"],
+            "character_cues": {
+                nombre: cues[nombre]
+                for nombre in participantes[numero]
+            },
+            "image_prompt": prompt,
+            "negative_prompt": NEGATIVE_PROMPT,
+            "positive_tokens": positivos,
+            "negative_tokens": negativos
+        })
+
+    documento = {
+        "project": "FifthPlot",
+        "version": "3.0",
+        "source_story": plan["source_story"],
+        "story_title": historia["title"],
+        "model_text": MODEL,
+        "model_image": "DreamShaper 8",
+        "tokenizer": str(TOKENIZER_PATH),
+        "max_positive_tokens": MAX_TOKENS,
+        "visual_style": STYLE_SUFFIX,
+        "character_cues": cues,
+        "scenes": resultados
+    }
+
+    nombre_base = Path(plan["source_story"]).stem
+
+    destino = OUTPUT_DIR / (
+        f"{nombre_base}_visual_prompts_v3.json"
+    )
+
+    destino.write_text(
+        json.dumps(documento, ensure_ascii=False, indent=4),
+        encoding="utf-8"
+    )
+
+    lineas = [
+        "FIFTHPLOT - INFORME DE PROMPTS VISUALES V3",
+        "=" * 65,
+        f"Historia: {historia['title']}",
+        f"Modelo textual: {MODEL}",
+        "Modelo visual: DreamShaper 8",
+        f"Limite CLIP: {MAX_TOKENS}",
+        f"Estilo comun: {STYLE_SUFFIX}",
+        ""
+    ]
+
+    for nombre, cue in cues.items():
+        lineas.extend([
+            f"PERSONAJE: {nombre}",
+            f"Identidad: {cue}",
+            ""
+        ])
+
+    for escena in resultados:
+
+        lineas.extend([
+            "=" * 65,
+            f"ESCENA {escena['number']}: {escena['scene_title']}",
+            f"Personajes: {', '.join(escena['characters_present'])}",
+            f"Tokens positivos: {escena['positive_tokens']}/77",
+            "",
+            "ACCION VISUAL:",
+            escena["visual_action"],
+            "",
+            "PROMPT COMPLETO:",
+            escena["image_prompt"],
+            "",
+            "PROMPT NEGATIVO:",
+            escena["negative_prompt"],
+            ""
+        ])
+
+    informe = REPORT_DIR / (
+        f"{nombre_base}_prompt_report_v3.txt"
+    )
+
+    informe.write_text(
+        "\n".join(lineas),
+        encoding="utf-8"
+    )
+
+    print("\n" + "=" * 60)
+    print("PROMPT BUILDER V3 COMPLETADO")
+    print("Escenas:", len(resultados), "/ 5")
+    print("JSON:", destino)
+    print("Informe:", informe)
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    main()

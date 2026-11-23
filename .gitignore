@@ -1,0 +1,17 @@
+﻿.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+
+# No subir los pesos de los modelos
+models/*
+!models/README.md
+
+# Archivos temporales
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+.uv-cache/

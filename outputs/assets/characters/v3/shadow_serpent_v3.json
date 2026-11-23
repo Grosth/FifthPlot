@@ -1,0 +1,15 @@
+{
+    "personaje": "shadow_serpent",
+    "modelo": "Stable Diffusion 1.5",
+    "estilo": "Watercolor y gouache",
+    "resolucion": "512x512",
+    "precision": "FP16",
+    "semilla": 5202,
+    "pasos": 20,
+    "guidance_scale": 7.0,
+    "tiempo_segundos": 18.03,
+    "memoria_gpu_pico_gb": 1.17,
+    "prompt": "Watercolor gouache storybook character illustration, soft brushstrokes, textured paper, plain warm ivory background, isolated subject, centered. One black shadow serpent, one head, red glowing eyes, coiled black body, full creature visible, pointed sword-like tail.",
+    "negative_prompt": "red scales, blue scales, red body, multiple snakes, multiple heads, hydra, dragon, bird, wings, tentacles, flowers, plants, cropped, extra limbs, text, watermark, signature, 3d render, photorealistic.",
+    "imagen": "outputs\\assets\\characters\\v3\\shadow_serpent_v3.png"
+}

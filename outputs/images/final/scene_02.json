@@ -1,0 +1,21 @@
+{
+    "escena": 2,
+    "titulo": "El Viaje hacia el Monte de las Sombras",
+    "historia": "La Zorra y las Estrellas Perdidas",
+    "modelo": "Stable Diffusion 1.5",
+    "adaptador": "IP-Adapter Plus SD15",
+    "referencia": "outputs\\images\\luma_prueba_01.png",
+    "adapter_scale": 0.5,
+    "semilla": 4202,
+    "resolucion": "512x512",
+    "pasos": 20,
+    "guidance_scale": 7.0,
+    "precision": "FP16",
+    "tiempo_segundos": 19.17,
+    "memoria_gpu_pico_gb": 1.17,
+    "prompt": "Watercolor storybook art, soft gouache brushstrokes, teal forest, warm colors. Luma, small red-orange fox, golden eyes, tiny nose, fluffy fur, large curled comet tail. Scene: A red fox walks on a stone path near a misty mountain. Dark sky without stars. Strange moving shadows of trees. Fox has wet fur and determined expression.",
+    "negative_prompt": "cropped, hidden tail, extra limbs, extra ears, duplicate fox, blurry, low quality, text, watermark, photorealistic, 3d render, plastic texture.",
+    "descripcion_original": "Una pequeña zorra de pelo rojo brillante camina por un sendero de piedras en el pie de un monte cubierto de niebla. El cielo es oscuro, sin estrellas, y las sombras de los árboles se mueven de forma extraña. La zorra tiene un pelo húmedo y una expresión de determinación en su rostro.",
+    "descripcion_traducida": "A red fox walks on a stone path near a misty mountain. Dark sky without stars. Strange moving shadows of trees. Fox has wet fur and determined expression.",
+    "imagen": "outputs\\images\\final\\scene_02.png"
+}

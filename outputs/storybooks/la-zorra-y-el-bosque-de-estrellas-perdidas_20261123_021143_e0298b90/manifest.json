@@ -1,0 +1,165 @@
+{
+  "story_id": "20261123_021143_e0298b90",
+  "status": "complete",
+  "story_title": "La Zorra y el Bosque de Estrellas Perdidas",
+  "genre": "Fantasía",
+  "strategy": "text_only",
+  "models": {
+    "narrative": "qwen3:4b-q4_K_M",
+    "image": "dreamshaper-8",
+    "image_adapter": null,
+    "voice": "es_ES-carlfm-x_low.onnx",
+    "ambience": "ProceduralAmbience"
+  },
+  "parameters": {
+    "story_generation_seconds": 85.55,
+    "scene_count": 5,
+    "image_strategy": "text_only",
+    "image_size": 512,
+    "image_steps": 20,
+    "image_guidance_scale": 7.0,
+    "ip_adapter_scale": 0.45,
+    "image_runs": [
+      {
+        "stage": "scene",
+        "scene": 1,
+        "seed": 4201,
+        "size": "512x512",
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "adapter_scale": null,
+        "prompt": "Action: Auburn fox with blue eyes, golden fur, and a scar on the cheek, walking through. Characters: Auburn fox with blue eyes, golden fur, and a scar on the cheek, standing in a. Setting: Dark forest with tall trees. Watercolor storybook, soft brushstrokes. Visual style: Un estilo. Complete scene illustration.",
+        "negative_prompt": "cropped, missing character, duplicate character, extra limbs, extra ears, deformed anatomy, text, watermark, photorealistic, 3d render, plastic texture",
+        "elapsed_seconds": 10.36,
+        "gpu_peak_allocated_gb": 2.309,
+        "file": "outputs\\storybooks\\la-zorra-y-el-bosque-de-estrellas-perdidas_20261123_021143_e0298b90\\scene_01.png"
+      },
+      {
+        "stage": "scene",
+        "scene": 2,
+        "seed": 4202,
+        "size": "512x512",
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "adapter_scale": null,
+        "prompt": "Action: Deer with antennas on the head, purple eyes, and a glowing horn, guiding a. Characters: Auburn fox with blue eyes, golden fur, and a; Deer with antennas on the head, purple. Setting: Misty forest with. Watercolor storybook, soft brushstrokes. Visual style: Un estilo. Complete scene illustration.",
+        "negative_prompt": "cropped, missing character, duplicate character, extra limbs, extra ears, deformed anatomy, text, watermark, photorealistic, 3d render, plastic texture",
+        "elapsed_seconds": 6.49,
+        "gpu_peak_allocated_gb": 2.309,
+        "file": "outputs\\storybooks\\la-zorra-y-el-bosque-de-estrellas-perdidas_20261123_021143_e0298b90\\scene_02.png"
+      },
+      {
+        "stage": "scene",
+        "scene": 3,
+        "seed": 4203,
+        "size": "512x512",
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "adapter_scale": null,
+        "prompt": "Action: Red-and-black dragon with glowing eyes, standing in a dark forest with fire. Characters: Auburn fox with blue eyes, golden fur, and a; Red-and-black dragon with glowing eyes. Setting: Dark forest with shadows. Watercolor storybook, soft brushstrokes. Visual style: Un estilo. Complete scene illustration.",
+        "negative_prompt": "cropped, missing character, duplicate character, extra limbs, extra ears, deformed anatomy, text, watermark, photorealistic, 3d render, plastic texture",
+        "elapsed_seconds": 6.52,
+        "gpu_peak_allocated_gb": 2.309,
+        "file": "outputs\\storybooks\\la-zorra-y-el-bosque-de-estrellas-perdidas_20261123_021143_e0298b90\\scene_03.png"
+      },
+      {
+        "stage": "scene",
+        "scene": 4,
+        "seed": 4204,
+        "size": "512x512",
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "adapter_scale": null,
+        "prompt": "Action: Cat with horns and green eyes, standing in a dark forest with a crystal heart glowing in. Characters: Auburn fox with blue eyes, golden fur, and; Cat with horns and green eyes, standing in a. Setting: Dark forest with. Watercolor storybook, soft brushstrokes. Visual style: Un estilo. Complete scene illustration.",
+        "negative_prompt": "cropped, missing character, duplicate character, extra limbs, extra ears, deformed anatomy, text, watermark, photorealistic, 3d render, plastic texture",
+        "elapsed_seconds": 6.35,
+        "gpu_peak_allocated_gb": 2.309,
+        "file": "outputs\\storybooks\\la-zorra-y-el-bosque-de-estrellas-perdidas_20261123_021143_e0298b90\\scene_04.png"
+      },
+      {
+        "stage": "scene",
+        "scene": 5,
+        "seed": 4205,
+        "size": "512x512",
+        "steps": 20,
+        "guidance_scale": 7.0,
+        "adapter_scale": null,
+        "prompt": "Action: Auburn fox with blue eyes, golden fur, and a scar on the cheek, standing in. Characters: Auburn fox with blue eyes, golden; Red-and-black dragon; Deer with antennas on the. Setting: Forest with glowing. Watercolor storybook, soft brushstrokes. Visual style: Un estilo. Complete scene illustration.",
+        "negative_prompt": "cropped, missing character, duplicate character, extra limbs, extra ears, deformed anatomy, text, watermark, photorealistic, 3d render, plastic texture",
+        "elapsed_seconds": 6.43,
+        "gpu_peak_allocated_gb": 2.309,
+        "file": "outputs\\storybooks\\la-zorra-y-el-bosque-de-estrellas-perdidas_20261123_021143_e0298b90\\scene_05.png"
+      }
+    ],
+    "narration_voice": "models\\voices\\es_ES-carlfm-x_low.onnx",
+    "ambience_sample_rate": 22050,
+    "ambience_duration_seconds": 9.0
+  },
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cpu": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+    "logical_processors": 16,
+    "ram": {
+      "total_gb": 15.82,
+      "available_gb": 2.84
+    },
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "versions": {
+      "fifthplot": "0.2.0",
+      "torch": "2.15.0+cu132",
+      "diffusers": "0.43.0",
+      "transformers": "5.23.0",
+      "gradio": "6.32.0",
+      "piper-tts": "1.8.0"
+    }
+  },
+  "scenes": [
+    {
+      "number": 1,
+      "image": "scene_01.png",
+      "narration": "scene_01\\narration.wav",
+      "ambience": "scene_01\\ambience.wav",
+      "narration_seconds": 1.4,
+      "ambience_seconds": 0.02,
+      "narrative_characters": 190
+    },
+    {
+      "number": 2,
+      "image": "scene_02.png",
+      "narration": "scene_02\\narration.wav",
+      "ambience": "scene_02\\ambience.wav",
+      "narration_seconds": 0.21,
+      "ambience_seconds": 0.01,
+      "narrative_characters": 176
+    },
+    {
+      "number": 3,
+      "image": "scene_03.png",
+      "narration": "scene_03\\narration.wav",
+      "ambience": "scene_03\\ambience.wav",
+      "narration_seconds": 0.21,
+      "ambience_seconds": 0.02,
+      "narrative_characters": 177
+    },
+    {
+      "number": 4,
+      "image": "scene_04.png",
+      "narration": "scene_04\\narration.wav",
+      "ambience": "scene_04\\ambience.wav",
+      "narration_seconds": 0.22,
+      "ambience_seconds": 0.01,
+      "narrative_characters": 181
+    },
+    {
+      "number": 5,
+      "image": "scene_05.png",
+      "narration": "scene_05\\narration.wav",
+      "ambience": "scene_05\\ambience.wav",
+      "narration_seconds": 0.2,
+      "ambience_seconds": 0.01,
+      "narrative_characters": 160
+    }
+  ],
+  "elapsed_seconds": 60.64
+}

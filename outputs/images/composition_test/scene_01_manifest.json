@@ -1,0 +1,24 @@
+{
+    "proyecto": "FifthPlot",
+    "prueba": "Composicion escena 1",
+    "modelo_fondo": "DreamShaper 8",
+    "personaje": "Luma",
+    "referencia": "outputs\\assets\\characters\\processed_v2\\luma_transparent.png",
+    "resolucion": "512x512",
+    "semilla": 7101,
+    "pasos": 25,
+    "guidance_scale": 7.0,
+    "tiempo_generacion": 27.51,
+    "memoria_gpu_pico_gb": 1.16,
+    "prompt_fondo": "An enchanted ancient forest at night, tall dark trees, teal blue green foliage, winding forest path, misty atmosphere, empty foreground with visible forest floor, dark starless sky, subtle warm amber moonlight, beautiful watercolor gouache children's storybook landscape, textured paper, soft hand painted brushstrokes.",
+    "prompt_negativo": "fox, cat, dog, animal, person, human, character, creature, statue, portrait, face, extra objects, text, watermark, photorealistic, 3d render, blurry, low quality.",
+    "posicion_luma": [
+        135,
+        255
+    ],
+    "tamanio_luma": [
+        241,
+        222
+    ],
+    "resultado": "outputs\\images\\composition_test\\scene_01_luma_composed.png"
+}

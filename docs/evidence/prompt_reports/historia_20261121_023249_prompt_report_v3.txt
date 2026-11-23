@@ -1,0 +1,89 @@
+FIFTHPLOT - INFORME DE PROMPTS VISUALES V3
+=================================================================
+Historia: La Zorra de las Estrellas Perdidas
+Modelo textual: qwen3:4b-q4_K_M
+Modelo visual: DreamShaper 8
+Limite CLIP: 70
+Estilo comun: watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.
+
+PERSONAJE: Luna
+Identidad: Small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak
+
+PERSONAJE: El Titán del Amanecer
+Identidad: Colossal humanoid with weathered stone face, glowing amber eyes, long stone arms, and magical runes
+
+PERSONAJE: La Sombra del Anochecer
+Identidad: Mysterious shadow entity of black mist with two crimson eyes and curling darkness
+
+PERSONAJE: El Jardinero de Estrellas
+Identidad: Elderly with luminous face, midnight blue cloak embroidered with silver stars, and sparkling diamond collar
+
+=================================================================
+ESCENA 1: La Zorra y el Cielo Perdido
+Personajes: Luna
+Tokens positivos: 60/77
+
+ACCION VISUAL:
+Luna stands under dark sky with glowing golden eyes. Her silver-blue cloak shimmers as she paws earth, tail swaying. Trees with glowing bark and rustling branches surround her.
+
+PROMPT COMPLETO:
+Luna stands under dark sky with glowing golden eyes. Her silver-blue cloak shimmers as she paws earth, tail swaying. Trees with glowing bark and rustling branches surround her. watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+=================================================================
+ESCENA 2: El Primer Encuentro en el Bosque
+Personajes: Luna
+Tokens positivos: 54/77
+
+ACCION VISUAL:
+Luna touches ancient tree with glowing bark; branches move slowly. A shadow with crimson eyes emerges. Tree roots pulse, revealing star-shaped symbol in soil.
+
+PROMPT COMPLETO:
+Luna touches ancient tree with glowing bark; branches move slowly. A shadow with crimson eyes emerges. Tree roots pulse, revealing star-shaped symbol in soil. watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+=================================================================
+ESCENA 3: La Llamada del Titán
+Personajes: Luna, El Titán del Amanecer
+Tokens positivos: 54/77
+
+ACCION VISUAL:
+Luna approaches frozen plain. Stone titan with amber eyes and runes stands distant. Ground trembles as Luna's tail flicks, cloak catching faint light.
+
+PROMPT COMPLETO:
+Luna approaches frozen plain. Stone titan with amber eyes and runes stands distant. Ground trembles as Luna's tail flicks, cloak catching faint light. watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+=================================================================
+ESCENA 4: La Sombra del Anochecer
+Personajes: Luna, La Sombra del Anochecer
+Tokens positivos: 49/77
+
+ACCION VISUAL:
+Luna faces black mist with crimson eyes. Shadow ripples as she sings. Shadow stumbles, starlight seeping from cracks.
+
+PROMPT COMPLETO:
+Luna faces black mist with crimson eyes. Shadow ripples as she sings. Shadow stumbles, starlight seeping from cracks. watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.
+
+=================================================================
+ESCENA 5: El Regreso de las Estrellas
+Personajes: Luna, El Jardinero de Estrellas, El Titán del Amanecer, La Sombra del Anochecer
+Tokens positivos: 60/77
+
+ACCION VISUAL:
+Stars fill sky as Star Gardener's diamond collar glows. Titan's runes shimmer. Shadow dissolves. Luna stands center, tail singing, surrounded by glowing trees. Star Gardener smiles.
+
+PROMPT COMPLETO:
+Stars fill sky as Star Gardener's diamond collar glows. Titan's runes shimmer. Shadow dissolves. Luna stands center, tail singing, surrounded by glowing trees. Star Gardener smiles. watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.
+
+PROMPT NEGATIVO:
+text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.

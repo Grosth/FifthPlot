@@ -1,0 +1,97 @@
+{
+    "title": "La Zorra de las Estrellas Perdidas",
+    "genre": "Fantasia",
+    "synopsis": "Una pequeña zorra descubre que las estrellas están desapareciendo del cielo y emprende un viaje para descubrir quién se las está llevando. A lo largo de su viaje, enfrenta desafíos, descubre secretos de un mundo mágico y descubre la verdad detrás de la desaparición de las estrellas.",
+    "visual_style": "Un estilo mágico y misterioso, con tonos de azul, violeta y plata. El cielo se muestra con luces y sombras que se mueven en el tiempo. Los personajes tienen una apariencia realista pero con detalles mágicos, como destellos de luz en su pelaje y ojos que reflejan el cielo.",
+    "characters": [
+        {
+            "name": "Luna",
+            "description": "Una pequeña zorra de pelaje blanco y azul, con ojos dorados que brillan como estrellas. Lleva una capa de tela suave que brilla en la oscuridad. Tiene una cola de pelo sedoso que canta suavemente cuando se mueve. Es curiosa, valiente y con un gran deseo de descubrir la verdad. Su voz suave y melódica le permite comunicarse con los animales del bosque y con las fuerzas mágicas del mundo.",
+            "role": "Protagonista",
+            "visual_prompt": "A white and blue fox with golden eyes, wearing a soft, shimmering cloak. Its tail is long and flows, and its fur glows faintly in the dark. The background is a neutral, milky white."
+        },
+        {
+            "name": "El Titán del Amanecer",
+            "description": "Un ser gigante de rostro de piedra y ojos de fuego, con brazos largos que sostienen un velo de luz. Su cuerpo está cubierto de marcas mágicas que cambian de color según la hora del día. Tiene una voz grave y resonante, que puede hacer que los objetos se muevan por su solo sonido. Es un guardián del cielo, pero su poder se está debilitando.",
+            "role": "Antagonista",
+            "visual_prompt": "A massive stone-faced titan with fiery eyes, wearing a veil of light. Its body is covered in magical markings that change color with the time. The background is a neutral, milky white."
+        },
+        {
+            "name": "La Sombra del Anochecer",
+            "description": "Una figura de sombra que se mueve sin forma definida, con un aura de oscuridad que envuelve a todo lo que toca. Su voz es un susurro que parece provenir de todos lados a la vez. Es una entidad que se alimenta de la luz, y su presencia hace que el cielo se oscurezca más rápido. Es la causa de la desaparición de las estrellas.",
+            "role": "Antagonista",
+            "visual_prompt": "A shadowy figure with no clear shape, surrounded by an aura of darkness. The background is a neutral, milky white."
+        },
+        {
+            "name": "El Jardinero de Estrellas",
+            "description": "Un anciano con una capa de estrellas y un cuello de diamantes que brillan como constelaciones. Su rostro es de luz y sombra, y sus ojos son dos grandes ventanas que muestran el cielo. Es el guardián de las estrellas, pero su poder está en declive. Su voz es suave y melódica, y puede hacer que las estrellas se muevan como flores.",
+            "role": "Aliado",
+            "visual_prompt": "An old man with a cloak of stars and a collar of diamonds that shine like constellations. His face is a mix of light and shadow, and his eyes are two large windows showing the sky. The background is a neutral, milky white."
+        }
+    ],
+    "scenes": [
+        {
+            "number": 1,
+            "scene_title": "La Zorra y el Cielo Perdido",
+            "narrative": "Luna, la pequeña zorra, observa el cielo nocturno y nota que las estrellas se han ido. Se siente curiosa y decide investigar. Camina por el bosque, con sus ojos dorados brillando en la oscuridad, y escucha los susurros de los árboles que parecen hablarle.",
+            "image_prompt": "A small white and blue fox with golden eyes, wearing a soft, shimmering cloak. Its tail flows and glows faintly in the dark. The background is a neutral, milky white.",
+            "background_prompt": "A neutral, milky white background with no other figures or characters.",
+            "characters_present": [
+                "Luna"
+            ],
+            "ambience_prompt": "A soft, whispering wind and the faint sound of rustling leaves.",
+            "voice_direction": "Soft and melodic, with a tone of curiosity and wonder."
+        },
+        {
+            "number": 2,
+            "scene_title": "El Primer Encuentro en el Bosque",
+            "narrative": "Luna llega a un bosque donde los árboles se mueven y sus hojas susurran. Se acerca a un árbol antiguo y lo toca. El árbol le dice que las estrellas han sido robadas por algo más poderoso que ella, y le muestra una sombra que se acerca lentamente.",
+            "image_prompt": "A small white and blue fox with golden eyes, wearing a soft, shimmering cloak. Its tail flows and glows faintly in the dark. The background is a neutral, milky white.",
+            "background_prompt": "A neutral, milky white background with no other figures or characters.",
+            "characters_present": [
+                "Luna"
+            ],
+            "ambience_prompt": "A soft, whispering wind and the faint sound of rustling leaves.",
+            "voice_direction": "Soft and melodic, with a tone of curiosity and wonder."
+        },
+        {
+            "number": 3,
+            "scene_title": "La Llamada del Titán",
+            "narrative": "Luna llega a un lugar donde el cielo se ve muy oscuro y el suelo se siente frío. Se acerca a un titán de piedra con ojos de fuego, quien le dice que las estrellas se están perdiendo porque alguien las está robando. El titán le pide que encuentre a la entidad que está haciendo esto.",
+            "image_prompt": "A massive stone-faced titan with fiery eyes, wearing a veil of light. Its body is covered in magical markings that change color with the time. The background is a neutral, milky white.",
+            "background_prompt": "A neutral, milky white background with no other figures or characters.",
+            "characters_present": [
+                "Luna",
+                "El Titán del Amanecer"
+            ],
+            "ambience_prompt": "A deep, resonant sound and the faint sound of a distant echo.",
+            "voice_direction": "Grave and resonant, with a tone of authority and warning."
+        },
+        {
+            "number": 4,
+            "scene_title": "La Sombra del Anochecer",
+            "narrative": "Luna se enfrenta a la Sombra del Anochecer, una entidad de oscuridad que se acerca a ella. La Sombra le dice que las estrellas son su alimento, y que no pueden existir sin ella. Luna, con su voz melódica, le pide que deje las estrellas, y la Sombra se siente confundida. La luz de las estrellas comienza a regresar.",
+            "image_prompt": "A shadowy figure with no clear shape, surrounded by an aura of darkness. Its body is moving slowly in the dark. The background is a neutral, milky white.",
+            "background_prompt": "A neutral, milky white background with no other figures or characters.",
+            "characters_present": [
+                "Luna",
+                "La Sombra del Anochecer"
+            ],
+            "ambience_prompt": "A low, whispering sound and the faint sound of distant stars returning.",
+            "voice_direction": "Whispering and mysterious, with a tone of confusion and darkness."
+        },
+        {
+            "number": 5,
+            "scene_title": "El Regreso de las Estrellas",
+            "narrative": "Luna, con la ayuda del Jardinero de Estrellas, logra que las estrellas regresen al cielo. El titán y la sombra se alejan, y el cielo se vuelve brillante. Luna, satisfecha, regresa a su bosque, sabiendo que las estrellas ahora están seguras.",
+            "image_prompt": "A small white and blue fox with golden eyes, wearing a soft, shimmering cloak. Its tail flows and glows faintly in the dark. The background is a neutral, milky white.",
+            "background_prompt": "A neutral, milky white background with no other figures or characters.",
+            "characters_present": [
+                "Luna",
+                "El Jardinero de Estrellas"
+            ],
+            "ambience_prompt": "A soft, melodic sound and the faint sound of stars twinkling.",
+            "voice_direction": "Soft and melodic, with a tone of peace and hope."
+        }
+    ]
+}

@@ -1,0 +1,104 @@
+{
+    "project": "FifthPlot",
+    "version": "3.0",
+    "source_story": "historia_20261121_023249.json",
+    "story_title": "La Zorra de las Estrellas Perdidas",
+    "model_text": "qwen3:4b-q4_K_M",
+    "model_image": "DreamShaper 8",
+    "tokenizer": "models\\dreamshaper-8\\tokenizer",
+    "max_positive_tokens": 70,
+    "visual_style": "watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.",
+    "character_cues": {
+        "Luna": "Small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak",
+        "El Titán del Amanecer": "Colossal humanoid with weathered stone face, glowing amber eyes, long stone arms, and magical runes",
+        "La Sombra del Anochecer": "Mysterious shadow entity of black mist with two crimson eyes and curling darkness",
+        "El Jardinero de Estrellas": "Elderly with luminous face, midnight blue cloak embroidered with silver stars, and sparkling diamond collar"
+    },
+    "scenes": [
+        {
+            "number": 1,
+            "scene_title": "La Zorra y el Cielo Perdido",
+            "characters_present": [
+                "Luna"
+            ],
+            "visual_action": "Luna stands under dark sky with glowing golden eyes. Her silver-blue cloak shimmers as she paws earth, tail swaying. Trees with glowing bark and rustling branches surround her.",
+            "character_cues": {
+                "Luna": "Small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak"
+            },
+            "image_prompt": "Luna stands under dark sky with glowing golden eyes. Her silver-blue cloak shimmers as she paws earth, tail swaying. Trees with glowing bark and rustling branches surround her. watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 60,
+            "negative_tokens": 32
+        },
+        {
+            "number": 2,
+            "scene_title": "El Primer Encuentro en el Bosque",
+            "characters_present": [
+                "Luna"
+            ],
+            "visual_action": "Luna touches ancient tree with glowing bark; branches move slowly. A shadow with crimson eyes emerges. Tree roots pulse, revealing star-shaped symbol in soil.",
+            "character_cues": {
+                "Luna": "Small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak"
+            },
+            "image_prompt": "Luna touches ancient tree with glowing bark; branches move slowly. A shadow with crimson eyes emerges. Tree roots pulse, revealing star-shaped symbol in soil. watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 54,
+            "negative_tokens": 32
+        },
+        {
+            "number": 3,
+            "scene_title": "La Llamada del Titán",
+            "characters_present": [
+                "Luna",
+                "El Titán del Amanecer"
+            ],
+            "visual_action": "Luna approaches frozen plain. Stone titan with amber eyes and runes stands distant. Ground trembles as Luna's tail flicks, cloak catching faint light.",
+            "character_cues": {
+                "Luna": "Small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak",
+                "El Titán del Amanecer": "Colossal humanoid with weathered stone face, glowing amber eyes, long stone arms, and magical runes"
+            },
+            "image_prompt": "Luna approaches frozen plain. Stone titan with amber eyes and runes stands distant. Ground trembles as Luna's tail flicks, cloak catching faint light. watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 54,
+            "negative_tokens": 32
+        },
+        {
+            "number": 4,
+            "scene_title": "La Sombra del Anochecer",
+            "characters_present": [
+                "Luna",
+                "La Sombra del Anochecer"
+            ],
+            "visual_action": "Luna faces black mist with crimson eyes. Shadow ripples as she sings. Shadow stumbles, starlight seeping from cracks.",
+            "character_cues": {
+                "Luna": "Small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak",
+                "La Sombra del Anochecer": "Mysterious shadow entity of black mist with two crimson eyes and curling darkness"
+            },
+            "image_prompt": "Luna faces black mist with crimson eyes. Shadow ripples as she sings. Shadow stumbles, starlight seeping from cracks. watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 49,
+            "negative_tokens": 32
+        },
+        {
+            "number": 5,
+            "scene_title": "El Regreso de las Estrellas",
+            "characters_present": [
+                "Luna",
+                "El Jardinero de Estrellas",
+                "El Titán del Amanecer",
+                "La Sombra del Anochecer"
+            ],
+            "visual_action": "Stars fill sky as Star Gardener's diamond collar glows. Titan's runes shimmer. Shadow dissolves. Luna stands center, tail singing, surrounded by glowing trees. Star Gardener smiles.",
+            "character_cues": {
+                "Luna": "Small white and pale blue fox with golden eyes, flowing tail, and shimmering silver-blue cloak",
+                "El Jardinero de Estrellas": "Elderly with luminous face, midnight blue cloak embroidered with silver stars, and sparkling diamond collar",
+                "El Titán del Amanecer": "Colossal humanoid with weathered stone face, glowing amber eyes, long stone arms, and magical runes",
+                "La Sombra del Anochecer": "Mysterious shadow entity of black mist with two crimson eyes and curling darkness"
+            },
+            "image_prompt": "Stars fill sky as Star Gardener's diamond collar glows. Titan's runes shimmer. Shadow dissolves. Luna stands center, tail singing, surrounded by glowing trees. Star Gardener smiles. watercolor gouache storybook, textured paper, soft brushstrokes, blue-violet palette, warm golden light.",
+            "negative_prompt": "text, watermark, logo, blurry, low quality, duplicate characters, extra limbs, distorted anatomy, photorealistic, 3d render.",
+            "positive_tokens": 60,
+            "negative_tokens": 32
+        }
+    ]
+}

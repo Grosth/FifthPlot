@@ -1,0 +1,14 @@
+{
+    "modelo": "Stable Diffusion 1.5",
+    "tipo_pesos": "FP16 Safetensors",
+    "dispositivo": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "precision": "float16",
+    "resolucion": "512x512",
+    "pasos": 15,
+    "guidance_scale": 7.0,
+    "seed": 42,
+    "tiempo_segundos": 17.02,
+    "memoria_gpu_pico_gb": 1.17,
+    "prompt": "Watercolor storybook art of Luma, a small red orange fox with golden eyes, tiny nose, fluffy messy fur and a large curled comet tail. Full body, all paws visible, standing in a teal enchanted forest. Soft moonlight, painterly gouache, visible brushstrokes, warm fur and cool blue green background.",
+    "negative_prompt": "cropped, hidden tail, extra limbs, extra ears, duplicate fox, other animals, blurry, text, watermark, photorealistic, 3d, plastic texture."
+}

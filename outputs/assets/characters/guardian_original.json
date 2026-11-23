@@ -1,0 +1,15 @@
+{
+    "personaje": "guardian",
+    "modelo": "Stable Diffusion 1.5",
+    "estilo": "Watercolor y gouache",
+    "precision": "FP16",
+    "resolucion": "512x512",
+    "semilla": 5101,
+    "pasos": 20,
+    "guidance_scale": 7.0,
+    "tiempo_segundos": 21.92,
+    "memoria_gpu_pico_gb": 1.17,
+    "prompt": "Watercolor gouache children's storybook illustration, soft painterly brushstrokes, textured paper, teal shadows and warm colors. Full body elderly tall slender guardian, long white hair, bright blue eyes, flowing black cloak, mysterious kind expression, standing alone on a simple warm ivory background.",
+    "negative_prompt": "photorealistic, 3d render, blurry, low quality, cropped, extra limbs, duplicate characters, text, watermark, logo.",
+    "imagen": "outputs\\assets\\characters\\guardian_original.png"
+}

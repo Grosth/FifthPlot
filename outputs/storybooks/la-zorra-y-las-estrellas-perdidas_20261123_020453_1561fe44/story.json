@@ -1,0 +1,109 @@
+{
+  "title": "La Zorra y las Estrellas Perdidas",
+  "genre": "Fantasía",
+  "synopsis": "Una zorra llamada Lirael viaja por el bosque en busca de las estrellas que han desaparecido de su mundo mágico. Con el apoyo de un anciano enano, un joven dragón y una bruja de la noche, busca la verdad detrás de la desaparición de las estrellas y enfrenta el peligroso poder del oscuro.",
+  "visual_style": "Un bosque mágico con vegetación densa, luces de estrellas y sombras misteriosas. El estilo visual es mágico y realista, con tonos azules y dorados, iluminación tenue y elementos fantásticos como criaturas y objetos mágicos.",
+  "characters": [
+    {
+      "name": "Lirael",
+      "description": "Una zorra ágil y curiosa con manchas doradas en su pelaje, con ojos azules que reflejan la luz de las estrellas. Busca las estrellas que han desaparecido de su mundo mágico.",
+      "role": "Protagonista, busca las estrellas perdidas y enfrenta el peligroso poder del oscuro.",
+      "visual_prompt": "A zorilla con manchas doradas y ojos azules, caminando por un bosque mágico con luces de estrellas y sombras misteriosas."
+    },
+    {
+      "name": "Tharion",
+      "description": "Un anciano enano con barba blanca y ojos oscuros, que habla en susurros y conoce secretos de los tiempos antiguos. Es un sabio del bosque.",
+      "role": "Asistente de Lirael, ofrece conocimientos y consejos sobre las estrellas y el oscuro.",
+      "visual_prompt": "Un enano anciano con barba blanca y ojos oscuros, parado en un árbol antiguo con hojas brillantes."
+    },
+    {
+      "name": "Kaelin",
+      "description": "Un joven dragón con plumas azules y ojos dorados, con una voz suave y una actitud curiosa. Es un aliado de Lirael en su búsqueda.",
+      "role": "Aliado de Lirael, ayuda en la búsqueda y enfrenta el peligroso poder del oscuro.",
+      "visual_prompt": "Un joven dragón con plumas azules y ojos dorados, volando sobre un bosque mágico con luces de estrellas."
+    },
+    {
+      "name": "Nyx",
+      "description": "Una bruja de la noche con cabello negro y ojos plateados, con poderes de la oscuridad. Es una enemiga que busca aprovecharse de la desaparición de las estrellas.",
+      "role": "Antagonista, busca el poder de las estrellas y enfrenta a Lirael y su grupo.",
+      "visual_prompt": "Una bruja de la noche con cabello negro y ojos plateados, caminando por un bosque mágico con luces de estrellas y sombras misteriosas."
+    }
+  ],
+  "scenes": [
+    {
+      "number": 1,
+      "scene_title": "La Zorra y el Bosque Silencioso",
+      "narrative": "Lirael camina por el bosque mágico, con los ojos azules mirando el cielo oscuro. Las estrellas desaparecidas la hacen sentir sola. Se detiene, mira hacia el cielo y siente un vacío en su corazón.",
+      "image_prompt": "A zorilla con manchas doradas y ojos azules, caminando por un bosque mágico con luces de estrellas y sombras misteriosas.",
+      "background_prompt": "Un bosque mágico con vegetación densa, luces de estrellas y sombras misteriosas. El cielo está oscuro y vacío.",
+      "characters_present": [
+        "Lirael",
+        "Tharion",
+        "Kaelin",
+        "Nyx"
+      ],
+      "ambience_prompt": "Ruidos de viento suave, susurros de árboles, y un silencio pesado en el aire.",
+      "voice_direction": "Silencio."
+    },
+    {
+      "number": 2,
+      "scene_title": "El Sabiduría del Enano",
+      "narrative": "Lirael encuentra a Tharion, el anciano enano, quien le habla en susurros sobre la desaparición de las estrellas. Le cuenta que el oscuro está creciendo y que solo una llama de estrella puede detenerlo.",
+      "image_prompt": "Un enano anciano con barba blanca y ojos oscuros, parado en un árbol antiguo con hojas brillantes.",
+      "background_prompt": "Un bosque mágico con vegetación densa, luces de estrellas y sombras misteriosas. El cielo está oscuro y vacío.",
+      "characters_present": [
+        "Lirael",
+        "Tharion",
+        "Kaelin",
+        "Nyx"
+      ],
+      "ambience_prompt": "Ruidos de viento suave, susurros de árboles, y un silencio pesado en el aire.",
+      "voice_direction": "Silencio."
+    },
+    {
+      "number": 3,
+      "scene_title": "El Dragón y el Poder del Oscuro",
+      "narrative": "Kaelin, el joven dragón, se une a Lirael y Tharion. Le dice que ha escuchado rumores sobre la oscuridad creciendo y que necesita ayuda para encontrar la llama de la estrella.",
+      "image_prompt": "Un joven dragón con plumas azules y ojos dorados, volando sobre un bosque mágico con luces de estrellas.",
+      "background_prompt": "Un bosque mágico con vegetación densa, luces de estrellas y sombras misteriosas. El cielo está oscuro y vacío.",
+      "characters_present": [
+        "Lirael",
+        "Tharion",
+        "Kaelin",
+        "Nyx"
+      ],
+      "ambience_prompt": "Ruidos de viento suave, susurros de árboles, y un silencio pesado en el aire.",
+      "voice_direction": "Silencio."
+    },
+    {
+      "number": 4,
+      "scene_title": "El Encuentro con la Bruja",
+      "narrative": "Nyx, la bruja de la noche, aparece en el bosque mágico. Le dice a Lirael que las estrellas se han ido para que el oscuro pueda tomar el control del mundo.",
+      "image_prompt": "Una bruja de la noche con cabello negro y ojos plateados, caminando por un bosque mágico con luces de estrellas y sombras misteriosas.",
+      "background_prompt": "Un bosque mágico con vegetación densa, luces de estrellas y sombras misteriosas. El cielo está oscuro y vacío.",
+      "characters_present": [
+        "Lirael",
+        "Tharion",
+        "Kaelin",
+        "Nyx"
+      ],
+      "ambience_prompt": "Ruidos de viento suave, susurros de árboles, y un silencio pesado en el aire.",
+      "voice_direction": "Silencio."
+    },
+    {
+      "number": 5,
+      "scene_title": "La Llama de la Estrella",
+      "narrative": "Lirael y su grupo encuentran la llama de la estrella en el centro del bosque mágico. Con la ayuda de Kaelin, encienden la llama y las estrellas vuelven a brillar, iluminando el mundo mágico.",
+      "image_prompt": "Una zorilla con manchas doradas y ojos azules, con una llama de estrella brillando en el centro de un bosque mágico.",
+      "background_prompt": "Un bosque mágico con vegetación densa, luces de estrellas y sombras misteriosas. El cielo está brillante y lleno de estrellas.",
+      "characters_present": [
+        "Lirael",
+        "Tharion",
+        "Kaelin",
+        "Nyx"
+      ],
+      "ambience_prompt": "Ruidos de viento suave, susurros de árboles, y un sonido de luces brillantes.",
+      "voice_direction": "Silencio."
+    }
+  ]
+}

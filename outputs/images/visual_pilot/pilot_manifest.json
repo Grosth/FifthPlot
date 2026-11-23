@@ -1,0 +1,28 @@
+{
+    "proyecto": "FifthPlot",
+    "historia": "La Zorra de las Estrellas Perdidas",
+    "modelo": "DreamShaper 8",
+    "precision": "FP16",
+    "resolucion": "512x512",
+    "pasos": 20,
+    "guidance_scale": 7.0,
+    "personaje": "Luna",
+    "referencia_visual": "Full body small white and pale blue fox, bright golden eyes, soft flowing tail, delicate shimmering silver blue cloak, curious gentle expression, centered, isolated on plain warm ivory background, watercolor gouache storybook.",
+    "fondo": "Enchanted ancient forest at night, tall slender trees, winding path, completely starless violet blue sky, soft silver moonlight, quiet mysterious atmosphere, empty foreground, watercolor gouache storybook landscape.",
+    "participantes": [
+        "Luna"
+    ],
+    "generaciones": {
+        "luna": {
+            "archivo": "outputs\\images\\visual_pilot\\luna_pilot_reference.png",
+            "tiempo_segundos": 17.97,
+            "memoria_gpu_pico_gb": 1.16,
+            "semilla": 8151
+        },
+        "fondo": {
+            "archivo": "outputs\\images\\visual_pilot\\scene_01_background.png",
+            "reutilizado": true
+        }
+    },
+    "resultado": "outputs\\images\\visual_pilot\\scene_01_composed.png"
+}

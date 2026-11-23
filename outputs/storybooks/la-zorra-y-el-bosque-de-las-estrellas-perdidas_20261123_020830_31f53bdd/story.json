@@ -1,0 +1,97 @@
+{
+  "title": "La Zorra y el Bosque de las Estrellas Perdidas",
+  "genre": "Fantasía",
+  "synopsis": "Una zorra llamada Liria viaja por el bosque buscando las estrellas que desaparecieron de su mundo, descubriendo secretos antiguos y enfrentándose a un enigma que ha estado oculto durante siglos.",
+  "visual_style": "Un estilo mágico realista con tonos azules, dorados y oscuros, que reflejan el cambio en el bosque. Iluminación suave y sombras misteriosas. El bosque es vasto, con árboles antiguos y ríos brillantes.",
+  "characters": [
+    {
+      "name": "Liria",
+      "description": "Una zorra pelirroja con ojos azules, con una piel brillante como si estuviera cubierta de estrellas. Lleva un collar de cristales que brilla en la oscuridad. Es curiosa, valiente y llena de desconfianza hacia lo desconocido.",
+      "role": "Protagonista, busca las estrellas que desaparecieron de su mundo.",
+      "visual_prompt": "A zorro pelirrojo con ojos azules, con un collar de cristales brillantes, caminando por un bosque oscuro con árboles altos y hojas brillantes."
+    },
+    {
+      "name": "El Viejo",
+      "description": "Un anciano que vive en la oscuridad del bosque, con una figura huraña y ojos que brillan como luces de faro. Habla en riddles y tiene conocimiento de los secretos del bosque.",
+      "role": "Personaje clave, guía o enemigo, con conocimientos antiguos.",
+      "visual_prompt": "Un anciano con una figura huraña, ojos brillantes como luces de faro, caminando por un bosque oscuro con sombras largas."
+    },
+    {
+      "name": "La Llama",
+      "description": "Una criatura de fuego que se mueve en el bosque, con forma de un gato, con un cuerpo de fuego y ojos de fuego. Es una entidad misteriosa que aparece en la oscuridad y desaparece en la luz.",
+      "role": "Entidad misteriosa, puede ser un antagonista o una guía, dependiendo de la intención de Liria.",
+      "visual_prompt": "Una criatura de fuego con forma de gato, ojos brillantes de fuego, caminando por un bosque oscuro con sombras misteriosas."
+    },
+    {
+      "name": "El Lobo de la Luz",
+      "description": "Un lobo con pelo blanco y ojos brillantes, que vive en la luz del bosque. Es un guardián de las estrellas que se han perdido, y es el único que puede ayudar a Liria a encontrarlas.",
+      "role": "Guardián o aliado, con conocimiento de las estrellas y el bosque.",
+      "visual_prompt": "Un lobo con pelo blanco y ojos brillantes, caminando por un bosque con luz suave y árboles altos."
+    }
+  ],
+  "scenes": [
+    {
+      "number": 1,
+      "scene_title": "La Zorra en el Bosque Oscuro",
+      "narrative": "Liria camina por el bosque, con el collar de cristales brillando débilmente en la oscuridad. Siente que algo está mal, que las estrellas que siempre brillaban en el cielo han desaparecido. Hace días que no ve el cielo.",
+      "image_prompt": "A zorro pelirrojo con ojos azules, con un collar de cristales brillantes, caminando por un bosque oscuro con árboles altos y hojas brillantes.",
+      "background_prompt": "Un bosque oscuro con árboles altos, hojas brillantes, y cielo negro con nubes oscuras.",
+      "characters_present": [
+        "Liria"
+      ],
+      "ambience_prompt": "Viento suave, sonidos de hojas crujientes, y un rumor lejano en la oscuridad del bosque.",
+      "voice_direction": "Silencio"
+    },
+    {
+      "number": 2,
+      "scene_title": "El Viejo en la Oscuridad",
+      "narrative": "Liria encuentra al Viejo sentado sobre una roca, con ojos brillantes como luces de faro. Le cuenta que las estrellas se fueron porque alguien las tomó, y que el bosque está cambiando.",
+      "image_prompt": "Un anciano con una figura huraña, ojos brillantes como luces de faro, sentado sobre una roca en un bosque oscuro con sombras largas.",
+      "background_prompt": "Un bosque oscuro con árboles altos, sombras largas, y cielo negro con nubes densas.",
+      "characters_present": [
+        "Liria",
+        "El Viejo"
+      ],
+      "ambience_prompt": "Viento suave, susurros en la oscuridad, y el susurro de un río lejano.",
+      "voice_direction": "Silencio"
+    },
+    {
+      "number": 3,
+      "scene_title": "La Llama en la Oscuridad",
+      "narrative": "Liria escucha un ruido de fuego en la oscuridad. Se acerca y ve a La Llama, una criatura de fuego que le dice que las estrellas se fueron porque alguien las tomó y las quemó.",
+      "image_prompt": "Una criatura de fuego con forma de gato, ojos brillantes de fuego, caminando por un bosque oscuro con sombras misteriosas.",
+      "background_prompt": "Un bosque oscuro con árboles altos, sombras largas, y cielo negro con nubes densas.",
+      "characters_present": [
+        "Liria",
+        "La Llama"
+      ],
+      "ambience_prompt": "Viento suave, chispas de fuego, y el sonido de un río lejano.",
+      "voice_direction": "Silencio"
+    },
+    {
+      "number": 4,
+      "scene_title": "El Lobo de la Luz",
+      "narrative": "Liria ve a El Lobo de la Luz en la luz del bosque. Le dice que las estrellas están en el cielo, pero el bosque las oculta. Si Liria quiere encontrarlas, debe seguir el rastro de la luz.",
+      "image_prompt": "Un lobo con pelo blanco y ojos brillantes, caminando por un bosque con luz suave y árboles altos.",
+      "background_prompt": "Un bosque con árboles altos, luz suave, y cielo con algunas luces brillantes.",
+      "characters_present": [
+        "Liria",
+        "El Lobo de la Luz"
+      ],
+      "ambience_prompt": "Viento suave, sonidos de hojas crujientes, y un río brillante.",
+      "voice_direction": "Silencio"
+    },
+    {
+      "number": 5,
+      "scene_title": "La Buscadora de Estrellas",
+      "narrative": "Liria sigue el rastro de la luz hasta el cielo, donde ve las estrellas brillando de nuevo. Las estrellas habían sido ocultadas por el bosque, y ahora están de vuelta, brillantes y vivas.",
+      "image_prompt": "Una zorra pelirroja con ojos azules, con un collar de cristales brillantes, mirando hacia el cielo con estrellas brillantes.",
+      "background_prompt": "Un cielo estrellado con árboles altos y un bosque brillante.",
+      "characters_present": [
+        "Liria"
+      ],
+      "ambience_prompt": "Viento suave, sonidos de hojas crujientes, y un río brillante.",
+      "voice_direction": "Silencio"
+    }
+  ]
+}

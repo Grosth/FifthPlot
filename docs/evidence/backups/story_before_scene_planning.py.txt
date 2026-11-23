@@ -1,0 +1,291 @@
+﻿import json
+import urllib.request
+import urllib.error
+from datetime import datetime
+from pathlib import Path
+
+MODEL = "qwen3:4b-q4_K_M"
+OLLAMA_URL = "http://localhost:11434/api/chat"
+
+OUTPUT_DIR = Path("outputs/stories")
+
+# Estructura que debe tener la respuesta del modelo.
+STORY_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "title": {"type": "string"},
+        "genre": {"type": "string"},
+        "synopsis": {"type": "string"},
+        "visual_style": {"type": "string"},
+        "characters": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "description": {"type": "string"},
+                    "role": {"type": "string"}
+                },
+                "required": ["name", "description", "role"]
+            }
+        },
+        "scenes": {
+            "type": "array",
+            "minItems": 5,
+            "maxItems": 5,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "number": {
+                        "type": "integer",
+                        "enum": [1, 2, 3, 4, 5]
+                    },
+                    "scene_title": {"type": "string"},
+                    "narrative": {"type": "string"},
+                    "image_prompt": {"type": "string"},
+                    "ambience_prompt": {"type": "string"},
+                    "voice_direction": {"type": "string"}
+                },
+                "required": [
+                    "number",
+                    "scene_title",
+                    "narrative",
+                    "image_prompt",
+                    "ambience_prompt",
+                    "voice_direction"
+                ]
+            }
+        }
+    },
+    "required": [
+        "title",
+        "genre",
+        "synopsis",
+        "visual_style",
+        "characters",
+        "scenes"
+    ]
+}
+
+
+def validar_historia(historia):
+
+    escenas = historia.get("scenes", [])
+
+    if len(escenas) != 5:
+        raise ValueError(
+            f"Se esperaban 5 escenas y llegaron {len(escenas)}."
+        )
+
+    # Revisamos la numeracion de las escenas.
+    try:
+        numeros = [int(escena["number"]) for escena in escenas]
+    except (KeyError, TypeError, ValueError):
+        raise ValueError("La numeracion de las escenas no es valida.")
+
+    if sorted(numeros) != [1, 2, 3, 4, 5]:
+        raise ValueError(
+            f"Numeracion incorrecta. Se recibio: {numeros}"
+        )
+
+    # Organizamos las escenas del 1 al 5.
+    escenas = sorted(
+        escenas,
+        key=lambda escena: int(escena["number"])
+    )
+
+    for numero, escena in enumerate(escenas, start=1):
+        escena["number"] = numero
+
+        campos = [
+            "scene_title",
+            "narrative",
+            "image_prompt",
+            "ambience_prompt",
+            "voice_direction"
+        ]
+
+        for campo in campos:
+            valor = escena.get(campo, "")
+
+            if not isinstance(valor, str) or not valor.strip():
+                raise ValueError(
+                    f"La escena {numero} tiene el campo {campo} vacio."
+                )
+
+    historia["scenes"] = escenas
+
+    return historia
+
+
+def generar_historia(idea, genero):
+    # Comprobamos que el usuario haya escrito las dos entradas.
+    if not idea.strip() or not genero.strip():
+        raise ValueError("Debes ingresar una idea y un genero.")
+
+    print("\nGenerando historia con Qwen3...")
+    print("Esto puede tardar algunos minutos.\n")
+
+    system_prompt = """
+    Eres un escritor especializado en cuentos en español.
+    Debes crear historias originales, claras y coherentes.
+
+    Reglas:
+    - Genera exactamente cinco escenas.
+    - La primera presenta personajes y situacion.
+    - Las escenas intermedias desarrollan el conflicto.
+    - La cuarta contiene el momento principal de la historia.
+    - La quinta presenta un desenlace.
+    - Conserva los mismos personajes y sus caracteristicas.
+    - No cambies los nombres ni la apariencia de los personajes.
+    - Mantén el mismo universo y estilo visual.
+    - Los textos deben estar escritos en español.
+    - Cada escena debe tener contenido narrativo suficiente.
+    - Los prompts de imagen deben describir claramente
+      los personajes, el lugar y la accion.
+    - Los prompts de sonido describen solo el ambiente.
+    - No incluyas musica ni narracion dentro del sonido ambiente.
+    - La direccion de voz debe indicar el tono de lectura.
+    - Devuelve solamente la estructura solicitada.
+    """
+
+    user_prompt = f"""
+    Crea un cuento con estas entradas:
+
+    Idea inicial: {idea}
+    Genero: {genero}
+
+    Devuelve un JSON con:
+    - Titulo
+    - Genero
+    - Sinopsis
+    - Estilo visual general
+    - Personajes con descripciones fisicas estables
+    - Exactamente cinco escenas
+
+    Cada escena debe incluir:
+    - Numero
+    - Titulo
+    - Texto narrativo
+    - Prompt para generar la ilustracion
+    - Descripcion de la ambientacion sonora
+    - Direccion de voz para la narracion
+
+    Los cinco prompts visuales deben conservar las caracteristicas
+    de los personajes y el estilo visual general.
+    """
+
+    data = {
+        "model": MODEL,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ],
+        "format": STORY_SCHEMA,
+        "think": False,
+        "stream": False,
+        "keep_alive": "5m",
+        "options": {
+            "temperature": 0.7,
+            "num_ctx": 4096,
+            "num_predict": 2500
+        }
+    }
+
+    request = urllib.request.Request(
+        OLLAMA_URL,
+        data=json.dumps(data).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST"
+    )
+
+    try:
+        with urllib.request.urlopen(request, timeout=600) as response:
+            resultado = json.loads(response.read().decode("utf-8"))
+
+        contenido = resultado["message"]["content"]
+        historia = json.loads(contenido)
+
+        historia = validar_historia(historia)
+
+        return historia
+
+    except urllib.error.URLError as error:
+        raise RuntimeError(
+            "No se pudo conectar con Ollama. "
+            "Comprueba que este funcionando."
+        ) from error
+
+    except (KeyError, json.JSONDecodeError) as error:
+        print("\nRESPUESTA ORIGINAL DEL MODELO:")
+        print(json.dumps(resultado, ensure_ascii=False, indent=2))
+        print("\nERROR DETECTADO:", error)
+
+        raise RuntimeError(
+            "No se pudo interpretar el JSON generado."
+        ) from error
+
+
+def guardar_historia(historia):
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    fecha = datetime.now().strftime("%Y%m%d_%H%M%S")
+    ruta = OUTPUT_DIR / f"historia_{fecha}.json"
+
+    with open(ruta, "w", encoding="utf-8") as archivo:
+        json.dump(historia, archivo, ensure_ascii=False, indent=4)
+
+    print(f"\nHistoria guardada en: {ruta}")
+
+    return ruta
+
+
+def mostrar_historia(historia):
+    print("\n" + "=" * 55)
+    print(historia["title"].upper())
+    print(f"Genero: {historia['genre']}")
+    print("=" * 55)
+
+    print("\nSINOPSIS")
+    print(historia["synopsis"])
+
+    print("\nPERSONAJES")
+
+    for personaje in historia["characters"]:
+        print(f"\n{personaje['name']}")
+        print(f"Descripcion: {personaje['description']}")
+        print(f"Rol: {personaje['role']}")
+
+    print("\nESCENAS")
+
+    for escena in historia["scenes"]:
+        print("\n" + "-" * 45)
+        print(f"ESCENA {escena['number']}: {escena['scene_title']}")
+        print(escena["narrative"])
+
+    print("\n" + "=" * 55)
+    print("Historia generada correctamente: 5 de 5 escenas.")
+    print("=" * 55)
+
+
+def main():
+    print("=" * 55)
+    print("FIFTHPLOT - GENERADOR DE HISTORIAS")
+    print("=" * 55)
+
+    idea = input("\nEscribe la idea de tu historia: ").strip()
+    genero = input("Escribe el genero del cuento: ").strip()
+
+    try:
+        historia = generar_historia(idea, genero)
+        guardar_historia(historia)
+        mostrar_historia(historia)
+
+    except (ValueError, RuntimeError) as error:
+        print(f"\nError: {error}")
+
+
+if __name__ == "__main__":
+    main()
