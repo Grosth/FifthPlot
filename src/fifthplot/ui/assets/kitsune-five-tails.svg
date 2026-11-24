@@ -1,0 +1,37 @@
+<svg class="fp-kitsune-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="kitsune-title kitsune-desc">
+  <title id="kitsune-title">Kitsune de FifthPlot</title>
+  <desc id="kitsune-desc">Zorro amistoso con cinco colas que representan las cinco escenas del cuento.</desc>
+  <defs>
+    <linearGradient id="tail-left" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffc36b"/><stop offset="1" stop-color="#e96f2d"/>
+    </linearGradient>
+    <linearGradient id="tail-mid-left" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe19a"/><stop offset="1" stop-color="#f47724"/>
+    </linearGradient>
+    <linearGradient id="tail-center" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff0c9"/><stop offset="1" stop-color="#ed8b35"/>
+    </linearGradient>
+    <linearGradient id="tail-mid-right" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe19a"/><stop offset="1" stop-color="#f47724"/>
+    </linearGradient>
+    <linearGradient id="tail-right" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffc36b"/><stop offset="1" stop-color="#e96f2d"/>
+    </linearGradient>
+  </defs>
+  <!-- Exactly five separately outlined tails. -->
+  <g stroke="#fff8ed" stroke-width="5" stroke-linejoin="round">
+    <path d="M124 164C88 146 48 111 24 59c42 2 86 33 118 91z" fill="url(#tail-left)"/>
+    <path d="M126 159C103 127 86 71 78 24c38 22 60 72 68 133z" fill="url(#tail-mid-left)"/>
+    <path d="M128 158c-13-39-13-97 0-145 15 48 15 106 0 145z" fill="url(#tail-center)"/>
+    <path d="M130 159c23-32 40-88 48-135-38 22-60 72-68 133z" fill="url(#tail-mid-right)"/>
+    <path d="M132 164c36-18 76-53 100-105-42 2-86 33-118 91z" fill="url(#tail-right)"/>
+  </g>
+  <!-- Friendly fox head and cream muzzle. -->
+  <path d="M74 119 78 75l38 34q12-5 24 0l38-34 4 44c0 43-23 72-54 89-31-17-54-46-54-89Z" fill="#e96f2d" stroke="#8b492b" stroke-width="5" stroke-linejoin="round"/>
+  <path d="m86 105 16-19 10 32q-14-4-26-13Zm84 0-16-19-10 32q14-4 26-13Z" fill="#fff0dc" opacity=".95"/>
+  <path d="M83 132q45-28 90 0c-2 34-20 52-45 66-25-14-43-32-45-66Z" fill="#fff8ed"/>
+  <ellipse cx="105" cy="132" rx="5.5" ry="8" fill="#49352a"/>
+  <ellipse cx="151" cy="132" rx="5.5" ry="8" fill="#49352a"/>
+  <path d="M117 157q11-10 22 0-2 12-11 12t-11-12Z" fill="#f3b84b"/>
+  <path d="M128 169v7m0 0q-8 8-15 1m15-1q8 8 15 1" fill="none" stroke="#8b492b" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

@@ -14,7 +14,7 @@ COMPOSITION_PROMPT = (
 ANIMAL_COMPOSITION_PROMPT = (
     "Quadruped animals, no humans."
 )
-VISUAL_PROMPT_POLICY = "watercolor-animal-cast-v4"
+VISUAL_PROMPT_POLICY = "watercolor-animal-cast-v5-spanish-animal-anchor"
 _ANCHOR_FILLER_WORDS = {
     "a",
     "an",
@@ -28,15 +28,50 @@ _ANCHOR_FILLER_WORDS = {
 }
 _POSE_OR_ACTION = re.compile(
     r"\b(?:standing|walking|running|sitting|flying|lying|looking|holding|"
-    r"facing|guiding|carrying|beside|near)\b",
+    r"facing|guiding|carrying|beside|near|caminando|caminante|corriendo|"
+    r"sentado|sentada|sentados|sentadas|volando|mirando|sosteniendo|"
+    r"llevando|junto|cerca)\b",
     re.IGNORECASE,
 )
 _ANIMAL_SPECIES = re.compile(
     r"\b(?:fox|deer|dragon|cat|wolf|dog|rabbit|hare|bear|owl|eagle|bird|"
     r"mouse|rat|squirrel|horse|unicorn|frog|turtle|snake|fish|lion|tiger|"
-    r"raccoon|badger|hedgehog|boar|pig|sheep|goat|cow|duck|swan|dolphin|whale)\b",
+    r"raccoon|badger|hedgehog|boar|pig|sheep|goat|cow|duck|swan|dolphin|whale|"
+    r"zorro|zorra|venado|ciervo|drag[oó]n|gato|gata|lobo|loba|perro|perra|"
+    r"conejo|coneja|liebre|oso|osa|b[uú]ho|[aá]guila|p[aá]jaro|rat[oó]n|"
+    r"ardilla|caballo|yegua|unicornio|rana|tortuga|serpiente|pez|le[oó]n|"
+    r"leona|tigre|mapache|tej[oó]n|erizo|jabal[ií]|cerdo|oveja|cabra|vaca|"
+    r"pato|cisne|delf[ií]n|ballena)\b",
     re.IGNORECASE,
 )
+_SPANISH_ANIMAL_TO_ENGLISH = {
+    "zorro": "fox", "zorra": "fox", "venado": "deer", "ciervo": "deer",
+    "dragón": "dragon", "dragon": "dragon", "gato": "cat", "gata": "cat",
+    "lobo": "wolf", "loba": "wolf", "perro": "dog", "perra": "dog",
+    "conejo": "rabbit", "coneja": "rabbit", "liebre": "hare", "oso": "bear",
+    "osa": "bear", "búho": "owl", "buho": "owl", "águila": "eagle",
+    "aguila": "eagle", "pájaro": "bird", "pajaro": "bird", "ratón": "mouse",
+    "raton": "mouse", "ardilla": "squirrel", "caballo": "horse", "yegua": "horse",
+    "unicornio": "unicorn", "rana": "frog", "tortuga": "turtle",
+    "serpiente": "snake", "pez": "fish", "león": "lion", "leon": "lion",
+    "leona": "lion", "tigre": "tiger", "mapache": "raccoon", "tejón": "badger",
+    "tejon": "badger", "erizo": "hedgehog", "jabalí": "boar", "jabali": "boar",
+    "cerdo": "pig", "oveja": "sheep", "cabra": "goat", "vaca": "cow",
+    "pato": "duck", "cisne": "swan", "delfín": "dolphin", "delfin": "dolphin",
+    "ballena": "whale",
+}
+_SPANISH_COLOR_TO_ENGLISH = {
+    "pelirrojo": "red", "pelirroja": "red", "rojo": "red", "roja": "red",
+    "naranja": "orange", "anaranjado": "orange", "anaranjada": "orange",
+    "marrón": "brown", "marron": "brown", "café": "brown", "cafe": "brown",
+    "blanco": "white", "blanca": "white", "negro": "black", "negra": "black",
+    "gris": "gray", "dorado": "golden", "dorada": "golden", "plateado": "silver",
+    "plateada": "silver",
+}
+_SPANISH_COLOR_TO_ENGLISH.update({
+    "azul": "blue", "azules": "blue", "verde": "green", "verdes": "green",
+    "ámbar": "amber", "ambar": "amber",
+})
 _ANTHROPOMORPHIC = re.compile(
     r"\b(?:anthropomorphic|upright|biped|human-like|two-legged)\b",
     re.IGNORECASE,
@@ -53,6 +88,9 @@ def character_anchor(character: Character) -> str:
     identity = _compact_identity(character.visual_prompt)
     species = _ANIMAL_SPECIES.search(identity)
     if species:
+        spanish_species = _SPANISH_ANIMAL_TO_ENGLISH.get(species.group(0).casefold())
+        if spanish_species:
+            return _spanish_animal_anchor(character.visual_prompt, spanish_species)
         traits = re.sub(
             rf"\b{re.escape(species.group(0))}\b",
             "",
@@ -63,6 +101,26 @@ def character_anchor(character: Character) -> str:
         body = "anthropomorphic " if _ANTHROPOMORPHIC.search(character.visual_prompt) else ""
         return f"{body}{species.group(0).casefold()} {traits}".rstrip()
     return identity
+
+
+def _spanish_animal_anchor(text: str, species: str) -> str:
+    """Translate the Spanish animal identity fields the local story model emits."""
+    words = [word.casefold().strip(".,;:") for word in text.split()]
+    colors = [
+        _SPANISH_COLOR_TO_ENGLISH[word]
+        for word in words
+        if word in _SPANISH_COLOR_TO_ENGLISH
+    ]
+    eye_color = None
+    eyes = re.search(r"\boj[oa]s?\s+(\w+)", text, flags=re.IGNORECASE)
+    if eyes:
+        eye_color = _SPANISH_COLOR_TO_ENGLISH.get(eyes.group(1).casefold())
+
+    coat_color = next((color for color in colors if color not in {"blue", "green", "amber"}), None)
+    anchor = f"{coat_color} {species}" if coat_color else species
+    if eye_color:
+        anchor += f" with {eye_color} eyes"
+    return anchor
 
 
 def _animal_only(characters: list[Character]) -> bool:

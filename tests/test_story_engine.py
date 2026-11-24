@@ -42,6 +42,11 @@ class StoryEngineTests(unittest.TestCase):
         payload = json.loads(requests[0][0].data)
         self.assertIn("format", payload)
         self.assertEqual(payload["keep_alive"], 0)
+        unload_request = requests[1][0]
+        self.assertTrue(unload_request.full_url.endswith("/api/generate"))
+        unload_payload = json.loads(unload_request.data)
+        self.assertEqual(unload_payload["prompt"], "")
+        self.assertEqual(unload_payload["keep_alive"], 0)
 
     def test_refuses_remote_endpoint(self):
         with self.assertRaises(ValueError):
@@ -67,14 +72,16 @@ class StoryEngineTests(unittest.TestCase):
 
         def transport(request, timeout):
             requests.append(json.loads(request.data))
-            return FakeResponse(responses.pop(0))
+            response = responses.pop(0) if request.full_url.endswith("/api/chat") else b"{}"
+            return FakeResponse(response)
 
         result = OllamaStoryGenerator(transport=transport).generate(
             StoryRequest(idea="Una brújula", genre="Aventura")
         )
         self.assertEqual(result.title, story.title)
-        self.assertEqual(len(requests), 2)
+        self.assertEqual(len(requests), 3)
         self.assertIn("reparto", requests[1]["messages"][-1]["content"])
+        self.assertEqual(requests[2]["prompt"], "")
 
 
 if __name__ == "__main__":
