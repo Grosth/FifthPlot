@@ -66,6 +66,15 @@ class OllamaStoryGenerator:
                 ),
             },
         ]
+        try:
+            return self._generate_story(messages)
+        finally:
+            # Ollama may keep mapped model pages briefly after its response,
+            # even when the chat request used keep_alive=0. Explicitly unload
+            # before Diffusers checks the machine's available RAM.
+            self.release_model_memory()
+
+    def _generate_story(self, messages: list[dict[str, str]]) -> Story:
         content = self._request(messages)
         try:
             return Story.model_validate_json(content)
@@ -97,6 +106,27 @@ class OllamaStoryGenerator:
                     "Ollama no produjo una historia válida de cinco escenas "
                     f"tras un intento de reparación: {second_error}"
                 ) from second_error
+
+    def release_model_memory(self) -> bool:
+        """Ask local Ollama to unload this model before image generation."""
+        payload = {
+            "model": self.model,
+            "prompt": "",
+            "stream": False,
+            "keep_alive": 0,
+        }
+        req = Request(
+            f"{self.base_url}/api/generate",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with self.transport(req, timeout=min(self.timeout, 30)) as response:
+                response.read()
+        except (OSError, TimeoutError):
+            return False
+        return True
 
     def _request(self, messages: list[dict[str, str]]) -> str:
         payload = {

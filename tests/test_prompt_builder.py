@@ -99,6 +99,25 @@ class PromptBuilderTests(unittest.TestCase):
         human_negative = negative_prompt_for_scene(story, scene)
         self.assertNotIn("people, humans, children", human_negative)
 
+    def test_spanish_animal_identity_is_normalized_and_blocks_human_substitutions(self):
+        class WordTokenizer:
+            def __call__(self, text, add_special_tokens=False):
+                return SimpleNamespace(input_ids=text.split())
+
+        story = make_story()
+        character = story.characters[0]
+        character.visual_prompt = (
+            "A zorro pelirrojo con ojos azules, caminando por un bosque nocturno."
+        )
+        scene = story.scenes[0]
+
+        prompt = bounded_scene_prompt(story, scene, WordTokenizer())
+        negative = negative_prompt_for_scene(story, scene)
+
+        self.assertIn("one red fox with blue eyes", prompt)
+        self.assertIn("Quadruped animals, no humans", prompt)
+        self.assertIn("people, humans, children, human bodies, clothes", negative)
+
     def test_scene_action_does_not_repeat_animals_already_in_the_cast(self):
         class WordTokenizer:
             def __call__(self, text, add_special_tokens=False):

@@ -4,7 +4,12 @@ from __future__ import annotations
 
 import gc
 import ctypes
+import json
 import os
+import subprocess
+import sys
+import tempfile
+import time
 from pathlib import Path
 from time import perf_counter
 from typing import Callable
@@ -21,6 +26,10 @@ from fifthplot.prompt_builder import (
 
 class ImageGenerationError(RuntimeError):
     pass
+
+
+RAM_RELEASE_WAIT_SECONDS = 20
+RAM_POLL_INTERVAL_SECONDS = 1
 
 
 def _available_ram_gb() -> float | None:
@@ -45,6 +54,21 @@ def _available_ram_gb() -> float | None:
     if ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(status)):
         return status.available_phys / 1024**3
     return None
+
+
+def _wait_for_available_ram(minimum_gb: float) -> float | None:
+    """Allow recently unloaded local models to return memory to Windows."""
+    available = _available_ram_gb()
+    if available is None or available >= minimum_gb:
+        return available
+
+    deadline = time.monotonic() + RAM_RELEASE_WAIT_SECONDS
+    while available < minimum_gb and time.monotonic() < deadline:
+        time.sleep(RAM_POLL_INTERVAL_SECONDS)
+        available = _available_ram_gb()
+        if available is None or available >= minimum_gb:
+            return available
+    return available
 
 
 class DiffusersIllustrator:
@@ -157,13 +181,108 @@ class DiffusersIllustrator:
         strategy: str = "ip_adapter",
         progress: Callable[[int, int, str], None] | None = None,
     ) -> list[Path]:
+        """Generate images in a short-lived process so RAM returns to the app."""
         self.last_run = []
         folder = Path(folder)
         folder.mkdir(parents=True, exist_ok=True)
         if strategy not in {"ip_adapter", "text_only"}:
             raise ValueError(f"Estrategia visual desconocida: {strategy}")
-        available_ram = _available_ram_gb()
+
+        project_root = Path(__file__).resolve().parents[2]
+        with tempfile.TemporaryDirectory(prefix="fifthplot-image-") as temporary:
+            job_dir = Path(temporary)
+            request_path = job_dir / "request.json"
+            result_path = job_dir / "result.json"
+            progress_path = job_dir / "progress.json"
+            log_path = job_dir / "worker.log"
+            request_path.write_text(
+                json.dumps(
+                    {
+                        "story": story.model_dump_json(),
+                        "folder": str(folder.resolve()),
+                        "strategy": strategy,
+                        "illustrator": {
+                            "model_dir": str(self.model_dir.resolve()),
+                            "adapter_dir": str(self.adapter_dir.resolve()),
+                            "reference_dir": str(self.reference_dir.resolve()),
+                            "steps": self.steps,
+                            "guidance": self.guidance,
+                            "size": self.size,
+                            "adapter_scale": self.adapter_scale,
+                        },
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            command = [
+                sys.executable,
+                "-m",
+                "fifthplot.image_worker",
+                str(request_path),
+                str(result_path),
+                str(progress_path),
+            ]
+            try:
+                with log_path.open("w", encoding="utf-8") as worker_log:
+                    worker = subprocess.Popen(
+                        command,
+                        cwd=project_root,
+                        stdout=worker_log,
+                        stderr=subprocess.STDOUT,
+                    )
+                    last_progress = None
+                    while worker.poll() is None:
+                        try:
+                            current_progress = json.loads(
+                                progress_path.read_text(encoding="utf-8")
+                            )
+                        except (FileNotFoundError, json.JSONDecodeError):
+                            current_progress = None
+                        if current_progress and current_progress != last_progress:
+                            last_progress = current_progress
+                            if progress:
+                                progress(
+                                    current_progress["number"],
+                                    current_progress["total"],
+                                    current_progress["title"],
+                                )
+                        time.sleep(0.25)
+            except OSError as exc:
+                raise ImageGenerationError(
+                    f"No se pudo iniciar el proceso de ilustración local: {exc}"
+                ) from exc
+
+            try:
+                result = json.loads(result_path.read_text(encoding="utf-8"))
+            except (FileNotFoundError, json.JSONDecodeError) as exc:
+                detail = log_path.read_text(encoding="utf-8", errors="replace")[-2000:]
+                raise ImageGenerationError(
+                    "El proceso de ilustración terminó sin entregar un resultado. "
+                    f"{detail.strip()}"
+                ) from exc
+            if not result.get("ok"):
+                raise ImageGenerationError(result.get("error", "Falló la ilustración local."))
+
+            self.gpu_name = result.get("gpu_name")
+            self.last_run = result.get("last_run", [])
+            return [folder / f"scene_{scene.number:02d}.png" for scene in story.scenes]
+
+    def _generate_story_in_process(
+        self,
+        story,
+        folder: Path | str,
+        strategy: str = "ip_adapter",
+        progress: Callable[[int, int, str], None] | None = None,
+    ) -> list[Path]:
+        self.last_run = []
+        folder = Path(folder)
+        folder.mkdir(parents=True, exist_ok=True)
+        if strategy not in {"ip_adapter", "text_only"}:
+            raise ValueError(f"Estrategia visual desconocida: {strategy}")
         minimum_ram = 6.0 if strategy == "ip_adapter" else 4.0
+        available_ram = _wait_for_available_ram(minimum_ram)
         if available_ram is not None and available_ram < minimum_ram:
             raise ImageGenerationError(
                 f"Hay {available_ram:.1f} GB de RAM disponible; la estrategia "
