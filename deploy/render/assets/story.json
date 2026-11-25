@@ -1,0 +1,46 @@
+{
+  "title": "La Zorra y la Estrella Perdida",
+  "synopsis": "Lira, una zorra curiosa y valiente, descubre una estrella caída en el bosque. En su camino para devolverla al cielo, enfrenta desafíos que la fuerzan a aprender sobre la luz, el dolor y la redención.",
+  "scenes": [
+    {
+      "number": 1,
+      "title": "La Descubrimiento",
+      "narrative": "Lira camina por el bosque mágico cuando encuentra una estrella brillante caída en el suelo. La estrella emite un destello de luz que le hace sentir una conexión profunda. Lira la recoge en su mejilla y la lleva con ella.",
+      "image": "scene-01.png",
+      "narration": "narration/scene-01.wav",
+      "ambience": "ambience/scene-01.wav"
+    },
+    {
+      "number": 2,
+      "title": "El Viaje Inicial",
+      "narrative": "Lira camina por el bosque con la estrella en su mejilla, sintiendo una conexión mágica con ella. El bosque cambia con cada paso, mostrando lugares antiguos y lugares nuevos, y Lira se siente más conectada a la estrella.",
+      "image": "scene-02.png",
+      "narration": "narration/scene-02.wav",
+      "ambience": "ambience/scene-02.wav"
+    },
+    {
+      "number": 3,
+      "title": "El Desafío del Bosque",
+      "narrative": "Lira llega a una parte del bosque donde los árboles son altos y oscuros. La estrella se debilita, y Lira siente un dolor en su pecho. Ella debe enfrentar su miedo y seguir adelante, sabiendo que la estrella depende de ella.",
+      "image": "scene-03.png",
+      "narration": "narration/scene-03.wav",
+      "ambience": "ambience/scene-03.wav"
+    },
+    {
+      "number": 4,
+      "title": "El Momento Decisivo",
+      "narrative": "Lira llega a un río brillante que conecta el bosque con el cielo. La estrella se debilita completamente, y Lira se enfrenta a su destino: lanzarla al cielo o perderla para siempre. Ella decide lanzarla, y la estrella se eleva hacia el cielo, iluminando el río.",
+      "image": "scene-04.png",
+      "narration": "narration/scene-04.wav",
+      "ambience": "ambience/scene-04.wav"
+    },
+    {
+      "number": 5,
+      "title": "El Regreso a la Luz",
+      "narrative": "La estrella se eleva hacia el cielo, brillando con fuerza. Lira se siente aliviada y satisfecha, sabiendo que ha hecho lo correcto. Ella regresa al bosque, ahora con un corazón más fuerte y una conexión más profunda con el cielo.",
+      "image": "scene-05.png",
+      "narration": "narration/scene-05.wav",
+      "ambience": "ambience/scene-05.wav"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8ed">
+  <meta name="description" content="Vista de revisión de FifthPlot, generador local de cuentos ilustrados en cinco escenas.">
+  <title>FifthPlot · Cuentos que cobran vida</title>
+  <style>
+    :root { color-scheme: light; --ink:#3b3027; --muted:#796b5c; --paper:#fffaf2; --card:#fffdf9; --orange:#e86c24; --amber:#f2b65f; --line:#eadbc8; --shadow:0 16px 45px #55341012; }
+    * { box-sizing:border-box }
+    body { margin:0; background:radial-gradient(ellipse at 8% 4%,#fff1d7,transparent 32rem),linear-gradient(180deg,#fff9ef,#f6ecdd); color:var(--ink); font:16px/1.55 Georgia,"Times New Roman",serif }
+    button,a { font:inherit }
+    a { color:inherit }
+    .top { display:flex; align-items:center; justify-content:space-between; gap:1rem; max-width:1180px; padding:1rem 1.4rem; margin:auto }
+    .brand { display:flex; align-items:center; gap:.8rem; text-decoration:none }
+    .brand img { width:64px; height:64px; object-fit:contain }
+    .brand-name { display:block; font-size:1.7rem; line-height:1.1; font-weight:700; color:#513c2b }
+    .brand-sub { display:block; font:700 .68rem/1.5 system-ui,sans-serif; letter-spacing:.14em; color:#a16a3d }
+    .nav { display:flex; gap:.65rem; align-items:center; font:600 .88rem system-ui,sans-serif }
+    .nav a { text-decoration:none; padding:.65rem .9rem; border-radius:999px }
+    .nav .code { border:1px solid var(--line); background:#fff9; color:#624a36 }
+    .hero { max-width:1180px; margin:1rem auto 2.6rem; padding:2rem 1.5rem 2.3rem; display:grid; grid-template-columns:1.15fr .85fr; gap:2rem; align-items:center }
+    .eyebrow { display:inline-flex; align-items:center; gap:.5rem; padding:.4rem .72rem; border-radius:999px; background:#fff1d7; color:#925327; font:700 .75rem system-ui,sans-serif; letter-spacing:.07em; text-transform:uppercase }
+    h1 { margin:1rem 0 .8rem; max-width:650px; font-size:clamp(2.5rem,5vw,4.5rem); line-height:1.02; letter-spacing:-.04em; color:#493629 }
+    .hero p { max-width:620px; margin:0; color:var(--muted); font-size:1.15rem }
+    .actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.4rem }
+    .button { display:inline-flex; justify-content:center; align-items:center; padding:.8rem 1.15rem; border:0; border-radius:14px; font:700 .92rem system-ui,sans-serif; text-decoration:none; cursor:pointer; transition:transform .15s ease,box-shadow .15s ease }
+    .button:hover { transform:translateY(-2px); box-shadow:0 8px 20px #6d3c1920 }
+    .primary { background:var(--orange); color:white }
+    .secondary { background:white; border:1px solid var(--line); color:#624a36 }
+    .hero-art { justify-self:center; width:min(100%,350px); filter:drop-shadow(0 24px 25px #55341018) }
+    .notice { max-width:1120px; margin:0 auto 2.6rem; padding:1rem 1.2rem; border:1px solid #efd4a6; border-radius:16px; background:#fff8e8; color:#6e5637; font: .92rem/1.5 system-ui,sans-serif }
+    .notice strong { color:#503d2c }
+    main { max-width:1180px; margin:0 auto; padding:0 1.4rem 4rem }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:1rem; margin:0 0 1rem }
+    h2 { margin:0; font-size:clamp(1.65rem,3vw,2.3rem); line-height:1.12 }
+    .section-head p { margin:.35rem 0 0; color:var(--muted) }
+    .story-meta { color:#94663b; font:700 .8rem system-ui,sans-serif; letter-spacing:.1em; text-transform:uppercase }
+    .story-card { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr); gap:clamp(1.2rem,3vw,2.4rem); padding:clamp(1rem,2.7vw,2rem); border:1px solid var(--line); border-radius:24px; background:#fffdf9e8; box-shadow:var(--shadow) }
+    .art-frame { position:relative; overflow:hidden; min-height:310px; aspect-ratio:1/1; border-radius:18px; background:#ede3d5 }
+    .art-frame img { display:block; width:100%; height:100%; position:absolute; inset:0; object-fit:cover }
+    .scene-chip { position:absolute; left:1rem; top:1rem; z-index:1; padding:.42rem .7rem; border-radius:999px; background:#fffdf0e8; color:#754a28; font:700 .78rem system-ui,sans-serif; box-shadow:0 3px 14px #0001 }
+    .story-copy { display:flex; flex-direction:column; justify-content:center; padding:.4rem .3rem }
+    .story-copy h3 { margin:.75rem 0 .7rem; font-size:clamp(1.55rem,2.5vw,2rem); line-height:1.2 }
+    .story-copy p { margin:.25rem 0; color:#665849; font-size:1.06rem }
+    .dots { display:flex; gap:.5rem; margin:1.1rem 0 .2rem }
+    .dot { width:11px; height:11px; border:0; border-radius:50%; background:#dcc7a9; cursor:pointer; padding:0 }
+    .dot[aria-current="true"] { background:var(--orange); outline:4px solid #fbe5ca }
+    .controls { display:flex; gap:.65rem; margin-top:1.1rem }
+    .controls button { flex:1 }
+    .audio-block { margin-top:1.35rem; padding-top:1.1rem; border-top:1px solid var(--line) }
+    .audio-label { display:block; margin-bottom:.55rem; color:#6b5138; font:700 .82rem system-ui,sans-serif }
+    audio { width:100%; height:42px }
+    .caption { margin:.45rem 0 0; color:#8b7c6c; font: .77rem/1.45 system-ui,sans-serif }
+    .workflow { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:2.3rem 0 0 }
+    .step { padding:1rem 1.1rem; border:1px solid var(--line); border-radius:16px; background:#fff9 }
+    .step b { display:block; margin-bottom:.25rem; color:#9c5b2b }
+    .step span { color:var(--muted); font-size:.94rem }
+    footer { padding:1.5rem; border-top:1px solid var(--line); color:var(--muted); text-align:center; font: .85rem/1.6 system-ui,sans-serif }
+    footer a { color:#9c5b2b; font-weight:700 }
+    @media(max-width:760px) { .top { padding:.7rem 1rem } .brand img { width:52px;height:52px } .nav a { padding:.55rem .65rem } .nav .code { font-size:.78rem } .hero { grid-template-columns:1fr; padding:1.6rem 1.1rem; text-align:center; margin-top:.4rem } .hero p { margin:auto } .actions { justify-content:center } .hero-art { width:220px; grid-row:1 } .notice { margin:0 1rem 2rem } main { padding:0 1rem 3rem } .section-head { align-items:start; flex-direction:column } .story-card { grid-template-columns:1fr; gap:1rem } .art-frame { min-height:0 } .workflow { grid-template-columns:1fr } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none!important; scroll-behavior:auto!important } }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="#inicio" aria-label="FifthPlot, inicio">
+      <img src="assets/kitsune-mascot.png" alt="Kitsune de cinco colas">
+      <span><span class="brand-name">FifthPlot</span><span class="brand-sub">CUENTOS LOCALES ACADÉMICOS</span></span>
+    </a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#cuento">Cuento de ejemplo</a>
+      <a class="code" href="https://github.com/Grosth/FifthPlot/tree/codex/visual-identity" target="_blank" rel="noreferrer">Código en GitHub ↗</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div>
+      <span class="eyebrow">✦ Proyecto académico · DevOps</span>
+      <h1>Una idea pequeña puede abrir un mundo.</h1>
+      <p>FifthPlot transforma ideas en cuentos ilustrados de cinco escenas, con narración y ambiente sonoro. Recorre una ejecución real del proyecto.</p>
+      <div class="actions">
+        <a class="button primary" href="#cuento">Explorar el cuento</a>
+        <a class="button secondary" href="https://github.com/Grosth/FifthPlot/tree/codex/visual-identity" target="_blank" rel="noreferrer">Ver repositorio</a>
+      </div>
+    </div>
+    <img class="hero-art" src="assets/kitsune-mascot.png" alt="Mascota kitsune que representa las cinco escenas de FifthPlot">
+  </section>
+
+  <aside class="notice" role="note">
+    <strong>Sobre esta publicación:</strong> esta es una vista web de revisión con una historia generada previamente por FifthPlot. La generación de nuevos cuentos sigue ejecutándose localmente porque depende de Ollama y modelos de imagen; esta página no simula esa generación.
+  </aside>
+
+  <main id="cuento">
+    <div class="section-head">
+      <div><div class="story-meta">Fantasía · 5 escenas</div><h2 id="story-title">Un cuento de FifthPlot</h2><p id="story-summary"></p></div>
+      <span class="story-meta">Ejecución local real</span>
+    </div>
+    <section class="story-card" aria-live="polite">
+      <div class="art-frame"><span class="scene-chip" id="scene-number">Escena 1 de 5</span><img id="scene-image" src="" alt="Ilustración de la escena"></div>
+      <div class="story-copy">
+        <h3 id="scene-title"></h3>
+        <p id="scene-text"></p>
+        <div class="dots" id="scene-dots" role="group" aria-label="Elegir escena"></div>
+        <div class="controls"><button class="button secondary" id="previous" type="button">← Anterior</button><button class="button primary" id="next" type="button">Siguiente →</button></div>
+        <div class="audio-block"><span class="audio-label">Escuchar narración de esta escena</span><audio id="narration" controls preload="metadata"></audio><span class="audio-label" style="margin-top:.8rem">Ambiente sonoro</span><audio id="ambience" controls preload="metadata"></audio><p class="caption">Los controles reproducen los archivos de audio de la generación local incluida como ejemplo.</p></div>
+      </div>
+    </section>
+    <section class="workflow" aria-label="Flujo del proyecto">
+      <div class="step"><b>1 · Idea</b><span>El estudiante escribe una premisa y elige un género.</span></div>
+      <div class="step"><b>2 · Historia</b><span>Qwen local construye y valida una historia de cinco escenas.</span></div>
+      <div class="step"><b>3 · Cuento ilustrado</b><span>Modelos locales generan las imágenes, voz y ambiente.</span></div>
+    </section>
+  </main>
+  <footer>FifthPlot · Aplicación académica local · <a href="https://github.com/Grosth/FifthPlot/tree/codex/visual-identity" target="_blank" rel="noreferrer">Código fuente en GitHub</a><br>La demo pública es una vista de lectura. La generación completa requiere los modelos locales descritos en el repositorio.</footer>
+
+  <script>
+    const state = { story: null, scene: 0 };
+    const byId = (id) => document.getElementById(id);
+    function showScene(index) {
+      const scenes = state.story.scenes;
+      state.scene = (index + scenes.length) % scenes.length;
+      const scene = scenes[state.scene];
+      byId('scene-number').textContent = `Escena ${state.scene + 1} de ${scenes.length}`;
+      byId('scene-title').textContent = scene.title;
+      byId('scene-text').textContent = scene.narrative;
+      byId('scene-image').src = `assets/${scene.image}`;
+      byId('scene-image').alt = `Ilustración de la escena ${state.scene + 1}: ${scene.title}`;
+      byId('narration').src = `assets/${scene.narration}`;
+      byId('ambience').src = `assets/${scene.ambience}`;
+      byId('previous').disabled = state.scene === 0;
+      byId('next').disabled = state.scene === scenes.length - 1;
+      [...byId('scene-dots').children].forEach((dot, i) => dot.setAttribute('aria-current', String(i === state.scene)));
+    }
+    fetch('assets/story.json').then(r => { if (!r.ok) throw new Error('No se pudo cargar la historia'); return r.json(); }).then(story => {
+      state.story = story;
+      byId('story-title').textContent = story.title;
+      byId('story-summary').textContent = story.synopsis;
+      story.scenes.forEach((scene, i) => { const dot = document.createElement('button'); dot.className = 'dot'; dot.type = 'button'; dot.setAttribute('aria-label', `Ir a escena ${i + 1}`); dot.addEventListener('click', () => showScene(i)); byId('scene-dots').append(dot); });
+      byId('previous').addEventListener('click', () => showScene(state.scene - 1));
+      byId('next').addEventListener('click', () => showScene(state.scene + 1));
+      showScene(0);
+    }).catch(error => { byId('story-summary').textContent = `${error.message}. Consulta el repositorio para ejecutar la aplicación completa.`; });
+  </script>
+</body>
+</html>

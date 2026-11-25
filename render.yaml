@@ -1,0 +1,7 @@
+services:
+  - type: web
+    runtime: static
+    name: fifthplot-review
+    branch: codex/visual-identity
+    buildCommand: echo "Publishing FifthPlot review site"
+    staticPublishPath: deploy/render

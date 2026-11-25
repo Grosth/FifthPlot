@@ -93,6 +93,12 @@ Las pruebas automatizadas no descargan modelos ni hacen llamadas a Ollama. Las p
 
 Las capturas reales y sus descripciones se organizan en [docs/evidence/README.md](docs/evidence/README.md) y se indexan en [docs/evidence/index.md](docs/evidence/index.md). Las incidencias conocidas se mantienen en [docs/evidence/incidencias.md](docs/evidence/incidencias.md). No se registran como evidencia académica los resultados que no haya supervisado o ejecutado manualmente el estudiante.
 
+## Vista pública de revisión en Render
+
+El archivo `render.yaml` publica `deploy/render/` como sitio estático desde la rama `codex/visual-identity`. La página permite recorrer una historia generada previamente por FifthPlot, con sus cinco ilustraciones, narraciones y ambientes. Es una vista de revisión; no genera cuentos nuevos en Render.
+
+La generación completa se mantiene local porque requiere Ollama, Qwen, PyTorch, DreamShaper y archivos de modelos que no se distribuyen en Git. La página pública lo indica para que su contenido no se confunda con una ejecución en la nube.
+
 ## Licencias
 
 El código de FifthPlot se distribuye bajo GNU GPL versión 3 o posterior, para mantener compatibilidad con el motor Piper incluido. Las licencias de los pesos y voces son independientes: revisa la tarjeta y las condiciones de cada modelo antes de redistribuirlo. Los modelos se excluyen del repositorio Git.
